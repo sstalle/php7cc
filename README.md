@@ -1,7 +1,7 @@
 # PHP 7 Compatibility Checker(php7cc)
 #### Introduction
 php7cc is a command line tool designed to make migration from PHP 5.3-5.6 to PHP 7 easier.
-It searcher for potentially troublesome statements in existing code and generates reports containing
+It searches for potentially troublesome statements in existing code and generates reports containing
 file names, line numbers and short problem descriptions. It does not automatically fix
 code to work with the new PHP version.
 
@@ -20,7 +20,7 @@ To run php7cc, you need php installed, minimum required version is 5.3.3. Requir
 You also need [composer](https://getcomposer.org/) to install php7cc.
 
 #### Installation
-The only way to install php7cc as of now is using composer.
+The only way to install php7cc as of now is using composer:
 ```
 composer create-project sstalle/php7cc php7cc --stability=dev
 ```
