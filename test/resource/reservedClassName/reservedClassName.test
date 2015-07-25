@@ -1,0 +1,20 @@
+Reserved class name usage
+-----
+<?php
+class Resource {}
+-----
+Reserved word "resource" used as a class, interface or trait name
+-----
+<?php
+class resource {}
+-----
+Reserved word "resource" used as a class, interface or trait name
+-----
+<?php
+class rEsoUrcE {}
+-----
+Reserved word "resource" used as a class, interface or trait name
+-----
+<?php
+class Dummy {}
+-----

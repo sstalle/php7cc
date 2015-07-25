@@ -1,0 +1,31 @@
+Declaring function with 2 or more parameters with the same name
+-----
+<?php function foo() {}
+-----
+
+-----
+<?php function foo($a, $b) {}
+-----
+
+-----
+<?php function foo($a, $a) {}
+-----
+Duplicate function parameter name "a"
+
+-----
+<?php function foo($a, $a, $a, $b) {}
+-----
+Duplicate function parameter name "a"
+
+-----
+<?php function foo($a, $a, $b, $b) {}
+-----
+Duplicate function parameter name "a"
+Duplicate function parameter name "b"
+
+-----
+<?php function foo($a, $a, $b, $b, $c) {}
+-----
+Duplicate function parameter name "a"
+Duplicate function parameter name "b"
+

@@ -1,0 +1,20 @@
+Invalid octal literal
+-----
+<?php
+$i = 0781;
+-----
+Invalid octal literal 0781
+-----
+<?php
+$i = 011119;
+-----
+Invalid octal literal 011119
+-----
+<?php
+$i = 01234567;
+-----
+
+-----
+<?php
+$i = 56798;
+-----

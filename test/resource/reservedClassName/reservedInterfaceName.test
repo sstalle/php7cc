@@ -1,0 +1,20 @@
+Reserved interface name usage
+-----
+<?php
+interface Int {}
+-----
+Reserved word "int" used as a class, interface or trait name
+-----
+<?php
+interface int {}
+-----
+Reserved word "int" used as a class, interface or trait name
+-----
+<?php
+interface inT {}
+-----
+Reserved word "int" used as a class, interface or trait name
+-----
+<?php
+interface Dummy {}
+-----

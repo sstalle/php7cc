@@ -1,0 +1,21 @@
+Array modification with internal function in by-reference foreach
+-----
+<?php
+foreach ($a as &$b) {
+    array_push($a, $c);
+}
+-----
+Possible array modification using internal function in a by-reference foreach loop
+-----
+<?php
+foreach ($a as $k => &$b) {
+    array_push($a, $c);
+}
+-----
+Possible array modification using internal function in a by-reference foreach loop
+-----
+<?php
+foreach ($a as $b) {
+    array_pop($a);
+}
+-----

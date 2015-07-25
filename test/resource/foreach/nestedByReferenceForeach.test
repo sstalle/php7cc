@@ -1,0 +1,29 @@
+Nested by-reference foreach loops
+-----
+<?php
+foreach ($a as &$b) {
+    foreach ($a as &$c) {
+
+    }
+}
+-----
+Nested by-reference foreach loop, make sure there is no iteration over the same array
+-----
+<?php
+foreach ($a as &$b) {
+    foreach ($a as $c) {
+        foreach ($a as &$e) {
+
+        }
+    }
+}
+-----
+Nested by-reference foreach loop, make sure there is no iteration over the same array
+-----
+<?php
+foreach ($a as &$b) {
+    foreach ($a as $c) {
+
+    }
+}
+-----

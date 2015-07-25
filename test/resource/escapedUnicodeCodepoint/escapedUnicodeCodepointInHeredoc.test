@@ -1,0 +1,24 @@
+Escaped unicode codepoints in heredoc
+-----
+<?php
+$str = <<<EOD
+    \u{xyz}
+EOD;
+
+-----
+Unicode codepoint escaping "\u{xyz}" in a string
+-----
+<?php
+$str = <<<EOD
+    \\u{xyz}
+EOD;
+
+-----
+
+-----
+<?php
+$str = <<<EOD
+    \u202e
+EOD;
+
+-----

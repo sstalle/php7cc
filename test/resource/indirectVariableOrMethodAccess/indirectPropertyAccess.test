@@ -1,0 +1,11 @@
+Indirect property access
+-----
+<?php
+$foo->$bar['baz'];
+-----
+Indirect variable, property or method access
+-----
+<?php
+$foo->{$bar['baz']};
+-----
+

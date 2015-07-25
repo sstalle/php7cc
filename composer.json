@@ -1,0 +1,19 @@
+{
+  "name": "sstalle/php7cc",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Sstalle\\php7cc\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/console": "~2.5.1",
+    "pimple/pimple": "~1.1",
+    "nikic/php-parser": "~1.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.7.*"
+  }
+}

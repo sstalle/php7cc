@@ -1,0 +1,32 @@
+Hexadecimal number in string
+-----
+<?php
+var_dump("0x123" == "291");
+-----
+String containing number in hexadecimal notation
+-----
+<?php
+var_dump("0xe" + "0x1");
+-----
+String containing number in hexadecimal notation
+String containing number in hexadecimal notation
+-----
+<?php
+var_dump("0123" == "291");
+-----
+
+-----
+<?php
+var_dump("0x" == "291");
+-----
+
+-----
+<?php
+var_dump("cv0xesd" == "291");
+-----
+
+
+-----
+<?php
+var_dump("cv0x345" == "291");
+-----

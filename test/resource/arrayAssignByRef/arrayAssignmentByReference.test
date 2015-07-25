@@ -1,0 +1,36 @@
+Assignment of array value by reference
+-----
+<?php
+$a['foo'] = &$a['b'];
+-----
+Possible array element creation during by-reference assignment
+-----
+<?php
+$a['foo'] = $a['b'];
+-----
+
+-----
+<?php
+$a['foo'] = &$b;
+-----
+
+-----
+<?php
+$a[] = &$b;
+-----
+
+-----
+<?php
+$a[1] = &$b;
+-----
+
+-----
+<?php
+$a['foo'] = $b;
+-----
+
+
+-----
+<?php
+$a[] = $b;
+-----

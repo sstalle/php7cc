@@ -1,0 +1,11 @@
+Simple variables only for global keyword
+-----
+<?php
+global $$foo->bar;
+-----
+Complex variable without curly braces in global keyword
+-----
+<?php
+global ${$foo->bar};
+-----
+

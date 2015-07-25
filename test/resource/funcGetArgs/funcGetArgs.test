@@ -1,0 +1,16 @@
+func_get_args or func_get_arg calls
+-----
+<?php
+func_get_args();
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+func_get_arg();
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+func_get_arg(1);
+-----
+Function argument(s) returned by "func_get_arg" might have been modified

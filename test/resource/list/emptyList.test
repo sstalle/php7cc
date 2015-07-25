@@ -1,0 +1,16 @@
+Empty list assignment
+-----
+<?php
+list() = $a;
+-----
+Empty list assignment
+-----
+<?php
+list(,,) = $a;
+-----
+Empty list assignment
+-----
+<?php
+list($x, list(), $y) = $a;
+-----
+Empty list assignment

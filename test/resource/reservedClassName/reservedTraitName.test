@@ -1,0 +1,20 @@
+Reserved trait name usage
+-----
+<?php
+trait False {}
+-----
+Reserved word "false" used as a class, interface or trait name
+-----
+<?php
+trait false {}
+-----
+Reserved word "false" used as a class, interface or trait name
+-----
+<?php
+trait falsE {}
+-----
+Reserved word "false" used as a class, interface or trait name
+-----
+<?php
+trait Dummy {}
+-----

@@ -1,0 +1,35 @@
+Assignment of object property by reference
+-----
+<?php
+$a->b = &$a->bar;
+-----
+Possible object property creation during by-reference assignment
+-----
+<?php
+$a->{'foo'} = &$a->bar;
+-----
+Possible object property creation during by-reference assignment
+-----
+<?php
+$a->$b = &$a->$c;
+-----
+Possible object property creation during by-reference assignment
+-----
+<?php
+$a->b = $a->bar;
+-----
+
+-----
+<?php
+$a->b = &$c;
+-----
+
+-----
+<?php
+$a->$b = &$c;
+-----
+
+-----
+<?php
+$a->b = $c;
+-----

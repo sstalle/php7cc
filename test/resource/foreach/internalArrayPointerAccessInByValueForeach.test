@@ -1,0 +1,14 @@
+Internal array pointer access in a by-value foreach loop
+-----
+<?php
+foreach ($array as $val) {
+  var_dump(current($array));
+}
+-----
+Possible internal array pointer access/modification in a by-value foreach loop
+-----
+<?php
+foreach ($array as &$val) {
+  var_dump(current($array));
+}
+-----

@@ -1,0 +1,23 @@
+Adding elements to array in by-reference foreach
+-----
+<?php
+foreach ($a as &$b) {
+    $a[] = $c;
+}
+
+-----
+Possible adding to array on the last iteration of a by-reference foreach loop
+-----
+<?php
+foreach ($a as $k => &$b) {
+    $a[] = $c;
+}
+
+-----
+Possible adding to array on the last iteration of a by-reference foreach loop
+-----
+<?php
+foreach ($a as $b) {
+    $a[] = $c;
+}
+-----

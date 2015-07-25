@@ -1,0 +1,20 @@
+Indirect method call
+-----
+<?php
+$foo->$bar['baz']();
+-----
+Indirect variable, property or method access
+-----
+<?php
+Foo::$bar['baz']();
+-----
+Indirect variable, property or method access
+-----
+<?php
+$foo->{$bar['baz']}();
+-----
+
+-----
+<?php
+Foo::{$bar['baz']}();
+-----

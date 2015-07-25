@@ -1,0 +1,15 @@
+List unpacking string
+-----
+<?php
+list($x, $y) = 'asdf';
+-----
+list unpacking string
+-----
+<?php
+list($x, $y) = "foo";
+-----
+list unpacking string
+-----
+<?php
+list($x, $y) = array();
+-----
