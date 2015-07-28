@@ -30,6 +30,7 @@ class ContainerBuilder
         'visitor.hexadecimalNumberString' => '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor',
         'visitor.escapedUnicodeCodepoint' => '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor',
         'visitor.arrayOrObjectValueAssignmentByReference' => '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
+        'visitor.bitwiseShift' => '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
     );
 
     /**
