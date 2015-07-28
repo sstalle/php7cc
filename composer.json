@@ -1,6 +1,7 @@
 {
   "name": "sstalle/php7cc",
   "type": "project",
+  "description": "A command-line tool to check PHP 5.3 - 5.6 code compatibility with PHP 7",
   "license": "MIT",
   "autoload": {
     "psr-4": {
