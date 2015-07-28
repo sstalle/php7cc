@@ -10,7 +10,6 @@ use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
 use Sstalle\php7cc\PathChecker;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 

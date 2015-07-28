@@ -2,7 +2,6 @@
 
 namespace Sstalle\php7cc\Infrastructure;
 
-use Sstalle\php7cc\PathChecker;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
