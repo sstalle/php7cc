@@ -3,7 +3,6 @@
 namespace Sstalle\php7cc;
 
 use Sstalle\php7cc\CompatibilityViolation\CheckMetadata;
-use Sstalle\php7cc\Iterator\ExtensionFilteringRecursiveIterator;
 
 class PathChecker
 {
@@ -63,19 +62,20 @@ class PathChecker
             $directoryIterator = new \RecursiveDirectoryIterator(
                 $path,
                 \RecursiveDirectoryIterator::KEY_AS_PATHNAME
-                | \RecursiveDirectoryIterator::CURRENT_AS_PATHNAME
+                | \RecursiveDirectoryIterator::CURRENT_AS_FILEINFO
                 | \RecursiveDirectoryIterator::SKIP_DOTS
             );
-            $extensionFilteringIterator = new ExtensionFilteringRecursiveIterator(
-                $directoryIterator,
-                $checkedExtensions
-            );
             $recursiveIterator = new \RecursiveIteratorIterator(
-                $extensionFilteringIterator,
+                $directoryIterator,
                 \RecursiveIteratorIterator::LEAVES_ONLY
             );
 
-            foreach ($recursiveIterator as $pathName) {
+            /** @var \SplFileInfo $fileInfo */
+            foreach ($recursiveIterator as $pathName => $fileInfo) {
+                if (!in_array($fileInfo->getExtension(), $checkedExtensions)) {
+                    continue;
+                }
+
                 $context = $this->fileContextFactory->createContext($pathName);
                 $this->contextChecker->checkContext($context);
 
