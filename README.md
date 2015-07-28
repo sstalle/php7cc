@@ -25,6 +25,12 @@ The only way to install php7cc as of now is using composer:
 composer create-project sstalle/php7cc php7cc --stability=dev
 ```
 
+During the installation process, composer will ask:
+```
+Do you want to remove the existing VCS (.git, .svn..) history? 
+```
+It's better to answer "no", as it will allow updating php7cc code using ```git pull```.
+
 #### Running
 Main executable file is bin/php7cc.php. To see the full list of available options, run:
 ```
