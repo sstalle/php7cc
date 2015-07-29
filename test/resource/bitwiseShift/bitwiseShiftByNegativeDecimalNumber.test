@@ -1,0 +1,25 @@
+Bitwise shift by a negative decimal number
+-----
+<?php $a >> -2;
+-----
+Bitwise shift by a negative number
+-----
+<?php 1 << -2;
+-----
+Bitwise shift by a negative number
+-----
+<?php $a >> 0;
+-----
+
+-----
+<?php 1 << 0;
+-----
+
+-----
+<?php $a >> 10;
+-----
+
+-----
+<?php 1 << 10;
+-----
+

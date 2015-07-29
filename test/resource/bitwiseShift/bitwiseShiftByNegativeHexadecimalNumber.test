@@ -1,0 +1,25 @@
+Bitwise shift by a negative hexadecimal number
+-----
+<?php $a >> -0x2;
+-----
+Bitwise shift by a negative number
+-----
+<?php 1 << -0x2;
+-----
+Bitwise shift by a negative number
+-----
+<?php $a >> 0x0;
+-----
+
+-----
+<?php 1 << 0x0;
+-----
+
+-----
+<?php $a >> 0xa;
+-----
+
+-----
+<?php 1 << 0xa;
+-----
+
