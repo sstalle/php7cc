@@ -7,6 +7,8 @@ use PhpParser\Node;
 class BitwiseShiftVisitor extends AbstractVisitor
 {
 
+    const MIN_INT_SIZE = 32;
+
     public function enterNode(Node $node)
     {
         $isLeftShift = $node instanceof Node\Expr\BinaryOp\ShiftLeft;
@@ -21,6 +23,11 @@ class BitwiseShiftVisitor extends AbstractVisitor
         ) {
             $this->addContextMessage(
                 'Bitwise shift by negative number',
+                $node
+            );
+        } elseif ($rightOperand instanceof Node\Scalar\LNumber && $rightOperand->value >= static::MIN_INT_SIZE) {
+            $this->addContextMessage(
+                sprintf('Bitwise shift by %d bits', $rightOperand->value),
                 $node
             );
         }
