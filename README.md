@@ -26,7 +26,7 @@ composer create-project sstalle/php7cc php7cc --stability=dev
 ```
 
 During the installation process, composer will ask:
-```bash
+```
 Do you want to remove the existing VCS (.git, .svn..) history? 
 ```
 It's better to answer "no", as it will allow updating php7cc code using ```git pull```.
