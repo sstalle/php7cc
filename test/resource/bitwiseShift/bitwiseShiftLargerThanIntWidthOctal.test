@@ -1,0 +1,24 @@
+Bitwise shift by an octal number of bits greater or equal to minimum int size constant
+-----
+<?php $a >> 040;
+-----
+Bitwise shift by 32 bits
+-----
+<?php 1 << 040;
+-----
+Bitwise shift by 32 bits
+-----
+<?php $a >> 0100;
+-----
+Bitwise shift by 64 bits
+-----
+<?php 1 << 0100;
+-----
+Bitwise shift by 64 bits
+-----
+<?php $a >> 020;
+-----
+
+-----
+<?php 1 << 020;
+-----

@@ -1,0 +1,25 @@
+Bitwise shift by a binary number of bits greater or equal to minimum int size constant
+-----
+<?php $a >> 0b100000;
+-----
+Bitwise shift by 32 bits
+-----
+<?php 1 << 0b100000;
+-----
+Bitwise shift by 32 bits
+-----
+<?php $a >> 0b1000000;
+-----
+Bitwise shift by 64 bits
+-----
+<?php 1 << 0b1000000;
+-----
+Bitwise shift by 64 bits
+-----
+<?php $a >> 0b10000;
+-----
+
+-----
+<?php 1 << 0b10000;
+-----
+

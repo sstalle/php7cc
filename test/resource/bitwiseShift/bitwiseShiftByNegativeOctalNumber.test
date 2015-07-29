@@ -1,0 +1,25 @@
+Bitwise shift by a negative octal number
+-----
+<?php $a >> -02;
+-----
+Bitwise shift by a negative number
+-----
+<?php 1 << -02;
+-----
+Bitwise shift by a negative number
+-----
+<?php $a >> 00;
+-----
+
+-----
+<?php 1 << 00;
+-----
+
+-----
+<?php $a >> 012;
+-----
+
+-----
+<?php 1 << 012;
+-----
+

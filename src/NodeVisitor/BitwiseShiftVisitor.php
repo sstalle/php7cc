@@ -22,7 +22,7 @@ class BitwiseShiftVisitor extends AbstractVisitor
             && $rightOperand->expr->value > 0
         ) {
             $this->addContextMessage(
-                'Bitwise shift by negative number',
+                'Bitwise shift by a negative number',
                 $node
             );
         } elseif ($rightOperand instanceof Node\Scalar\LNumber && $rightOperand->value >= static::MIN_INT_SIZE) {
