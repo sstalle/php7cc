@@ -29,8 +29,8 @@ class PHP7CCCommand extends Command
             )->addArgument(
                 static::EXTENSIONS_ARGUMENT_NAME,
                 InputArgument::OPTIONAL,
-                'Which file extensions do you want to check (separate multiple extensions with commas)? ' .
-                'php is used by default'
+                'Which file extensions do you want to check (separate multiple extensions with commas)?',
+                'php'
             );
     }
 
@@ -45,22 +45,18 @@ class PHP7CCCommand extends Command
             return;
         }
 
-        $extensions = array('php');
-        $passedExtensions = $input->getArgument(static::EXTENSIONS_ARGUMENT_NAME);
-        if ($passedExtensions) {
-            $extensions = explode(',', $passedExtensions);
+        $extensionsArgumentValue = $input->getArgument(static::EXTENSIONS_ARGUMENT_NAME);
+        $extensions = explode(',', $extensionsArgumentValue);
+        if (!is_array($extensions)) {
+            $output->writeln(
+                sprintf(
+                    'Something went wrong while parsing file extensions you specified. ' .
+                    'Check that %s is a comma-separated list of extensions',
+                    $extensionsArgumentValue
+                )
+            );
 
-            if (!is_array($extensions)) {
-                $output->writeln(
-                    sprintf(
-                        'Something went wrong while parsing file extensions you specified. ' .
-                        'Check that %s is a comma-separated list of extensions',
-                        $input->getArgument(static::EXTENSIONS_ARGUMENT_NAME)
-                    )
-                );
-
-                return;
-            }
+            return;
         }
 
 
