@@ -32,6 +32,10 @@ Do you want to remove the existing VCS (.git, .svn..) history?
 It's better to answer "no", as it will allow updating php7cc code using ```git pull```.
 
 #### Running
+***Note that argument names and order can change until the first stable version is released.
+Please consult readme.md file in the installation directory for correct way of passing parameters to your particular
+version of the tool.***
+
 Main executable file is bin/php7cc.php. To see the full list of available options, run:
 ```bash
 php bin/php7cc.php --help
@@ -49,12 +53,12 @@ To check a directory:
 php bin/php7cc.php /path/to/my/directory/
 ```
 
-When checking a directory, you can also pass a comma-separated list of file extensions that
+When checking a directory, you can also specify a comma-separated list of file extensions that
 should be checked. By default, only .php files are processed.
  
 For example, if you want to check .php, .inc and .lib files, you could run:
 ```bash
-php bin/php7cc.php /path/to/my/directory/ php,inc,lib 
+php bin/php7cc.php --extensions=php,inc,lib /path/to/my/directory/
 ```
 
 
