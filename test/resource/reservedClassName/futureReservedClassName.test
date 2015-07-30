@@ -1,0 +1,20 @@
+Reserved for future use class name usage
+-----
+<?php
+class Resource {}
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a class, interface or trait name
+-----
+<?php
+class resource {}
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a class, interface or trait name
+-----
+<?php
+class reSoUrce {}
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a class, interface or trait name
+-----
+<?php
+class Dummy {}
+-----

@@ -1,19 +1,19 @@
 Reserved interface name usage
 -----
 <?php
-interface Int {}
+interface Bool {}
 -----
-Reserved word "int" used as a class, interface or trait name
------
-<?php
-interface int {}
------
-Reserved word "int" used as a class, interface or trait name
+Reserved name "bool" used as a class, interface or trait name
 -----
 <?php
-interface inT {}
+interface bool {}
 -----
-Reserved word "int" used as a class, interface or trait name
+Reserved name "bool" used as a class, interface or trait name
+-----
+<?php
+interface bOOl {}
+-----
+Reserved name "bool" used as a class, interface or trait name
 -----
 <?php
 interface Dummy {}

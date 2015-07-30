@@ -7,6 +7,11 @@ use PhpParser\Node;
 class ReservedClassNameVisitor extends AbstractVisitor
 {
 
+    const RESERVED_NAME_MESSAGE = 'Reserved name "%s" used %s ';
+    const FUTURE_RESERVED_NAME_MESSAGE = <<<MSG
+Name "%s" that is reserved for future use (does not cause an error in PHP 7) used %s
+MSG;
+
     protected $reservedClassNames = array(
         'bool',
         'int',
@@ -15,33 +20,49 @@ class ReservedClassNameVisitor extends AbstractVisitor
         'null',
         'false',
         'true',
+    );
+
+    protected $futureReservedClassNames = array(
         'resource',
         'object',
         'mixed',
         'numeric',
     );
 
+    protected $reservedNamesToMessagesMap = array();
+
     /**
      */
     public function __construct()
     {
-        $this->reservedClassNames = array_flip($this->reservedClassNames);
+        $this->reservedNamesToMessagesMap = array_merge(
+            array_fill_keys(
+                $this->reservedClassNames,
+                static::RESERVED_NAME_MESSAGE
+            ),
+            array_fill_keys(
+                $this->futureReservedClassNames,
+                static::FUTURE_RESERVED_NAME_MESSAGE
+            )
+        );
     }
 
 
     public function enterNode(Node $node)
     {
-        if ($node instanceof Node\Stmt\Class_ || $node instanceof Node\Stmt\Trait_
-            || $node instanceof Node\Stmt\Interface_
-        ) {
-            $nodeName = strtolower($node->name);
+        $nodeName = null;
+        $usagePatternName = null;
 
-            if (isset($this->reservedClassNames[$nodeName])) {
-                $this->addContextMessage(
-                    sprintf('Reserved word "%s" used as a class, interface or trait name', $nodeName),
-                    $node
-                );
-            }
+        if ($node instanceof Node\Stmt\ClassLike) {
+            $nodeName = strtolower($node->name);
+            $usagePatternName = 'as a class, interface or trait name';
+        }
+
+        if ($nodeName && isset($this->reservedNamesToMessagesMap[$nodeName])) {
+            $this->addContextMessage(
+                sprintf($this->reservedNamesToMessagesMap[$nodeName], $nodeName, $usagePatternName),
+                $node
+            );
         }
     }
 

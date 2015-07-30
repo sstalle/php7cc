@@ -1,0 +1,20 @@
+Reserved for future use interface name usage
+-----
+<?php
+interface Object {}
+-----
+Name "object" that is reserved for future use (does not cause an error in PHP 7) used as a class, interface or trait name
+-----
+<?php
+interface object {}
+-----
+Name "object" that is reserved for future use (does not cause an error in PHP 7) used as a class, interface or trait name
+-----
+<?php
+interface obJeCt {}
+-----
+Name "object" that is reserved for future use (does not cause an error in PHP 7) used as a class, interface or trait name
+-----
+<?php
+class Dummy {}
+-----
