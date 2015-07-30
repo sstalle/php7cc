@@ -33,7 +33,7 @@ class FileContext extends AbstractContext
      */
     public function getCheckedResourceName()
     {
-        return $this->getFile()->getPathname();
+        return $this->getFile()->getRealPath();
     }
 
     /**

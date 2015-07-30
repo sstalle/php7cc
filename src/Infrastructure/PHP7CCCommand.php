@@ -5,6 +5,7 @@ namespace Sstalle\php7cc\Infrastructure;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PHP7CCCommand extends Command
@@ -12,8 +13,8 @@ class PHP7CCCommand extends Command
 
     const COMMAND_NAME = 'php7cc';
 
-    const PATH_ARGUMENT_NAME = 'path';
-    const EXTENSIONS_ARGUMENT_NAME = 'extensions';
+    const PATHS_ARGUMENT_NAME = 'paths';
+    const EXTENSIONS_OPTION_NAME = 'extensions';
 
     /**
      * @inheritDoc
@@ -23,12 +24,13 @@ class PHP7CCCommand extends Command
         $this->setName(static::COMMAND_NAME)
             ->setDescription('Checks PHP 5.3 - 5.6 code for compatibility with PHP7')
             ->addArgument(
-                static::PATH_ARGUMENT_NAME,
-                InputArgument::REQUIRED,
+                static::PATHS_ARGUMENT_NAME,
+                InputArgument::REQUIRED | InputArgument::IS_ARRAY,
                 'Which file or directory do you want to check?'
-            )->addArgument(
-                static::EXTENSIONS_ARGUMENT_NAME,
-                InputArgument::OPTIONAL,
+            )->addOption(
+                static::EXTENSIONS_OPTION_NAME,
+                'e',
+                InputOption::VALUE_OPTIONAL,
                 'Which file extensions do you want to check (separate multiple extensions with commas)?',
                 'php'
             );
@@ -39,13 +41,16 @@ class PHP7CCCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $path = $input->getArgument(static::PATH_ARGUMENT_NAME);
-        if (!is_file($path) && !is_dir($path)) {
-            $output->writeln(sprintf('Path %s must be a file or a directory', $path));
-            return;
+        $paths = $input->getArgument(static::PATHS_ARGUMENT_NAME);
+        foreach ($paths as $path) {
+            if (!is_file($path) && !is_dir($path)) {
+                $output->writeln(sprintf('Path %s must be a file or a directory', $path));
+
+                return;
+            }
         }
 
-        $extensionsArgumentValue = $input->getArgument(static::EXTENSIONS_ARGUMENT_NAME);
+        $extensionsArgumentValue = $input->getOption(static::EXTENSIONS_OPTION_NAME);
         $extensions = explode(',', $extensionsArgumentValue);
         if (!is_array($extensions)) {
             $output->writeln(
@@ -63,7 +68,7 @@ class PHP7CCCommand extends Command
         $containerBuilder = new ContainerBuilder();
         $container = $containerBuilder->buildContainer($output);
 
-        $container['pathChecker']->check($path, $extensions);
+        $container['pathChecker']->check($paths, $extensions);
     }
 
 }
