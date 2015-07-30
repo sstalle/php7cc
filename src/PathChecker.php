@@ -44,13 +44,12 @@ class PathChecker
      */
     public function check(array $paths, array $checkedExtensions)
     {
+        $directlyPassedFiles = array();
         foreach ($paths as $path) {
-            $isPathDir = is_dir($path);
-
-            if ($isPathDir && !$checkedExtensions) {
+            if (is_dir($path) && !$checkedExtensions) {
                 throw new \DomainException('At least 1 extension should be specified to check a directory');
-            } elseif ($isPathDir) {
-                break;
+            } elseif (is_file($path)) {
+                $directlyPassedFiles[realpath($path)] = true;
             }
         }
 
@@ -64,7 +63,9 @@ class PathChecker
 
         /** @var \SplFileInfo $fileInfo */
         foreach ($recursiveIterator as $pathName => $fileInfo) {
-            if (!in_array($fileInfo->getExtension(), $checkedExtensions)) {
+            if (!isset($directlyPassedFiles[realpath($pathName)])
+                && !in_array($fileInfo->getExtension(), $checkedExtensions)
+            ) {
                 continue;
             }
 
