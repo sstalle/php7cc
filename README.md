@@ -21,7 +21,7 @@ You also need [composer](https://getcomposer.org/) to install php7cc.
 
 #### Installation
 The only way to install php7cc as of now is using composer:
-```
+```bash
 composer create-project sstalle/php7cc php7cc --stability=dev
 ```
 
@@ -33,7 +33,7 @@ It's better to answer "no", as it will allow updating php7cc code using ```git p
 
 #### Running
 Main executable file is bin/php7cc.php. To see the full list of available options, run:
-```
+```bash
 php bin/php7cc.php --help
 ```
 
@@ -41,11 +41,11 @@ To check a file or a directory, pass its name as the first argument. Directories
 recursively.
  
 So, to check a file you could run:
-```
+```bash
 php bin/php7cc.php /path/to/my/file.php
 ```
 To check a directory:
-```
+```bash
 php bin/php7cc.php /path/to/my/directory/
 ```
 
@@ -53,7 +53,7 @@ When checking a directory, you can also pass a comma-separated list of file exte
 should be checked. By default, only .php files are processed.
  
 For example, if you want to check .php, .inc and .lib files, you could run:
-```
+```bash
 php bin/php7cc.php /path/to/my/directory/ php,inc,lib 
 ```
 
@@ -61,6 +61,6 @@ php bin/php7cc.php /path/to/my/directory/ php,inc,lib
 # Troubleshooting
 #### Maximum function nesting level of 100/250/N reached, aborting!
 You should increase maximum function nesting level in your PHP or Xdebug config file like this:
-```
+```cfg
 xdebug.max_nesting_level = 1000
 ```
