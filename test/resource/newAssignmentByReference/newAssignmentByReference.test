@@ -1,0 +1,16 @@
+Assignment of the result of new by reference
+-----
+<?php
+$a = & new foo();
+-----
+Result of new is assigned by reference
+-----
+<?php
+$a = & new $foo();
+-----
+Result of new is assigned by reference
+-----
+<?php
+$a = new foo();
+-----
+
