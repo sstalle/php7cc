@@ -3,6 +3,7 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\Helper\NodeHelper;
 
 class ReservedClassNameVisitor extends AbstractVisitor
 {
@@ -50,17 +51,27 @@ MSG;
 
     public function enterNode(Node $node)
     {
-        $nodeName = null;
+        $checkedName = null;
         $usagePatternName = null;
 
         if ($node instanceof Node\Stmt\ClassLike) {
-            $nodeName = strtolower($node->name);
+            $checkedName = strtolower($node->name);
             $usagePatternName = 'as a class, interface or trait name';
+        } elseif (NodeHelper::isFunctionCallByStaticName($node, 'class_alias')) {
+            /** @var Node\Expr\FuncCall $node */
+            $secondArgument = isset($node->args[1]) ? $node->args[1] : null;
+
+            if (!$secondArgument || !$secondArgument->value instanceof Node\Scalar\String_) {
+                return;
+            }
+
+            $checkedName = strtolower($secondArgument->value->value);
+            $usagePatternName = 'as a class alias';
         }
 
-        if ($nodeName && isset($this->reservedNamesToMessagesMap[$nodeName])) {
+        if ($checkedName && isset($this->reservedNamesToMessagesMap[$checkedName])) {
             $this->addContextMessage(
-                sprintf($this->reservedNamesToMessagesMap[$nodeName], $nodeName, $usagePatternName),
+                sprintf($this->reservedNamesToMessagesMap[$checkedName], $checkedName, $usagePatternName),
                 $node
             );
         }

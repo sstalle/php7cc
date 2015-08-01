@@ -97,16 +97,11 @@ class ForeachVisitor extends AbstractVisitor
      */
     protected function hasFunctionCallWithForeachArgument(Node $node, array $functions, $skippedByRefType = null)
     {
-        if (!NodeHelper::isFunctionCallByStaticName($node)) {
+        if (!NodeHelper::isFunctionCallByStaticName($node, $functions)) {
             return false;
         }
 
         /** @var Node\Expr\FuncCall $node */
-        $functionName = $node->name->toString();
-        if (!isset($functions[$functionName])) {
-            return false;
-        }
-
         foreach ($node->args as $argument) {
             /** @var Node\Stmt\Foreach_ $foreach */
             foreach ($this->foreachStack as $foreach) {

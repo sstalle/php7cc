@@ -85,19 +85,15 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
 
     public function enterNode(Node $node)
     {
-        if (!NodeHelper::isFunctionCallByStaticName($node)) {
+        if (!NodeHelper::isFunctionCallByStaticName($node, $this->removedFunctionNames)) {
             return;
         }
 
         /** @var Node\Expr\FuncCall $node */
-        $functionName = $node->name->toString();
-
-        if (isset($this->removedFunctionNames[$functionName])) {
-            $this->addContextMessage(
-                sprintf('Removed function "%s" called', $functionName),
-                $node
-            );
-        }
+        $this->addContextMessage(
+            sprintf('Removed function "%s" called', $node->name->toString()),
+            $node
+        );
     }
 
 

@@ -1,0 +1,21 @@
+Reserved for future use class name usage as a class alias
+-----
+<?php
+class_alias('A', 'resource');
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a class alias
+-----
+<?php
+class_alias('A', 'resource', true);
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a class alias
+-----
+<?php
+class_alias('A', 'Resource');
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a class alias
+-----
+<?php
+
+class_alias('A', 'B');
+-----

@@ -10,17 +10,15 @@ class FuncGetArgsVisitor extends AbstractVisitor
 
     public function enterNode(Node $node)
     {
-        if (!NodeHelper::isFunctionCallByStaticName($node)) {
+        if (!NodeHelper::isFunctionCallByStaticName($node, array_flip(array('func_get_arg', 'func_get_args')))) {
             return;
         }
 
         /** @var Node\Expr\FuncCall $node */
         $functionName = $node->name->toString();
-        if ($functionName == 'func_get_arg' || $functionName == 'func_get_args') {
-            $this->addContextMessage(
-                sprintf('Function argument(s) returned by "%s" might have been modified', $functionName),
-                $node
-            );
-        }
+        $this->addContextMessage(
+            sprintf('Function argument(s) returned by "%s" might have been modified', $functionName),
+            $node
+        );
     }
 }

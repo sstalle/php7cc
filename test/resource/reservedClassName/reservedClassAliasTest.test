@@ -1,0 +1,21 @@
+Reserved class name usage as a class alias
+-----
+<?php
+class_alias('A', 'true');
+-----
+Reserved name "true" used as a class alias
+-----
+<?php
+class_alias('A', 'true', true);
+-----
+Reserved name "true" used as a class alias
+-----
+<?php
+class_alias('A', 'True');
+-----
+Reserved name "true" used as a class alias
+-----
+<?php
+
+class_alias('A', 'B');
+-----
