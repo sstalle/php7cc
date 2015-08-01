@@ -1,0 +1,15 @@
+Reserved name usage as a use statement alias
+-----
+<?php
+use Foo\Bar as True;
+-----
+Reserved name "true" used as a use statement alias
+-----
+<?php
+use Foo\Bar as true;
+-----
+Reserved name "true" used as a use statement alias
+-----
+<?php
+use Foo\Bar as Baz;
+-----

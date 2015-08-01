@@ -1,0 +1,15 @@
+Name reserved for future use usage as a use statement alias
+-----
+<?php
+use Foo\Bar as Resource;
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a use statement alias
+-----
+<?php
+use Foo\Bar as resource;
+-----
+Name "resource" that is reserved for future use (does not cause an error in PHP 7) used as a use statement alias
+-----
+<?php
+use Foo\Bar as Test;
+-----

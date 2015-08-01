@@ -51,11 +51,11 @@ MSG;
 
     public function enterNode(Node $node)
     {
-        $checkedName = null;
+        $checkedName = '';
         $usagePatternName = null;
 
         if ($node instanceof Node\Stmt\ClassLike) {
-            $checkedName = strtolower($node->name);
+            $checkedName = $node->name;
             $usagePatternName = 'as a class, interface or trait name';
         } elseif (NodeHelper::isFunctionCallByStaticName($node, 'class_alias')) {
             /** @var Node\Expr\FuncCall $node */
@@ -65,10 +65,14 @@ MSG;
                 return;
             }
 
-            $checkedName = strtolower($secondArgument->value->value);
+            $checkedName = $secondArgument->value->value;
             $usagePatternName = 'as a class alias';
+        } elseif ($node instanceof Node\Stmt\UseUse) {
+            $checkedName = $node->alias;
+            $usagePatternName = 'as a use statement alias';
         }
 
+        $checkedName = strtolower($checkedName);
         if ($checkedName && isset($this->reservedNamesToMessagesMap[$checkedName])) {
             $this->addContextMessage(
                 sprintf($this->reservedNamesToMessagesMap[$checkedName], $checkedName, $usagePatternName),
