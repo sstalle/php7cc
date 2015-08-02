@@ -6,18 +6,28 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
 {
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $allowedExtensions = array();
 
     /**
-     * @param \RecursiveDirectoryIterator $iterator
-     * @param string[] $allowedExtensions
+     * @var string[]
      */
-    public function __construct(\RecursiveDirectoryIterator $iterator, array $allowedExtensions = array())
-    {
+    protected $alwaysAllowedFiles = array();
+
+    /**
+     * @param \RecursiveIterator $iterator
+     * @param string[] $allowedExtensions
+     * @param array $alwaysAllowedFiles
+     */
+    public function __construct(
+        \RecursiveIterator $iterator,
+        array $allowedExtensions = array(),
+        array $alwaysAllowedFiles = array()
+    ) {
         parent::__construct($iterator);
         $this->allowedExtensions = $allowedExtensions;
+        $this->alwaysAllowedFiles = array_flip($alwaysAllowedFiles);
     }
 
     /**
@@ -26,6 +36,10 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
     public function accept()
     {
         $currentKey = $this->key();
+        if ($currentKey && isset($this->alwaysAllowedFiles[realpath($currentKey)])) {
+            return true;
+        }
+
         $currentFileExtension = $currentKey ? pathinfo($currentKey, PATHINFO_EXTENSION) : false;
 
         return !$currentFileExtension || in_array($currentFileExtension, $this->allowedExtensions);
@@ -36,10 +50,7 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
      */
     public function getChildren()
     {
-        $children = parent::getChildren();
-        $children->allowedExtensions = $this->allowedExtensions;
-
-        return $children;
+        return new static($this->getInnerIterator()->getChildren(), $this->allowedExtensions, $this->alwaysAllowedFiles);
     }
 
 }

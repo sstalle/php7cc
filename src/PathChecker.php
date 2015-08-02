@@ -3,6 +3,7 @@
 namespace Sstalle\php7cc;
 
 use Sstalle\php7cc\CompatibilityViolation\CheckMetadata;
+use Sstalle\php7cc\Iterator\ExtensionFilteringRecursiveIterator;
 use Sstalle\php7cc\Iterator\FileDirectoryListRecursiveIterator;
 
 class PathChecker
@@ -49,26 +50,25 @@ class PathChecker
             if (is_dir($path) && !$checkedExtensions) {
                 throw new \DomainException('At least 1 extension should be specified to check a directory');
             } elseif (is_file($path)) {
-                $directlyPassedFiles[realpath($path)] = true;
+                $directlyPassedFiles[] = realpath($path);
             }
         }
 
         $checkMetadata = new CheckMetadata();
 
         $fileDirectoryIterator = new FileDirectoryListRecursiveIterator($paths);
-        $recursiveIterator = new \RecursiveIteratorIterator(
+        $extensionFilteringIterator = new ExtensionFilteringRecursiveIterator(
             $fileDirectoryIterator,
+            $checkedExtensions,
+            $directlyPassedFiles
+        );
+        $recursiveIterator = new \RecursiveIteratorIterator(
+            $extensionFilteringIterator,
             \RecursiveIteratorIterator::LEAVES_ONLY
         );
 
         /** @var \SplFileInfo $fileInfo */
         foreach ($recursiveIterator as $pathName => $fileInfo) {
-            if (!isset($directlyPassedFiles[realpath($pathName)])
-                && !in_array($fileInfo->getExtension(), $checkedExtensions)
-            ) {
-                continue;
-            }
-
             $this->checkFile($checkMetadata, $pathName);
         }
 
