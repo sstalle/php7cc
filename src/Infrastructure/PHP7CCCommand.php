@@ -15,6 +15,7 @@ class PHP7CCCommand extends Command
 
     const PATHS_ARGUMENT_NAME = 'paths';
     const EXTENSIONS_OPTION_NAME = 'extensions';
+    const EXCEPT_OPTION_NAME = 'except';
 
     /**
      * @inheritDoc
@@ -33,6 +34,12 @@ class PHP7CCCommand extends Command
                 InputOption::VALUE_OPTIONAL,
                 'Which file extensions do you want to check (separate multiple extensions with commas)?',
                 'php'
+            )->addOption(
+                static::EXCEPT_OPTION_NAME,
+                'x',
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'Excluded files and directories',
+                array()
             );
     }
 
@@ -63,7 +70,6 @@ class PHP7CCCommand extends Command
 
             return;
         }
-
 
         $containerBuilder = new ContainerBuilder();
         $container = $containerBuilder->buildContainer($output);
