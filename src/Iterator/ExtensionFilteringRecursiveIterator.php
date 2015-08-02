@@ -36,13 +36,13 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
     public function accept()
     {
         $currentKey = $this->key();
-        if ($currentKey && isset($this->alwaysAllowedFiles[realpath($currentKey)])) {
+        $isFile = $currentKey && is_file($currentKey);
+
+        if ($isFile && isset($this->alwaysAllowedFiles[realpath($currentKey)])) {
             return true;
         }
 
-        $currentFileExtension = $currentKey ? pathinfo($currentKey, PATHINFO_EXTENSION) : false;
-
-        return !$currentFileExtension || in_array($currentFileExtension, $this->allowedExtensions);
+        return !$isFile || in_array(pathinfo($currentKey, PATHINFO_EXTENSION), $this->allowedExtensions);
     }
 
     /**
