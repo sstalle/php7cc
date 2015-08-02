@@ -50,7 +50,11 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
      */
     public function getChildren()
     {
-        return new static($this->getInnerIterator()->getChildren(), $this->allowedExtensions, $this->alwaysAllowedFiles);
+        return new static(
+            $this->getInnerIterator()->getChildren(),
+            $this->allowedExtensions,
+            array_flip($this->alwaysAllowedFiles)
+        );
     }
 
 }
