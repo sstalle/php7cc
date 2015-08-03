@@ -74,7 +74,7 @@ class PHP7CCCommand extends Command
         $containerBuilder = new ContainerBuilder();
         $container = $containerBuilder->buildContainer($output);
 
-        $container['pathChecker']->check($paths, $extensions, $input->getOption(static::EXCEPT_OPTION_NAME));
+        $container['pathCheckExecutor']->check($paths, $extensions, $input->getOption(static::EXCEPT_OPTION_NAME));
     }
 
 }

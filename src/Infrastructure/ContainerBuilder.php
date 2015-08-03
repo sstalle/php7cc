@@ -10,6 +10,8 @@ use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
 use Sstalle\php7cc\PathChecker;
+use Sstalle\php7cc\PathCheckExecutor;
+use Sstalle\php7cc\PathTraversableFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 
@@ -90,6 +92,12 @@ class ContainerBuilder
         });
         $container['fileContextFactory'] = $container->share(function() {
             return new FileContextFactory();
+        });
+        $container['pathTraversableFactory'] = $container->share(function () {
+            return new PathTraversableFactory();
+        });
+        $container['pathCheckExecutor'] = $container->share(function ($c) {
+            return new PathCheckExecutor($c['pathTraversableFactory'], $c['pathChecker']);
         });
 
         return $container;
