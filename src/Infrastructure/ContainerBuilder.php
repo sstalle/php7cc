@@ -5,6 +5,7 @@ namespace Sstalle\php7cc\Infrastructure;
 use PhpParser\Parser;
 use Sstalle\php7cc\CLIResultPrinter;
 use Sstalle\php7cc\ContextChecker;
+use Sstalle\php7cc\ExcludedPathCanonicalizer;
 use Sstalle\php7cc\FileContextFactory;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeStatementsRemover;
@@ -93,11 +94,14 @@ class ContainerBuilder
         $container['fileContextFactory'] = $container->share(function() {
             return new FileContextFactory();
         });
-        $container['pathTraversableFactory'] = $container->share(function () {
-            return new PathTraversableFactory();
+        $container['pathTraversableFactory'] = $container->share(function ($c) {
+            return new PathTraversableFactory($c['excludedPathCanonicalizer']);
         });
         $container['pathCheckExecutor'] = $container->share(function ($c) {
             return new PathCheckExecutor($c['pathTraversableFactory'], $c['pathChecker']);
+        });
+        $container['excludedPathCanonicalizer'] = $container->share(function() {
+            return new ExcludedPathCanonicalizer();
         });
 
         return $container;
