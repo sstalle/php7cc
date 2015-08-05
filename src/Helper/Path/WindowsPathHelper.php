@@ -10,7 +10,7 @@ class WindowsPathHelper implements PathHelperInterface
      */
     public function isAbsolute($path)
     {
-        return $path && (preg_match('#^(\\\\\\\\|[a-zA-z]\\:\\\\)#', $path) === 1);
+        return $path && (preg_match('#^(\\\\\\\\|[a-zA-z]\\:\\\\)|\\\\.+#', $path) === 1);
     }
 
 }

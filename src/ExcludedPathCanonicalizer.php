@@ -35,7 +35,7 @@ class ExcludedPathCanonicalizer
         $canonicalizedPaths = array();
 
         foreach ($excludedPaths as $path) {
-            // todo: correct handling of Windows-specific edge cases \foo and z:foo
+            // todo: correct handling of Windows-specific edge case z:foo
             if ($this->pathHelper->isAbsolute($path) && ($canonicalizedPath = realpath($path))) {
                 $canonicalizedPaths[] = $canonicalizedPath;
             } else {
