@@ -7,6 +7,8 @@ use Sstalle\php7cc\CLIResultPrinter;
 use Sstalle\php7cc\ContextChecker;
 use Sstalle\php7cc\ExcludedPathCanonicalizer;
 use Sstalle\php7cc\FileContextFactory;
+use Sstalle\php7cc\Helper\OSDetector;
+use Sstalle\php7cc\Helper\Path\PathHelperFactory;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
@@ -102,6 +104,17 @@ class ContainerBuilder
         });
         $container['excludedPathCanonicalizer'] = $container->share(function() {
             return new ExcludedPathCanonicalizer();
+        });
+        $container['osDetector'] = $container->share(function() {
+            return new OSDetector();
+        });
+        $container['pathHelperFactory'] = $container->share(function($c) {
+            return new PathHelperFactory($c['osDetector']);
+        });
+        $container['pathHelper'] = $container->share(function($c) {
+            /** @var PathHelperFactory $pathHelperFactory */
+            $pathHelperFactory = $c['pathHelperFactory'];
+            return $pathHelperFactory->createPathHelper();
         });
 
         return $container;
