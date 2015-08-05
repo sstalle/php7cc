@@ -2,11 +2,26 @@
 
 namespace Sstalle\php7cc;
 
+use Sstalle\php7cc\Helper\Path\PathHelperInterface;
+
 class ExcludedPathCanonicalizer
 {
 
     /**
-     * Makes all excluded paths absolute
+     * @var PathHelperInterface
+     */
+    protected $pathHelper;
+
+    /**
+     * @param PathHelperInterface $pathHelper
+     */
+    public function __construct(PathHelperInterface $pathHelper)
+    {
+        $this->pathHelper = $pathHelper;
+    }
+
+    /**
+     * Makes all excluded paths absolute. Non-existent paths are removed
      *
      * @param string[] $checkedPaths
      * @param string[] $excludedPaths
@@ -20,8 +35,9 @@ class ExcludedPathCanonicalizer
         $canonicalizedPaths = array();
 
         foreach ($excludedPaths as $path) {
-            if (is_file($path) || is_dir($path)) {
-                $canonicalizedPaths[] = realpath($path);
+            // todo: correct handling of Windows-specific edge cases \foo and z:foo
+            if ($this->pathHelper->isAbsolute($path) && ($canonicalizedPath = realpath($path))) {
+                $canonicalizedPaths[] = $canonicalizedPath;
             } else {
                 foreach ($checkedDirectories as $checkedDirectory) {
                     $nestedExcludedDirectory = realpath(realpath($checkedDirectory) . DIRECTORY_SEPARATOR . $path);

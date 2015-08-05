@@ -12,14 +12,14 @@ class PathTraversableFactory
     /**
      * @var ExcludedPathCanonicalizer
      */
-    protected $excludedPathNormalizer;
+    protected $excludedPathCanonicalizer;
 
     /**
-     * @param ExcludedPathCanonicalizer $excludedPathNormalizer
+     * @param ExcludedPathCanonicalizer $excludedPathCanonicalizer
      */
-    public function __construct(ExcludedPathCanonicalizer $excludedPathNormalizer)
+    public function __construct(ExcludedPathCanonicalizer $excludedPathCanonicalizer)
     {
-        $this->excludedPathNormalizer = $excludedPathNormalizer;
+        $this->excludedPathCanonicalizer = $excludedPathCanonicalizer;
     }
 
     /**
@@ -31,7 +31,7 @@ class PathTraversableFactory
     public function createTraversable(array $paths, array $checkedExtensions, array $excludedPaths)
     {
         $directlyPassedFiles = array();
-        $excludedPaths = $this->excludedPathNormalizer->canonicalize($paths, $excludedPaths);
+        $excludedPaths = $this->excludedPathCanonicalizer->canonicalize($paths, $excludedPaths);
         foreach ($paths as $path) {
             if (is_dir($path) && !$checkedExtensions) {
                 throw new \DomainException('At least 1 extension must be specified to check a directory');
