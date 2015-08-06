@@ -102,8 +102,8 @@ class ContainerBuilder
         $container['pathCheckExecutor'] = $container->share(function ($c) {
             return new PathCheckExecutor($c['pathTraversableFactory'], $c['pathChecker']);
         });
-        $container['excludedPathCanonicalizer'] = $container->share(function() {
-            return new ExcludedPathCanonicalizer();
+        $container['excludedPathCanonicalizer'] = $container->share(function($c) {
+            return new ExcludedPathCanonicalizer($c['pathHelper']);
         });
         $container['osDetector'] = $container->share(function() {
             return new OSDetector();
