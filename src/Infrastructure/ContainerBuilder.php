@@ -5,11 +5,16 @@ namespace Sstalle\php7cc\Infrastructure;
 use PhpParser\Parser;
 use Sstalle\php7cc\CLIResultPrinter;
 use Sstalle\php7cc\ContextChecker;
+use Sstalle\php7cc\ExcludedPathCanonicalizer;
 use Sstalle\php7cc\FileContextFactory;
+use Sstalle\php7cc\Helper\OSDetector;
+use Sstalle\php7cc\Helper\Path\PathHelperFactory;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
 use Sstalle\php7cc\PathChecker;
+use Sstalle\php7cc\PathCheckExecutor;
+use Sstalle\php7cc\PathTraversableFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 
@@ -90,6 +95,26 @@ class ContainerBuilder
         });
         $container['fileContextFactory'] = $container->share(function() {
             return new FileContextFactory();
+        });
+        $container['pathTraversableFactory'] = $container->share(function ($c) {
+            return new PathTraversableFactory($c['excludedPathCanonicalizer']);
+        });
+        $container['pathCheckExecutor'] = $container->share(function ($c) {
+            return new PathCheckExecutor($c['pathTraversableFactory'], $c['pathChecker']);
+        });
+        $container['excludedPathCanonicalizer'] = $container->share(function($c) {
+            return new ExcludedPathCanonicalizer($c['pathHelper']);
+        });
+        $container['osDetector'] = $container->share(function() {
+            return new OSDetector();
+        });
+        $container['pathHelperFactory'] = $container->share(function($c) {
+            return new PathHelperFactory($c['osDetector']);
+        });
+        $container['pathHelper'] = $container->share(function($c) {
+            /** @var PathHelperFactory $pathHelperFactory */
+            $pathHelperFactory = $c['pathHelperFactory'];
+            return $pathHelperFactory->createPathHelper();
         });
 
         return $container;

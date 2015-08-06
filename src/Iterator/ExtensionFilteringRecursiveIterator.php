@@ -6,18 +6,28 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
 {
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $allowedExtensions = array();
 
     /**
-     * @param \RecursiveDirectoryIterator $iterator
-     * @param string[] $allowedExtensions
+     * @var string[]
      */
-    public function __construct(\RecursiveDirectoryIterator $iterator, array $allowedExtensions = array())
-    {
+    protected $alwaysAllowedFiles = array();
+
+    /**
+     * @param \RecursiveIterator $iterator
+     * @param string[] $allowedExtensions
+     * @param array $alwaysAllowedFiles
+     */
+    public function __construct(
+        \RecursiveIterator $iterator,
+        array $allowedExtensions = array(),
+        array $alwaysAllowedFiles = array()
+    ) {
         parent::__construct($iterator);
         $this->allowedExtensions = $allowedExtensions;
+        $this->alwaysAllowedFiles = array_flip($alwaysAllowedFiles);
     }
 
     /**
@@ -26,9 +36,13 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
     public function accept()
     {
         $currentKey = $this->key();
-        $currentFileExtension = $currentKey ? pathinfo($currentKey, PATHINFO_EXTENSION) : false;
+        $isFile = $currentKey && is_file($currentKey);
 
-        return !$currentFileExtension || in_array($currentFileExtension, $this->allowedExtensions);
+        if ($isFile && isset($this->alwaysAllowedFiles[realpath($currentKey)])) {
+            return true;
+        }
+
+        return !$isFile || in_array(pathinfo($currentKey, PATHINFO_EXTENSION), $this->allowedExtensions);
     }
 
     /**
@@ -36,10 +50,11 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
      */
     public function getChildren()
     {
-        $children = parent::getChildren();
-        $children->allowedExtensions = $this->allowedExtensions;
-
-        return $children;
+        return new static(
+            $this->getInnerIterator()->getChildren(),
+            $this->allowedExtensions,
+            array_flip($this->alwaysAllowedFiles)
+        );
     }
 
 }

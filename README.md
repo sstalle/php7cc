@@ -61,6 +61,16 @@ For example, if you want to check .php, .inc and .lib files, you could run:
 php bin/php7cc.php --extensions=php,inc,lib /path/to/my/directory/
 ```
 
+You can specify a list of absolute or relative paths to exclude from checking.
+Relative paths are relative to the checked directories.
+
+So, if you want to exclude vendor and test directories, you could run:
+```bash
+php bin/php7cc.php --except=vendor --except=/path/to/my/directory/test /path/to/my/directory/
+```
+In this example, directories ```/path/to/my/directory/vendor```,  ```/path/to/my/directory/test``` and their contents will not be checked.
+
+
 
 # Troubleshooting
 #### Maximum function nesting level of 100/250/N reached, aborting!
