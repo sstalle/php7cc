@@ -13,4 +13,12 @@ class UnixPathHelper implements PathHelperInterface
         return $path && $path[0] === '/';
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function isDirectoryRelative($path)
+    {
+        return !$this->isAbsolute($path);
+    }
+
 }

@@ -21,4 +21,17 @@ class UnixPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
         );
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function isDirectoryRelativePathProvider()
+    {
+        $absolutePathData = $this->isAbsolutePathProvider();
+        foreach ($absolutePathData as $i => $data) {
+            $absolutePathData[$i][1] = !$absolutePathData[$i][1];
+        }
+
+        return $absolutePathData;
+    }
+
 }

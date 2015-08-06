@@ -22,13 +22,26 @@ abstract class AbstractPathHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsAbsolutePath($path, $isAbsolute)
     {
-        $this->assertSame($this->pathHelper->isAbsolute($path), $isAbsolute);
+        $this->assertSame($isAbsolute, $this->pathHelper->isAbsolute($path));
+    }
+
+    /**
+     * @dataProvider isDirectoryRelativePathProvider
+     */
+    public function testIsDirectoryRelativePath($path, $isDirectoryRelative)
+    {
+        $this->assertSame($isDirectoryRelative, $this->pathHelper->isDirectoryRelative($path));
     }
 
     /**
      * @return array
      */
     abstract public function isAbsolutePathProvider();
+
+    /**
+     * @return array
+     */
+    abstract public function isDirectoryRelativePathProvider();
 
     /**
      * @return PathHelperInterface

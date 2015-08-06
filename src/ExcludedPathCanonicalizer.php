@@ -35,8 +35,7 @@ class ExcludedPathCanonicalizer
         $canonicalizedPaths = array();
 
         foreach ($excludedPaths as $path) {
-            // todo: correct handling of Windows-specific edge case z:foo
-            if ($this->pathHelper->isAbsolute($path) && ($canonicalizedPath = realpath($path))) {
+            if (!$this->pathHelper->isDirectoryRelative($path) && ($canonicalizedPath = realpath($path))) {
                 $canonicalizedPaths[] = $canonicalizedPath;
             } else {
                 foreach ($checkedDirectories as $checkedDirectory) {

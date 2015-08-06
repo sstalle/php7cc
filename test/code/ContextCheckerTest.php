@@ -47,8 +47,8 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         if ($haveEqualMessageCount) {
             foreach ($context->getMessages() as $i => $message) {
                 $this->assertEquals(
-                    $this->canonicalize($message->getText()),
                     $this->canonicalize($expectedMessages[$i]),
+                    $this->canonicalize($message->getText()),
                     $name
                 );
             }

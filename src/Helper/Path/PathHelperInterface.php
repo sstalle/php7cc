@@ -12,4 +12,10 @@ interface PathHelperInterface
      */
     public function isAbsolute($path);
 
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function isDirectoryRelative($path);
+
 }

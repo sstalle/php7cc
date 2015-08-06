@@ -10,7 +10,15 @@ class WindowsPathHelper implements PathHelperInterface
      */
     public function isAbsolute($path)
     {
-        return $path && (preg_match('#^(\\\\\\\\|[a-zA-z]\\:\\\\)|\\\\.+#', $path) === 1);
+        return $path && (preg_match('#^(\\\\\\\\|[a-zA-Z]\\:\\\\|\\\\.+)#', $path) === 1);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isDirectoryRelative($path)
+    {
+        return $path && (!$this->isAbsolute($path) && preg_match('#^[a-zA-Z]\\:(?!\\\\)#', $path) === 0);
     }
 
 }

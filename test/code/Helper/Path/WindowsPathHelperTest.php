@@ -25,8 +25,25 @@ class WindowsPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
             array('\\foo', true),
             array('foo', false),
             array('k:foo', false),
-            array('K:foo', false),
+            array('K:foo\bar', false),
             array('../foo/bar', false),
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isDirectoryRelativePathProvider()
+    {
+        return array(
+            array('\\\\foo', false),
+            array('K:\\foo', false),
+            array('k:\\foo', false),
+            array('\\foo', false),
+            array('k:foo', false),
+            array('K:foo\bar', false),
+            array('foo', true),
+            array('../foo/bar', true),
         );
     }
 
