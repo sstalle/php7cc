@@ -36,6 +36,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
             '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
             '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
             '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
+            '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
              ) as $visitorClass) {
             $traverser->addVisitor(new $visitorClass());
         }

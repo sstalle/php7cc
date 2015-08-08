@@ -36,6 +36,7 @@ class ContainerBuilder
         'visitor.arrayOrObjectValueAssignmentByReference' => '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
         'visitor.bitwiseShift' => '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
         'visitor.newAssignmentByReference' => '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
+        'visitor.httpRawPostData' => '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
     );
 
     /**
