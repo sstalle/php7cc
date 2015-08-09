@@ -18,14 +18,14 @@ class RegExp
     /**
      * @var string
      */
-    protected $flags;
+    protected $modifiers;
 
     /**
      * @param string $delimiter
      * @param string $expression
-     * @param string $flags
+     * @param string $modifiers
      */
-    public function __construct($delimiter, $expression, $flags)
+    public function __construct($delimiter, $expression, $modifiers)
     {
         if (!$delimiter) {
             throw new \InvalidArgumentException('Delimiter must not be empty');
@@ -33,7 +33,7 @@ class RegExp
 
         $this->delimiter = $delimiter;
         $this->expression = $expression;
-        $this->flags = $flags;
+        $this->modifiers = $modifiers;
     }
 
     /**
@@ -55,18 +55,18 @@ class RegExp
     /**
      * @return string
      */
-    public function getFlags()
+    public function getModifiers()
     {
-        return $this->flags;
+        return $this->modifiers;
     }
 
     /**
-     * @param string $flag
+     * @param string $modifier
      * @return bool
      */
-    public function hasFlag($flag)
+    public function hasModifier($modifier)
     {
-        return strpos($this->getFlags(), $flag) !== false;
+        return strpos($this->getModifiers(), $modifier) !== false;
     }
 
 }
