@@ -21,6 +21,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         ));
         $parser = new \PhpParser\Parser($lexer);
         $traverser = new \Sstalle\php7cc\NodeTraverser\Traverser();
+        $visitors = array();
         foreach (array(
             '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
             '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor',
@@ -38,8 +39,17 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
             '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
             '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
              ) as $visitorClass) {
-            $traverser->addVisitor(new $visitorClass());
+            $visitors[] = new $visitorClass();
         }
+
+        $visitors[] = new \Sstalle\php7cc\NodeVisitor\PregReplaceEvalVisitor(
+            new \Sstalle\php7cc\Helper\RegExp\RegExpParser()
+        );
+
+        foreach ($visitors as $visitor) {
+            $traverser->addVisitor($visitor);
+        }
+
         $contextChecker = new \Sstalle\php7cc\ContextChecker($parser, $lexer, $traverser);
         $context = new \Sstalle\php7cc\CompatibilityViolation\StringContext($code, 'test');
         $contextChecker->checkContext($context);

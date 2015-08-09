@@ -1,0 +1,32 @@
+Usage of PREG_REPLACE_EVAL regular expression modifier
+-----
+<?php
+preg_replace('/foo/e', '', '');
+-----
+Removed regular expression modifier "e" used
+-----
+<?php
+preg_replace('#foo#e', '', '');
+-----
+Removed regular expression modifier "e" used
+-----
+<?php
+preg_replace('/foo/abec', '', '');
+-----
+Removed regular expression modifier "e" used
+-----
+<?php
+preg_replace('/foo/', '', '');
+-----
+
+-----
+<?php
+preg_replace('/foo/ab', '', '');
+-----
+
+-----
+<?php
+preg_replace('#foo#ab', '', '');
+-----
+
+
