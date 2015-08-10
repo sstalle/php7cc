@@ -27,6 +27,10 @@ class RegExp
      */
     public function __construct($delimiter, $expression, $modifiers)
     {
+        if (preg_match('/[\\\\a-z0-9\s+]/', strtolower($delimiter)) === 1) {
+            throw new \InvalidArgumentException(sprintf('Invalid delimiter %s used', $delimiter));
+        }
+
         if (!$delimiter) {
             throw new \InvalidArgumentException('Delimiter must not be empty');
         }
