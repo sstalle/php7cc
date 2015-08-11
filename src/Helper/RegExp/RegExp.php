@@ -8,7 +8,12 @@ class RegExp
     /**
      * @var string
      */
-    protected $delimiter;
+    protected $startDelimiter;
+
+    /**
+     * @var string
+     */
+    protected $endDelimiter;
 
     /**
      * @var string
@@ -21,21 +26,25 @@ class RegExp
     protected $modifiers;
 
     /**
-     * @param string $delimiter
+     * @param string $startDelimiter
+     * @param string $endDelimiter
      * @param string $expression
      * @param string $modifiers
      */
-    public function __construct($delimiter, $expression, $modifiers)
+    public function __construct($startDelimiter, $endDelimiter, $expression, $modifiers)
     {
-        if (preg_match('/[\\\\a-z0-9\s+]/', strtolower($delimiter)) === 1) {
-            throw new \InvalidArgumentException(sprintf('Invalid delimiter %s used', $delimiter));
-        }
-
-        if (!$delimiter) {
+        if (!$startDelimiter || !$endDelimiter) {
             throw new \InvalidArgumentException('Delimiter must not be empty');
         }
 
-        $this->delimiter = $delimiter;
+        foreach (array($startDelimiter, $endDelimiter) as $delimiter) {
+            if (preg_match('/[\\\\a-z0-9\s+]/', strtolower($delimiter)) === 1) {
+                throw new \InvalidArgumentException(sprintf('Invalid delimiter %s used', $startDelimiter));
+            }
+        }
+
+        $this->startDelimiter = $startDelimiter;
+        $this->endDelimiter = $endDelimiter;
         $this->expression = $expression;
         $this->modifiers = $modifiers;
     }
@@ -43,9 +52,17 @@ class RegExp
     /**
      * @return string
      */
-    public function getDelimiter()
+    public function getStartDelimiter()
     {
-        return $this->delimiter;
+        return $this->startDelimiter;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEndDelimiter()
+    {
+        return $this->endDelimiter;
     }
 
     /**

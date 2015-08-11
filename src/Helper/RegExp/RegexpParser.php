@@ -5,6 +5,13 @@ namespace Sstalle\php7cc\Helper\RegExp;
 class RegExpParser
 {
 
+    protected static $delimiterPairs = array(
+        '(' => ')',
+        '[' => ']',
+        '{' => '}',
+        '<' => '>',
+    );
+
     /**
      * @param string $regExp
      * @return RegExp
@@ -15,14 +22,18 @@ class RegExpParser
             throw new \InvalidArgumentException('RegExp is empty');
         }
 
-        $delimiter = $regExp[0];
-        $endDelimiterPosition = strrpos($regExp, $delimiter);
+        $startDelimiter = $regExp[0];
+        $endDelimiter = isset(static::$delimiterPairs[$startDelimiter])
+            ? static::$delimiterPairs[$startDelimiter]
+            : $startDelimiter;
+        $endDelimiterPosition = strrpos($regExp, $endDelimiter);
         if (!$endDelimiterPosition) {
-            throw new \InvalidArgumentException(sprintf('Closing delimiter %s not found', $delimiter));
+            throw new \InvalidArgumentException(sprintf('Closing delimiter %s not found', $startDelimiter));
         }
 
         return new RegExp(
-            $delimiter,
+            $startDelimiter,
+            $endDelimiter,
             substr($regExp, 1, $endDelimiterPosition - 1),
             substr($regExp, $endDelimiterPosition + 1)
         );
