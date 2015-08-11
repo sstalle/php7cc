@@ -16,10 +16,6 @@ class RegExpParser
         }
 
         $delimiter = $regExp[0];
-        if (preg_match('/[a-z0-9\s+]/', $delimiter) === 1) {
-            throw new \InvalidArgumentException(sprintf('Invalid delimiter %s used', $delimiter));
-        }
-
         $endDelimiterPosition = strrpos($regExp, $delimiter);
         if (!$endDelimiterPosition) {
             throw new \InvalidArgumentException(sprintf('Closing delimiter %s not found', $delimiter));
