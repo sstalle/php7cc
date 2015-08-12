@@ -9,6 +9,7 @@ use Sstalle\php7cc\ExcludedPathCanonicalizer;
 use Sstalle\php7cc\FileContextFactory;
 use Sstalle\php7cc\Helper\OSDetector;
 use Sstalle\php7cc\Helper\Path\PathHelperFactory;
+use Sstalle\php7cc\Helper\RegExp\RegExpParser;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
@@ -22,21 +23,55 @@ class ContainerBuilder
 {
 
     protected $checkerVisitors = array(
-        'visitor.removedFunctionCall' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
-        'visitor.reservedClassName' => '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor',
-        'visitor.duplicateFunctionParameter' => '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor',
-        'visitor.list' => '\\Sstalle\\php7cc\\NodeVisitor\\ListVisitor',
-        'visitor.globalVariableVariable' => '\\Sstalle\\php7cc\\NodeVisitor\\GlobalVariableVariableVisitor',
-        'visitor.indirectVariableOrMethodAccess' => '\\Sstalle\\php7cc\\NodeVisitor\\IndirectVariableOrMethodAccessVisitor',
-        'visitor.funcGetArgs' => '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor',
-        'visitor.foreach' => '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor',
-        'visitor.invalidOctalLiteral' => '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor',
-        'visitor.hexadecimalNumberString' => '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor',
-        'visitor.escapedUnicodeCodepoint' => '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor',
-        'visitor.arrayOrObjectValueAssignmentByReference' => '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
-        'visitor.bitwiseShift' => '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
-        'visitor.newAssignmentByReference' => '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
-        'visitor.httpRawPostData' => '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
+        'visitor.removedFunctionCall' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor'
+        ),
+        'visitor.reservedClassName' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor'
+        ),
+        'visitor.duplicateFunctionParameter' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor'
+        ),
+        'visitor.list' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ListVisitor'
+        ),
+        'visitor.globalVariableVariable' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\GlobalVariableVariableVisitor'
+        ),
+        'visitor.indirectVariableOrMethodAccess' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\IndirectVariableOrMethodAccessVisitor'
+        ),
+        'visitor.funcGetArgs' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor'
+        ),
+        'visitor.foreach' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor'
+        ),
+        'visitor.invalidOctalLiteral' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor'
+        ),
+        'visitor.hexadecimalNumberString' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor'
+        ),
+        'visitor.escapedUnicodeCodepoint' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor'
+        ),
+        'visitor.arrayOrObjectValueAssignmentByReference' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor'
+        ),
+        'visitor.bitwiseShift' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor'
+        ),
+        'visitor.newAssignmentByReference' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor'
+        ),
+        'visitor.httpRawPostData' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor'
+        ),
+        'visitor.pregReplaceEval' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PregReplaceEvalVisitor',
+            'dependencies' => array('regExpParser')
+        ),
     );
 
     /**
@@ -61,12 +96,10 @@ class ContainerBuilder
         $container['parser'] = $container->share(function($c) {
             return new Parser($c['lexer']);
         });
+
+        $this->addVisitors($container);
+
         $visitors = $this->checkerVisitors;
-        foreach ($visitors as $visitorServiceName => $visitorClass) {
-            $container[$visitorServiceName] = $container->share(function() use ($visitorClass) {
-                return new $visitorClass();
-            });
-        }
         $container['traverser'] = $container->share(function($c) use ($visitors) {
             $traverser = new Traverser();
             foreach (array_keys($visitors) as $visitorServiceName) {
@@ -117,8 +150,29 @@ class ContainerBuilder
             $pathHelperFactory = $c['pathHelperFactory'];
             return $pathHelperFactory->createPathHelper();
         });
+        $container['regExpParser'] = $container->share(function() {
+            return new RegExpParser();
+        });
 
         return $container;
+    }
+
+    protected function addVisitors(\Pimple $container) {
+        foreach ($this->checkerVisitors as $visitorServiceName => $visitorParameters) {
+            $container[$visitorServiceName] = $container->share(function ($c) use ($visitorParameters) {
+                $visitorClassReflection = new \ReflectionClass($visitorParameters['class']);
+                $visitorDependencyServiceNames = isset($visitorParameters['dependencies'])
+                    ? $visitorParameters['dependencies']
+                    : array();
+
+                $visitorDependencies = array();
+                foreach ($visitorDependencyServiceNames as $serviceName) {
+                    $visitorDependencies[] = $c[$serviceName];
+                }
+
+                return $visitorClassReflection->newInstanceArgs($visitorDependencies);
+            });
+        }
     }
 
 }
