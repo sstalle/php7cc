@@ -37,11 +37,17 @@ class RegExpParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider parsesRegExpCorrectlyProvider
      */
-    public function testParsesRegExpCorrectly($regExp, $expectedDelimiter, $expectedExpression, $expectedModifiers)
-    {
+    public function testParsesRegExpCorrectly(
+        $regExp,
+        $expectedStartDelimiter,
+        $expectedEndDelimiter,
+        $expectedExpression,
+        $expectedModifiers
+    ) {
         $parsedRegExp = $this->parser->parse($regExp);
 
-        $this->assertEquals($expectedDelimiter, $parsedRegExp->getDelimiter());
+        $this->assertEquals($expectedStartDelimiter, $parsedRegExp->getStartDelimiter());
+        $this->assertEquals($expectedEndDelimiter, $parsedRegExp->getEndDelimiter());
         $this->assertEquals($expectedExpression, $parsedRegExp->getExpression());
         $this->assertEquals($expectedModifiers, $parsedRegExp->getModifiers());
     }
@@ -60,24 +66,42 @@ class RegExpParserTest extends \PHPUnit_Framework_TestCase
             array(
                 '/foo/bar',
                 '/',
+                '/',
                 'foo',
                 'bar'
             ),
             array(
-                '/foo/b',
-                '/',
+                '(foo)b',
+                '(',
+                ')',
                 'foo',
                 'b'
             ),
             array(
                 '#foo#',
                 '#',
+                '#',
                 'foo',
                 ''
             ),
             array(
-                '#a#',
-                '#',
+                '{a}',
+                '{',
+                '}',
+                'a',
+                ''
+            ),
+            array(
+                '[a]',
+                '[',
+                ']',
+                'a',
+                ''
+            ),
+            array(
+                '<a>',
+                '<',
+                '>',
                 'a',
                 ''
             ),
