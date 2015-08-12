@@ -5,13 +5,6 @@ namespace Sstalle\php7cc\Helper\RegExp;
 class RegExpParser
 {
 
-    protected static $delimiterPairs = array(
-        '(' => ')',
-        '[' => ']',
-        '{' => '}',
-        '<' => '>',
-    );
-
     /**
      * @param string $regExp
      * @return RegExp
@@ -23,8 +16,9 @@ class RegExpParser
         }
 
         $startDelimiter = $regExp[0];
-        $endDelimiter = isset(static::$delimiterPairs[$startDelimiter])
-            ? static::$delimiterPairs[$startDelimiter]
+        $delimiterPairs = RegExp::getDelimiterPairs();
+        $endDelimiter = isset($delimiterPairs[$startDelimiter])
+            ? $delimiterPairs[$startDelimiter]
             : $startDelimiter;
         $endDelimiterPosition = strrpos($regExp, $endDelimiter);
         if (!$endDelimiterPosition) {

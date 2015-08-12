@@ -6,6 +6,16 @@ class RegExp
 {
 
     /**
+     * @var string[string]
+     */
+    protected static $delimiterPairs = array(
+        '(' => ')',
+        '[' => ']',
+        '{' => '}',
+        '<' => '>',
+    );
+
+    /**
      * @var string
      */
     protected $startDelimiter;
@@ -41,6 +51,15 @@ class RegExp
             if (preg_match('/[\\\\a-z0-9\s+]/', strtolower($delimiter)) === 1) {
                 throw new \InvalidArgumentException(sprintf('Invalid delimiter %s used', $startDelimiter));
             }
+        }
+
+        $hasPairedDelimiter = isset(static::$delimiterPairs[$startDelimiter]);
+        if (($hasPairedDelimiter && static::$delimiterPairs[$startDelimiter] !== $endDelimiter)
+            || (!$hasPairedDelimiter && $startDelimiter !== $endDelimiter)
+        ) {
+            throw new \InvalidArgumentException(
+                sprintf('Start delimiter %s does not match end delimiter %s', $startDelimiter, $endDelimiter)
+            );
         }
 
         $this->startDelimiter = $startDelimiter;
@@ -89,5 +108,14 @@ class RegExp
     {
         return strpos($this->getModifiers(), $modifier) !== false;
     }
+
+    /**
+     * @return string
+     */
+    public static function getDelimiterPairs()
+    {
+        return self::$delimiterPairs;
+    }
+
 
 }
