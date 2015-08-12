@@ -11,18 +11,45 @@ class RegExpTest extends \PHPUnit_Framework_TestCase
      * @expectedException \InvalidArgumentException
      * @dataProvider throwsExceptionWithEmptyDelimiterProvider
      */
-    public function testThrowsExceptionWithEmptyDelimiter($delimiter)
+    public function testThrowsExceptionWithEmptyStartDelimiter($delimiter)
     {
-        new RegExp($delimiter, 'abc', '');
+        new RegExp($delimiter, '/', 'abc', '');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @dataProvider throwsExceptionWithEmptyDelimiterProvider
+     */
+    public function testThrowsExceptionWithEmptyEndDelimiter($delimiter)
+    {
+        new RegExp('/', $delimiter, 'abc', '');
     }
 
     /**
      * @expectedException \InvalidArgumentException
      * @dataProvider throwsExceptionWithInvalidDelimiterProvider
      */
-    public function testThrowsExceptionWithInvalidDelimiter($delimiter)
+    public function testThrowsExceptionWithInvalidStartDelimiter($delimiter)
     {
-        new RegExp($delimiter, 'abc', '');
+        new RegExp($delimiter, '/', 'abc', '');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @dataProvider throwsExceptionWithInvalidDelimiterProvider
+     */
+    public function testThrowsExceptionWithInvalidEndDelimiter($delimiter)
+    {
+        new RegExp('/', $delimiter, 'abc', '');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @dataProvider throwsExceptionWithNonMatchingDelimitersProvider
+     */
+    public function testThrowsExceptionWithNonMatchingDelimiters($startDelimiter, $endDelimiter)
+    {
+        new RegExp($startDelimiter, $endDelimiter, 'abc', '');
     }
 
     /**
@@ -30,7 +57,7 @@ class RegExpTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasModifier($modifiers, $testedModifier, $hasModifier)
     {
-        $regexp = new RegExp('/', '[abc]', $modifiers);
+        $regexp = new RegExp('/', '/', '[abc]', $modifiers);
 
         $this->assertSame($hasModifier, $regexp->hasModifier($testedModifier));
     }
@@ -51,6 +78,17 @@ class RegExpTest extends \PHPUnit_Framework_TestCase
             array('0'),
             array('\\'),
             array(' '),
+        );
+    }
+
+    public function throwsExceptionWithNonMatchingDelimitersProvider()
+    {
+        return array(
+            array('/', '#'),
+            array('(', '('),
+            array('[', '['),
+            array('{', '{'),
+            array('<', '<'),
         );
     }
 
