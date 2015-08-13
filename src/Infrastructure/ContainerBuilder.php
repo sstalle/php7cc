@@ -72,6 +72,9 @@ class ContainerBuilder
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PregReplaceEvalVisitor',
             'dependencies' => array('regExpParser')
         ),
+        'visitor.yieldExpression' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor'
+        ),
     );
 
     /**
