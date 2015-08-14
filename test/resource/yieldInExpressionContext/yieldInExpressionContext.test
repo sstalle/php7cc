@@ -1,0 +1,20 @@
+Yielding usage in expression context
+-----
+<?php
+echo yield -1;
+-----
+"yield" usage in expression context
+-----
+<?php
+$a = yield -1;
+-----
+"yield" usage in expression context
+-----
+<?php
+echo (yield -1);
+-----
+
+-----
+<?php
+$a = (yield -1);
+-----

@@ -20,7 +20,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
             )
         ));
         $parser = new \PhpParser\Parser($lexer);
-        $traverser = new \Sstalle\php7cc\NodeTraverser\Traverser();
+        $traverser = new \Sstalle\php7cc\NodeTraverser\Traverser(false);
         $visitors = array();
         foreach (array(
             '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
@@ -39,6 +39,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
             '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
             '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
             '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor',
+            '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor',
              ) as $visitorClass) {
             $visitors[] = new $visitorClass();
         }
@@ -54,9 +55,10 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         $contextChecker = new \Sstalle\php7cc\ContextChecker($parser, $lexer, $traverser);
         $context = new \Sstalle\php7cc\CompatibilityViolation\StringContext($code, 'test');
         $contextChecker->checkContext($context);
-        $haveEqualMessageCount = count($context->getMessages()) == count($expectedMessages);
-        $this->assertTrue($haveEqualMessageCount, $name);
-        if ($haveEqualMessageCount) {
+        $expectedMessageCount = count($expectedMessages);
+        $actualMessageCount = count($context->getMessages());
+        $this->assertEquals($expectedMessageCount, $actualMessageCount, $name);
+        if ($expectedMessageCount == $actualMessageCount) {
             foreach ($context->getMessages() as $i => $message) {
                 $this->assertEquals(
                     $this->canonicalize($expectedMessages[$i]),

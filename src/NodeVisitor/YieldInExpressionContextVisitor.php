@@ -28,7 +28,7 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
         if ($node instanceof Node\Expr\Yield_) {
             if (!$this->expressionStack->isEmpty()) {
                 $this->addContextMessage(
-                    'Yield usage in expression context',
+                    '"yield" usage in expression context',
                     $this->expressionStack->top()
                 );
             }
