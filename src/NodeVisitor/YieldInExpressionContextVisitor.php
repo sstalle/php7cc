@@ -59,7 +59,7 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
     {
         while (isset($this->tokens[$before ? --$sourceTokenPosition : ++$sourceTokenPosition])) {
             $currentToken = $this->tokens[$sourceTokenPosition];
-            if (is_array($currentToken) && preg_match('/\s+/', $currentToken[1]) === 1) {
+            if (is_array($currentToken) && isset($currentToken[1]) && preg_match('/\s+/', $currentToken[1]) === 1) {
                 continue;
             }
 
