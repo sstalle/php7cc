@@ -1,4 +1,4 @@
-Yielding usage in expression context
+Yield usage in expression context
 -----
 <?php
 echo yield -1;
