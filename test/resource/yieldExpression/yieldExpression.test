@@ -1,0 +1,30 @@
+Yielding expression with precedence lower than "yield" operator
+-----
+<?php
+yield 1 and 2;
+-----
+Yielding expression with precedence lower than "yield"
+-----
+<?php
+yield 1 or 2;
+-----
+Yielding expression with precedence lower than "yield"
+-----
+<?php
+yield 1 xor 2;
+-----
+Yielding expression with precedence lower than "yield"
+-----
+<?php
+yield 1 && 2;
+-----
+
+-----
+<?php
+(yield 1) or 2;
+-----
+
+-----
+<?php
+yield $a;
+-----

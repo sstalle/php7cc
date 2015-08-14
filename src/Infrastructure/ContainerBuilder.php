@@ -72,6 +72,12 @@ class ContainerBuilder
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PregReplaceEvalVisitor',
             'dependencies' => array('regExpParser')
         ),
+        'visitor.yieldExpression' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor'
+        ),
+        'visitor.yieldInExpressionContext' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor'
+        ),
     );
 
     /**
@@ -101,7 +107,7 @@ class ContainerBuilder
 
         $visitors = $this->checkerVisitors;
         $container['traverser'] = $container->share(function($c) use ($visitors) {
-            $traverser = new Traverser();
+            $traverser = new Traverser(false);
             foreach (array_keys($visitors) as $visitorServiceName) {
                 $traverser->addVisitor($c[$visitorServiceName]);
             }
