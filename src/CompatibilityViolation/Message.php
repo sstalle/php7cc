@@ -10,6 +10,11 @@ class Message
     /**
      * @var string
      */
+    protected $rawText;
+
+    /**
+     * @var string
+     */
     protected $text;
 
     /**
@@ -29,9 +34,18 @@ class Message
      */
     public function __construct($text, $line, array $nodes)
     {
-        $this->text = $text;
+        $this->rawText = $text;
         $this->line = $line;
         $this->nodes = $nodes;
+        $this->text = $this->generateText();
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawText()
+    {
+        return $this->rawText;
     }
 
     /**
@@ -56,6 +70,11 @@ class Message
     public function getNodes()
     {
         return $this->nodes;
+    }
+
+    protected function generateText()
+    {
+        return sprintf('Line %d. %s', $this->getLine(), $this->getRawText());
     }
 
 }

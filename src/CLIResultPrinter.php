@@ -52,8 +52,7 @@ class CLIResultPrinter implements ResultPrinterInterface
 
             $this->output->writeln(
                 sprintf(
-                    'Line %d. %s: %s',
-                    $message->getLine(),
+                    '%s: %s',
                     $message->getText(),
                     $this->prettyPrinter->prettyPrint($nodes)
                 )
