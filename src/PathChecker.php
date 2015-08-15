@@ -63,7 +63,7 @@ class PathChecker
         $context = $this->fileContextFactory->createContext($pathName);
         $this->contextChecker->checkContext($context);
 
-        if (count($context->getMessages())) {
+        if ($context->hasMessagesOrErrors()) {
             $this->resultPrinter->printContext($context);
         }
 

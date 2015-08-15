@@ -5,6 +5,7 @@ namespace Sstalle\php7cc;
 use PhpParser\Parser;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 use Sstalle\php7cc\CompatibilityViolation\FileContext;
+use Sstalle\php7cc\Error\CheckError;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeTraverser\Traverser;
 
@@ -44,9 +45,12 @@ class ContextChecker
      */
     public function checkContext(ContextInterface $context)
     {
-        $parsedStatements = $this->parser->parse($context->getCheckedCode());
-
-        $this->traverser->traverse($parsedStatements, $context, $this->lexer->getTokens());
+        try {
+            $parsedStatements = $this->parser->parse($context->getCheckedCode());
+            $this->traverser->traverse($parsedStatements, $context, $this->lexer->getTokens());
+        } catch (\Exception $e) {
+            $context->addError(new CheckError($e));
+        }
     }
 
 }
