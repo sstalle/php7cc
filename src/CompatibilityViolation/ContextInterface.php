@@ -3,6 +3,8 @@
 namespace Sstalle\php7cc\CompatibilityViolation;
 
 
+use Sstalle\php7cc\Error\CheckError;
+
 interface ContextInterface
 {
 
@@ -15,6 +17,16 @@ interface ContextInterface
      * @return Message[]
      */
     public function getMessages();
+
+    /**
+     * @param CheckError $error
+     */
+    public function addError(CheckError $error);
+
+    /**
+     * @return CheckError[]
+     */
+    public function getErrors();
 
     /**
      * @return string
