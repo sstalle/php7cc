@@ -29,6 +29,11 @@ interface ContextInterface
     public function getErrors();
 
     /**
+     * @return bool
+     */
+    public function hasMessagesOrErrors();
+
+    /**
      * @return string
      */
     public function getCheckedResourceName();

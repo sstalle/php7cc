@@ -49,4 +49,12 @@ abstract class AbstractContext implements ContextInterface
         return $this->errors;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function hasMessagesOrErrors()
+    {
+        return $this->messages || $this->errors;
+    }
+
 }

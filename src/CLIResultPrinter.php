@@ -59,6 +59,10 @@ class CLIResultPrinter implements ResultPrinterInterface
             );
         }
 
+        foreach ($context->getErrors() as $error) {
+            $this->output->writeln($error->getMessage());
+        }
+
         $this->output->writeln('');
     }
 
