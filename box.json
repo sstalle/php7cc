@@ -20,7 +20,6 @@
     "LICENSE",
     "README.md"
   ],
-  "git-version": "package_version",
   "main": "bin/php7cc.php",
   "output": "php7cc.phar",
   "stub": true
