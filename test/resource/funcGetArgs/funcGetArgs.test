@@ -1,16 +1,781 @@
 func_get_args or func_get_arg calls
 -----
 <?php
-func_get_args();
+function foo($a) { foreach ($a as $b) {} func_get_args(); }
 -----
 Function argument(s) returned by "func_get_args" might have been modified
 -----
 <?php
-func_get_arg();
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { foreach ($a as $b) {} func_get_arg(); }
 -----
 Function argument(s) returned by "func_get_arg" might have been modified
 -----
 <?php
-func_get_arg(1);
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { foreach ($a as $b) {} func_get_arg(1); }
 -----
 Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { global $a; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { global $a; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { global $a; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { unset($a); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { unset($a); func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { unset($a); func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a = 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a = 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a = 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a = &$b; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a = &$b; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a = &$b; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a = &$b; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a = &$b; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a = &$b; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a &= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a &= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a &= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a |= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a |= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a |= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a ^= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a ^= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a ^= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a .= ""; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a .= ""; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a .= ""; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a /= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a /= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a /= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a -= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a -= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a -= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a *= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a *= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a *= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a %= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a %= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a %= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a += 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a += 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a += 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a **= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a **= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a **= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a <<= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a <<= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a <<= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a >>= 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a >>= 1; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a >>= 1; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { foo(); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { foo(); func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { foo(); func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { list($a, $b) = array(1, 2); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { list($a, $b) = array(1, 2); func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { list($a, $b) = array(1, 2); func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $foo->bar(); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $foo->bar(); func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $foo->bar(); func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a++; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a++; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a++; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { $a--; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a--; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { $a--; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { ++$a; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { ++$a; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { ++$a; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { --$a; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { --$a; func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { --$a; func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
+-----
+<?php
+function foo($a) { Foo::bar(); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { Foo::bar(); func_get_arg(); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(); }
+-----
+
+-----
+<?php
+function foo($a) { Foo::bar(); func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
+
