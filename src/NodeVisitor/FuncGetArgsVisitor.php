@@ -33,9 +33,7 @@ class FuncGetArgsVisitor extends AbstractVisitor
      */
     protected $argumentModificationStack;
 
-    /**
-     */
-    public function __construct()
+    public function beforeTraverse(array $nodes)
     {
         $this->argumentModificationStack = new \SplStack();
     }
