@@ -779,3 +779,12 @@ Function argument(s) returned by "func_get_arg" might have been modified
 function foo($a) { func_get_arg(1); }
 -----
 
+-----
+<?php
+function foo($a) { $a = 1; function bar() { $b = 1; } func_get_arg(1); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { function bar() { $b = 1; } func_get_arg(1); }
+-----

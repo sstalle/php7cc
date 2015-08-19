@@ -64,6 +64,12 @@ class FuncGetArgsVisitor extends AbstractVisitor
             return;
         }
 
+        if ($node instanceof Node\FunctionLike) {
+            $this->argumentModificationStack->pop();
+
+            return;
+        }
+
         foreach ($this->possiblyArgumentModifyingClasses as $class) {
             if ($node instanceof $class) {
                 $this->argumentModificationStack->pop();
