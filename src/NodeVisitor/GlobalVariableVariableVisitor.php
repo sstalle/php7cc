@@ -18,10 +18,10 @@ class GlobalVariableVariableVisitor extends AbstractVisitor
                 $globalVariable->name instanceof Node\Expr\PropertyFetch
                 || $globalVariable->name instanceof Node\Expr\StaticPropertyFetch
                 || $globalVariable->name instanceof Node\Expr\ArrayDimFetch
-            )) {
+                )
+            ) {
                 continue;
             }
-            ;
             $nextToStartToken = $this->tokens[$globalVariable->getAttribute('startTokenPos') + 1];
             $endToken = $this->tokens[$globalVariable->getAttribute('endTokenPos')];
             if ($nextToStartToken === '{' && $endToken === '}') {

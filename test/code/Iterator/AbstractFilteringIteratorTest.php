@@ -25,7 +25,10 @@ abstract class AbstractFilteringIteratorTest extends \PHPUnit_Framework_TestCase
         $filteringIterator = $iteratorClassReflection->newInstanceArgs($filterArguments);
         $actualResult = array();
 
-        foreach (new \RecursiveIteratorIterator($filteringIterator, \RecursiveIteratorIterator::LEAVES_ONLY) as $fileName) {
+        foreach (
+            new \RecursiveIteratorIterator($filteringIterator, \RecursiveIteratorIterator::LEAVES_ONLY)
+            as $fileName
+        ) {
             $actualResult[] = pathinfo($fileName, PATHINFO_BASENAME);
         }
 

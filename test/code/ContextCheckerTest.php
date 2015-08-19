@@ -23,24 +23,24 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         $traverser = new \Sstalle\php7cc\NodeTraverser\Traverser(false);
         $visitors = array();
         foreach (array(
-            '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\ListVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\GlobalVariableVariableVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\IndirectVariableOrMethodAccessVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor',
-            '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor',
-             ) as $visitorClass) {
+                     '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\ListVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\GlobalVariableVariableVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\IndirectVariableOrMethodAccessVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor',
+                     '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor',
+                 ) as $visitorClass) {
             $visitors[] = new $visitorClass();
         }
 
@@ -85,7 +85,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
             $fileContents = file_get_contents($fileName);
             // parse sections
             $fileContents = explode('-----', $fileContents);
-            $parts = array_map(function($i, $section) {
+            $parts = array_map(function ($i, $section) {
                 return $i % 2 != 0 ? $section : trim($section);
             }, array_keys($fileContents), $fileContents);
             // first part is the name
@@ -116,5 +116,5 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         // trim right side of all lines
         return implode("\n", array_map('rtrim', explode("\n", $str)));
     }
-    
+
 }

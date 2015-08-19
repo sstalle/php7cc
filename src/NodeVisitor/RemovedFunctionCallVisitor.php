@@ -96,6 +96,4 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
         );
     }
 
-
-
 }

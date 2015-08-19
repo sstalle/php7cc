@@ -30,7 +30,6 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                     'folderphp.test'
                 )
             ),
-
             array(
                 array(
                     'empty' => array(),
@@ -52,7 +51,6 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                     'topphp.php',
                 )
             ),
-
             array(
                 array(
                     'empty' => array(),
@@ -75,7 +73,6 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                     'topphp.php',
                 )
             ),
-
             array(
                 array(
                     'empty' => array(),
@@ -91,8 +88,7 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                 array(
                     array()
                 ),
-                array(
-                )
+                array()
             )
         );
     }

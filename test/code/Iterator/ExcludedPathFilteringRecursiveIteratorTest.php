@@ -4,7 +4,8 @@ namespace Sstalle\php7cc\Iterator;
 
 use code\Iterator\AbstractFilteringIteratorTest;
 
-function realpath($path) {
+function realpath($path)
+{
     return $path;
 }
 
@@ -36,7 +37,6 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
                     'topphp.php'
                 )
             ),
-
             array(
                 array(
                     'empty' => array(),
@@ -58,7 +58,6 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
                     'topphp.php'
                 )
             ),
-
             array(
                 array(
                     'empty' => array(),
@@ -81,7 +80,6 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
                     'topphp.php'
                 )
             ),
-
             array(
                 array(
                     'empty' => array(

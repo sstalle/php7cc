@@ -29,7 +29,7 @@ class ExcludedPathCanonicalizer
      */
     public function canonicalize(array $checkedPaths, array $excludedPaths)
     {
-        $checkedDirectories = array_filter($checkedPaths, function($path) {
+        $checkedDirectories = array_filter($checkedPaths, function ($path) {
             return is_dir($path);
         });
         $canonicalizedPaths = array();

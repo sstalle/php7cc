@@ -8,7 +8,8 @@ use PhpParser\Parser;
 class ExtendedLexer extends Lexer
 {
 
-    public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null) {
+    public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null)
+    {
         $tokenId = parent::getNextToken($value, $startAttributes, $endAttributes);
 
         if ($tokenId == Parser::T_CONSTANT_ENCAPSED_STRING // non-interpolated string

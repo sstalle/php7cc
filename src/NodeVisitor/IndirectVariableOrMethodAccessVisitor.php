@@ -13,9 +13,9 @@ class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
         $startCurlyBraceOffset = 2;
 
         if (($node instanceof Node\Expr\PropertyFetch
-            || $node instanceof Node\Expr\MethodCall
-            || $node instanceof Node\Expr\StaticCall
-            || $node instanceof Node\Expr\Variable
+                || $node instanceof Node\Expr\MethodCall
+                || $node instanceof Node\Expr\StaticCall
+                || $node instanceof Node\Expr\Variable
             ) && $node->name instanceof Node\Expr\ArrayDimFetch
         ) {
             if ($node instanceof Node\Expr\Variable) {
