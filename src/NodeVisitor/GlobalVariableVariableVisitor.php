@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class GlobalVariableVariableVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Stmt\Global_) {
@@ -34,5 +33,4 @@ class GlobalVariableVariableVisitor extends AbstractVisitor
             );
         }
     }
-
 }

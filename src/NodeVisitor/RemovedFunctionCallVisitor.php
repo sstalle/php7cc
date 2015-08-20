@@ -7,7 +7,6 @@ use Sstalle\php7cc\Helper\NodeHelper;
 
 class RemovedFunctionCallVisitor extends AbstractVisitor
 {
-
     protected $removedFunctionNames = array(
         'call_user_method',
         'call_user_method',
@@ -95,5 +94,4 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
             $node
         );
     }
-
 }

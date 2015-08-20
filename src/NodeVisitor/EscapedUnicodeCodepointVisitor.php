@@ -6,13 +6,11 @@ use PhpParser\Node;
 
 class EscapedUnicodeCodepointVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Scalar\String_) {
             return;
         }
-
 
         $unquotedStringValue = null;
         if ($node->getAttribute('isDoubleQuoted')) {
@@ -43,5 +41,4 @@ class EscapedUnicodeCodepointVisitor extends AbstractVisitor
             );
         }
     }
-
 }

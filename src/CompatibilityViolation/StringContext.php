@@ -4,7 +4,6 @@ namespace Sstalle\php7cc\CompatibilityViolation;
 
 class StringContext extends AbstractContext
 {
-
     /**
      * @var string
      */
@@ -26,7 +25,7 @@ class StringContext extends AbstractContext
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCheckedResourceName()
     {
@@ -34,12 +33,10 @@ class StringContext extends AbstractContext
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCheckedCode()
     {
         return $this->checkedCode;
     }
-
-
 }

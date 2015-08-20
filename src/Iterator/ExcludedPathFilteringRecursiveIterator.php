@@ -4,7 +4,6 @@ namespace Sstalle\php7cc\Iterator;
 
 class ExcludedPathFilteringRecursiveIterator extends \RecursiveFilterIterator
 {
-
     /**
      * @var string[]
      */
@@ -12,7 +11,7 @@ class ExcludedPathFilteringRecursiveIterator extends \RecursiveFilterIterator
 
     /**
      * @param \RecursiveIterator $iterator
-     * @param \string[] $excludedPaths
+     * @param \string[]          $excludedPaths
      */
     public function __construct(\RecursiveIterator $iterator, array $excludedPaths)
     {
@@ -21,7 +20,7 @@ class ExcludedPathFilteringRecursiveIterator extends \RecursiveFilterIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function accept()
     {
@@ -29,11 +28,10 @@ class ExcludedPathFilteringRecursiveIterator extends \RecursiveFilterIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getChildren()
     {
         return new static($this->getInnerIterator()->getChildren(), array_flip($this->excludedPaths));
     }
-
 }

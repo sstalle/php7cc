@@ -6,7 +6,6 @@ use Sstalle\php7cc\Helper\Path\PathHelperInterface;
 
 class ExcludedPathCanonicalizer
 {
-
     /**
      * @var PathHelperInterface
      */
@@ -21,10 +20,11 @@ class ExcludedPathCanonicalizer
     }
 
     /**
-     * Makes all excluded paths absolute. Non-existent paths are removed
+     * Makes all excluded paths absolute. Non-existent paths are removed.
      *
      * @param string[] $checkedPaths
      * @param string[] $excludedPaths
+     *
      * @return \string[]
      */
     public function canonicalize(array $checkedPaths, array $excludedPaths)
@@ -47,5 +47,4 @@ class ExcludedPathCanonicalizer
 
         return $canonicalizedPaths;
     }
-
 }

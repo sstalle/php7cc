@@ -6,7 +6,6 @@ use Sstalle\php7cc\Helper\Path\PathHelperInterface;
 
 abstract class AbstractPathHelperTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var PathHelperInterface
      */
@@ -47,5 +46,4 @@ abstract class AbstractPathHelperTest extends \PHPUnit_Framework_TestCase
      * @return PathHelperInterface
      */
     abstract public function createPathHelper();
-
 }

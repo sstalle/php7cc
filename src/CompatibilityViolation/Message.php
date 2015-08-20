@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class Message
 {
-
     /**
      * @var string
      */
@@ -29,7 +28,7 @@ class Message
 
     /**
      * @param string $text
-     * @param int $line
+     * @param int    $line
      * @param Node[] $nodes
      */
     public function __construct($text, $line, array $nodes)
@@ -76,5 +75,4 @@ class Message
     {
         return sprintf('Line %d. %s', $this->getLine(), $this->getRawText());
     }
-
 }

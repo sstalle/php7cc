@@ -2,11 +2,8 @@
 
 namespace Sstalle\php7cc\Iterator;
 
-use RecursiveIterator;
-
 class FileDirectoryListRecursiveIterator implements \RecursiveIterator
 {
-
     /**
      * @var string[]
      */
@@ -32,7 +29,7 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -40,15 +37,15 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function next()
     {
-        $this->position++;
+        ++$this->position;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function key()
     {
@@ -56,7 +53,7 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function valid()
     {
@@ -64,7 +61,7 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -72,7 +69,7 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hasChildren()
     {
@@ -80,7 +77,7 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getChildren()
     {
@@ -91,5 +88,4 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
             | \RecursiveDirectoryIterator::SKIP_DOTS
         );
     }
-
 }

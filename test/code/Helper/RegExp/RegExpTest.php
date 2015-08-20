@@ -6,7 +6,6 @@ use Sstalle\php7cc\Helper\RegExp\RegExp;
 
 class RegExpTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException \InvalidArgumentException
      * @dataProvider throwsExceptionWithEmptyDelimiterProvider
@@ -103,5 +102,4 @@ class RegExpTest extends \PHPUnit_Framework_TestCase
             array('aec', 'b', false),
         );
     }
-
 }

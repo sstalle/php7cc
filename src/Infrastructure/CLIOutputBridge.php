@@ -7,7 +7,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CLIOutputBridge implements CLIOutputInterface
 {
-
     /**
      * @var OutputInterface
      */
@@ -22,7 +21,7 @@ class CLIOutputBridge implements CLIOutputInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function write($string)
     {
@@ -30,11 +29,10 @@ class CLIOutputBridge implements CLIOutputInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function writeln($string)
     {
         $this->output->writeln($string);
     }
-
 }

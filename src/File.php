@@ -4,7 +4,6 @@ namespace Sstalle\php7cc;
 
 class File extends \SplFileInfo
 {
-
     /**
      * @return string
      */
@@ -12,5 +11,4 @@ class File extends \SplFileInfo
     {
         return file_get_contents($this->getPathname());
     }
-
 }

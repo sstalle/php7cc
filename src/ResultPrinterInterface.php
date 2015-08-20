@@ -7,7 +7,6 @@ use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 
 interface ResultPrinterInterface
 {
-
     /**
      * @param ContextInterface $context
      */
@@ -17,5 +16,4 @@ interface ResultPrinterInterface
      * @param CheckMetadata $metadata
      */
     public function printMetadata(CheckMetadata $metadata);
-
 }

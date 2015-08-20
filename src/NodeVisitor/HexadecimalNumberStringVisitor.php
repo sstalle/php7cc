@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class HexadecimalNumberStringVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Scalar\String_) {
@@ -20,5 +19,4 @@ class HexadecimalNumberStringVisitor extends AbstractVisitor
             );
         }
     }
-
 }

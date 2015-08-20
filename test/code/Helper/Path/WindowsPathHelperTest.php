@@ -2,18 +2,16 @@
 
 class WindowsPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function createPathHelper()
     {
         return new \Sstalle\php7cc\Helper\Path\WindowsPathHelper();
-
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isAbsolutePathProvider()
     {
@@ -31,7 +29,7 @@ class WindowsPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isDirectoryRelativePathProvider()
     {
@@ -46,5 +44,4 @@ class WindowsPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
             array('../foo/bar', true),
         );
     }
-
 }

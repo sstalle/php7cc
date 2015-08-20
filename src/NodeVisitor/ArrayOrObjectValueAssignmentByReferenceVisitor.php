@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Expr\AssignRef) {
@@ -18,6 +17,7 @@ class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
 
     /**
      * @param Node\Expr\AssignRef $node
+     *
      * @return bool
      */
     protected function checkArrayValueByReferenceCreation(Node\Expr\AssignRef $node)
@@ -38,6 +38,7 @@ class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
 
     /**
      * @param Node\Expr\AssignRef $node
+     *
      * @return bool
      */
     protected function checkObjectPropertyByReferenceCreation(Node\Expr\AssignRef $node)
@@ -53,5 +54,4 @@ class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
 
         return false;
     }
-
 }

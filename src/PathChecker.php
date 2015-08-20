@@ -6,7 +6,6 @@ use Sstalle\php7cc\CompatibilityViolation\CheckMetadata;
 
 class PathChecker
 {
-
     /**
      * @var ContextChecker
      */
@@ -23,8 +22,8 @@ class PathChecker
     protected $resultPrinter;
 
     /**
-     * @param ContextChecker $fileChecker
-     * @param FileContextFactory $contextFactory
+     * @param ContextChecker         $fileChecker
+     * @param FileContextFactory     $contextFactory
      * @param ResultPrinterInterface $resultPrinter
      */
     public function __construct(
@@ -56,7 +55,7 @@ class PathChecker
 
     /**
      * @param CheckMetadata $checkMetadata
-     * @param string $pathName
+     * @param string        $pathName
      */
     protected function checkFile(CheckMetadata $checkMetadata, $pathName)
     {
@@ -69,5 +68,4 @@ class PathChecker
 
         $checkMetadata->incrementCheckedFileCount();
     }
-
 }

@@ -6,10 +6,10 @@ use PhpParser\Node;
 
 class NodeStatementsRemover
 {
-
     /**
      * @param Node[] $nodes
-     * @param bool $cloneNodes
+     * @param bool   $cloneNodes
+     *
      * @return \PhpParser\Node[]
      */
     public function removeInnerStatements($nodes, $cloneNodes = true)
@@ -30,5 +30,4 @@ class NodeStatementsRemover
 
         return $resultNodes;
     }
-
 }

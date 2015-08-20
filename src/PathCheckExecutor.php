@@ -4,7 +4,6 @@ namespace Sstalle\php7cc;
 
 class PathCheckExecutor
 {
-
     /**
      * @var PathTraversableFactory
      */
@@ -17,7 +16,7 @@ class PathCheckExecutor
 
     /**
      * @param PathTraversableFactory $pathTraversableFactory
-     * @param PathChecker $pathChecker
+     * @param PathChecker            $pathChecker
      */
     public function __construct(PathTraversableFactory $pathTraversableFactory, PathChecker $pathChecker)
     {
@@ -35,5 +34,4 @@ class PathCheckExecutor
             )
         );
     }
-
 }

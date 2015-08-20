@@ -2,7 +2,6 @@
 
 class ContextCheckerTest extends \PHPUnit_Framework_TestCase
 {
-
     const TEST_FILE_EXTENSION = '.test';
 
     /**
@@ -17,7 +16,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
                 'endLine',
                 'startTokenPos',
                 'endTokenPos',
-            )
+            ),
         ));
         $parser = new \PhpParser\Parser($lexer);
         $traverser = new \Sstalle\php7cc\NodeTraverser\Traverser(false);
@@ -70,7 +69,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Copypasted from PhpParser\CodeTestAbstract
+     * Copypasted from PhpParser\CodeTestAbstract.
      *
      * @return array
      */
@@ -101,9 +100,10 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Copypasted from PhpParser\CodeTestAbstract
+     * Copypasted from PhpParser\CodeTestAbstract.
      *
      * @param $str string
+     *
      * @return string
      */
     protected function canonicalize($str)
@@ -116,5 +116,4 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         // trim right side of all lines
         return implode("\n", array_map('rtrim', explode("\n", $str)));
     }
-
 }

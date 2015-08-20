@@ -7,7 +7,6 @@ use Sstalle\php7cc\Helper\NodeHelper;
 
 class FuncGetArgsVisitor extends AbstractVisitor
 {
-
     protected $possiblyArgumentModifyingClasses = array(
         'PhpParser\\Node\\Stmt\\Foreach_',
         'PhpParser\\Node\\Stmt\\Global_',
@@ -79,5 +78,4 @@ class FuncGetArgsVisitor extends AbstractVisitor
             }
         }
     }
-
 }

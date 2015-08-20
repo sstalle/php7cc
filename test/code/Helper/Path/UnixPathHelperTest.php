@@ -2,7 +2,6 @@
 
 class UnixPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
 {
-
     public function createPathHelper()
     {
         return new \Sstalle\php7cc\Helper\Path\UnixPathHelper();
@@ -22,7 +21,7 @@ class UnixPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isDirectoryRelativePathProvider()
     {
@@ -33,5 +32,4 @@ class UnixPathHelperTest extends \code\Helper\Path\AbstractPathHelperTest
 
         return $absolutePathData;
     }
-
 }

@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class DuplicateFunctionParameterVisitor extends AbstractVisitor
 {
-
     /**
      * @var Node|null
      */
@@ -36,5 +35,4 @@ class DuplicateFunctionParameterVisitor extends AbstractVisitor
             }
         }
     }
-
 }

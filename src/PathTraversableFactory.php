@@ -8,7 +8,6 @@ use Sstalle\php7cc\Iterator\FileDirectoryListRecursiveIterator;
 
 class PathTraversableFactory
 {
-
     /**
      * @var ExcludedPathCanonicalizer
      */
@@ -23,9 +22,10 @@ class PathTraversableFactory
     }
 
     /**
-     * @param string[] $paths Files and/or directories to check
+     * @param string[] $paths             Files and/or directories to check
      * @param string[] $checkedExtensions Only files having these extensions will be checked
      * @param string[] $excludedPaths
+     *
      * @return \Traversable
      */
     public function createTraversable(array $paths, array $checkedExtensions, array $excludedPaths)
@@ -56,5 +56,4 @@ class PathTraversableFactory
             \RecursiveIteratorIterator::LEAVES_ONLY
         );
     }
-
 }

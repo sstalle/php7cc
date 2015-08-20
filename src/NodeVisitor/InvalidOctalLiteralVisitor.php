@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class InvalidOctalLiteralVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Scalar\LNumber) {
@@ -22,5 +21,4 @@ class InvalidOctalLiteralVisitor extends AbstractVisitor
             );
         }
     }
-
 }

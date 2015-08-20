@@ -4,9 +4,8 @@ namespace Sstalle\php7cc\Helper\Path;
 
 class WindowsPathHelper implements PathHelperInterface
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isAbsolute($path)
     {
@@ -14,11 +13,10 @@ class WindowsPathHelper implements PathHelperInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isDirectoryRelative($path)
     {
         return $path && (!$this->isAbsolute($path) && preg_match('#^[a-zA-Z]\\:(?!\\\\)#', $path) === 0);
     }
-
 }

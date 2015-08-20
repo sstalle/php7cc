@@ -6,10 +6,10 @@ use PhpParser\Node;
 
 class NodeHelper
 {
-
     /**
-     * @param Node $node
+     * @param Node            $node
      * @param string|string[] $checkedFunctionName If an array as passed, function names should be keys
+     *
      * @return bool
      */
     public static function isFunctionCallByStaticName(Node $node, $checkedFunctionName)
@@ -25,5 +25,4 @@ class NodeHelper
             ? isset($checkedFunctionName[$calledFunctionName])
             : $calledFunctionName === $checkedFunctionName;
     }
-
 }

@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         $endCurlyBraceOffset = 0;
@@ -38,5 +37,4 @@ class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
             $node
         );
     }
-
 }

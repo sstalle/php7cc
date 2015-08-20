@@ -7,7 +7,6 @@ use PhpParser\Parser;
 
 class ExtendedLexer extends Lexer
 {
-
     public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null)
     {
         $tokenId = parent::getNextToken($value, $startAttributes, $endAttributes);
@@ -30,5 +29,4 @@ class ExtendedLexer extends Lexer
 
         return $tokenId;
     }
-
 }

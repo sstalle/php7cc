@@ -6,9 +6,8 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class Application extends \Symfony\Component\Console\Application
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getDefinition()
     {
@@ -19,7 +18,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getCommandName(InputInterface $input)
     {
@@ -27,7 +26,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getDefaultCommands()
     {
@@ -36,5 +35,4 @@ class Application extends \Symfony\Component\Console\Application
 
         return $defaultCommands;
     }
-
 }

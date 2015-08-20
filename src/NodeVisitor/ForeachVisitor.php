@@ -7,7 +7,6 @@ use Sstalle\php7cc\Helper\NodeHelper;
 
 class ForeachVisitor extends AbstractVisitor
 {
-
     /**
      * @var \SplStack
      */
@@ -90,9 +89,10 @@ class ForeachVisitor extends AbstractVisitor
     }
 
     /**
-     * @param Node $node
-     * @param array $functions
+     * @param Node      $node
+     * @param array     $functions
      * @param null|bool $skippedByRefType Reference type (by value/by reference) to skip
+     *
      * @return bool
      */
     protected function hasFunctionCallWithForeachArgument(Node $node, array $functions, $skippedByRefType = null)
@@ -175,7 +175,6 @@ class ForeachVisitor extends AbstractVisitor
             return $foreach->expr->var->name;
         }
 
-        return null;
+        return;
     }
-
 }

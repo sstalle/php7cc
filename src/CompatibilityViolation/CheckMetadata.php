@@ -4,7 +4,6 @@ namespace Sstalle\php7cc\CompatibilityViolation;
 
 class CheckMetadata
 {
-
     /**
      * @var float
      */
@@ -53,7 +52,6 @@ class CheckMetadata
 
     public function incrementCheckedFileCount()
     {
-        $this->checkedFileCount++;
+        ++$this->checkedFileCount;
     }
-
 }

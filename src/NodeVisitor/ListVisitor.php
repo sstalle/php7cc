@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class ListVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Expr\List_) {
@@ -34,7 +33,5 @@ class ListVisitor extends AbstractVisitor
                 $node
             );
         }
-
     }
-
 }

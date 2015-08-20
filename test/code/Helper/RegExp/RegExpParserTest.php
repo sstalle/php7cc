@@ -6,7 +6,6 @@ use Sstalle\php7cc\Helper\RegExp\RegExpParser;
 
 class RegExpParserTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var RegExpParser
      */
@@ -68,44 +67,43 @@ class RegExpParserTest extends \PHPUnit_Framework_TestCase
                 '/',
                 '/',
                 'foo',
-                'bar'
+                'bar',
             ),
             array(
                 '(foo)b',
                 '(',
                 ')',
                 'foo',
-                'b'
+                'b',
             ),
             array(
                 '#foo#',
                 '#',
                 '#',
                 'foo',
-                ''
+                '',
             ),
             array(
                 '{a}',
                 '{',
                 '}',
                 'a',
-                ''
+                '',
             ),
             array(
                 '[a]',
                 '[',
                 ']',
                 'a',
-                ''
+                '',
             ),
             array(
                 '<a>',
                 '<',
                 '>',
                 'a',
-                ''
+                '',
             ),
         );
     }
-
 }
