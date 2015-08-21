@@ -4,9 +4,9 @@ namespace Sstalle\php7cc\Helper\RegExp;
 
 class RegExpParser
 {
-
     /**
      * @param string $regExp
+     *
      * @return RegExp
      */
     public function parse($regExp)
@@ -32,5 +32,4 @@ class RegExpParser
             substr($regExp, $endDelimiterPosition + 1)
         );
     }
-
 }

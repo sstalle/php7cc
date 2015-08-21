@@ -4,9 +4,8 @@ namespace code\Iterator;
 
 class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorTest
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function filterFilesProvider()
     {
@@ -21,14 +20,14 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array('test')
+                    array('test'),
                 ),
                 array(
-                    'folderphp.test'
-                )
+                    'folderphp.test',
+                ),
             ),
             array(
                 array(
@@ -40,16 +39,16 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array('php')
+                    array('php'),
                 ),
                 array(
                     'subfolderphp.php',
                     'folderphp.php',
                     'topphp.php',
-                )
+                ),
             ),
             array(
                 array(
@@ -61,17 +60,17 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array('php', 'test')
+                    array('php', 'test'),
                 ),
                 array(
                     'subfolderphp.php',
                     'folderphp.php',
                     'folderphp.test',
                     'topphp.php',
-                )
+                ),
             ),
             array(
                 array(
@@ -83,22 +82,21 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array()
+                    array(),
                 ),
-                array()
-            )
+                array(),
+            ),
         );
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getIteratorClass()
     {
         return '\\Sstalle\\php7cc\\Iterator\\ExtensionFilteringRecursiveIterator';
     }
-
 }

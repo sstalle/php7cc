@@ -6,7 +6,6 @@ use Sstalle\php7cc\Helper\OSDetector;
 
 class PathHelperFactory
 {
-
     /**
      * @var OSDetector
      */
@@ -27,5 +26,4 @@ class PathHelperFactory
     {
         return $this->osDetector->isWindows() ? new WindowsPathHelper() : new UnixPathHelper();
     }
-
 }

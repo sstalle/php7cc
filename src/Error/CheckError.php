@@ -4,7 +4,6 @@ namespace Sstalle\php7cc\Error;
 
 class CheckError
 {
-
     /**
      * @var \Exception
      */
@@ -25,5 +24,4 @@ class CheckError
     {
         return $this->wrappedException->getMessage();
     }
-
 }

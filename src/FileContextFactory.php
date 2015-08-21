@@ -6,9 +6,9 @@ use Sstalle\php7cc\CompatibilityViolation\FileContext;
 
 class FileContextFactory
 {
-
     /**
      * @param string $file
+     *
      * @return FileContext
      */
     public function createContext($file)
@@ -17,5 +17,4 @@ class FileContextFactory
 
         return new FileContext($file);
     }
-
 }

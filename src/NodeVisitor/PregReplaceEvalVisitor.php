@@ -8,7 +8,6 @@ use Sstalle\php7cc\Helper\RegExp\RegExpParser;
 
 class PregReplaceEvalVisitor extends AbstractVisitor
 {
-
     const PREG_REPLACE_EVAL_MODIFIER = 'e';
 
     /**
@@ -44,5 +43,4 @@ class PregReplaceEvalVisitor extends AbstractVisitor
             );
         }
     }
-
 }

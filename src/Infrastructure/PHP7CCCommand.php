@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PHP7CCCommand extends Command
 {
-
     const COMMAND_NAME = 'php7cc';
 
     const PATHS_ARGUMENT_NAME = 'paths';
@@ -18,7 +17,7 @@ class PHP7CCCommand extends Command
     const EXCEPT_OPTION_NAME = 'except';
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -44,7 +43,7 @@ class PHP7CCCommand extends Command
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -76,5 +75,4 @@ class PHP7CCCommand extends Command
 
         $container['pathCheckExecutor']->check($paths, $extensions, $input->getOption(static::EXCEPT_OPTION_NAME));
     }
-
 }

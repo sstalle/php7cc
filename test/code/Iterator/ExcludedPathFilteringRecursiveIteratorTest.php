@@ -11,9 +11,8 @@ function realpath($path)
 
 class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIteratorTest
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function filterFilesProvider()
     {
@@ -28,14 +27,14 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array('vfs://root/folder')
+                    array('vfs://root/folder'),
                 ),
                 array(
-                    'topphp.php'
-                )
+                    'topphp.php',
+                ),
             ),
             array(
                 array(
@@ -47,16 +46,16 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array('vfs://root/folder/subfolder')
+                    array('vfs://root/folder/subfolder'),
                 ),
                 array(
                     'folderphp.php',
                     'folderphp.test',
-                    'topphp.php'
-                )
+                    'topphp.php',
+                ),
             ),
             array(
                 array(
@@ -68,17 +67,17 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array()
+                    array(),
                 ),
                 array(
                     'subfolderphp.php',
                     'folderphp.php',
                     'folderphp.test',
-                    'topphp.php'
-                )
+                    'topphp.php',
+                ),
             ),
             array(
                 array(
@@ -92,25 +91,23 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
                         'folderphp.php' => '1',
                         'folderphp.test' => '1',
                     ),
-                    'topphp.php' => '1'
+                    'topphp.php' => '1',
                 ),
                 array(
-                    array('vfs://root/folder', 'vfs://root/empty')
+                    array('vfs://root/folder', 'vfs://root/empty'),
                 ),
                 array(
-                    'topphp.php'
-                )
+                    'topphp.php',
+                ),
             ),
         );
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getIteratorClass()
     {
         return '\\Sstalle\\php7cc\\Iterator\\ExcludedPathFilteringRecursiveIterator';
     }
-
-
 }

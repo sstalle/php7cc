@@ -4,7 +4,6 @@ namespace Sstalle\php7cc\Iterator;
 
 class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
 {
-
     /**
      * @var string[]
      */
@@ -17,8 +16,8 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
 
     /**
      * @param \RecursiveIterator $iterator
-     * @param string[] $allowedExtensions
-     * @param array $alwaysAllowedFiles
+     * @param string[]           $allowedExtensions
+     * @param array              $alwaysAllowedFiles
      */
     public function __construct(
         \RecursiveIterator $iterator,
@@ -31,7 +30,7 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function accept()
     {
@@ -46,7 +45,7 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getChildren()
     {
@@ -56,5 +55,4 @@ class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
             array_flip($this->alwaysAllowedFiles)
         );
     }
-
 }

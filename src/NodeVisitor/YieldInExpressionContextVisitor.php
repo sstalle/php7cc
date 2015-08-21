@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class YieldInExpressionContextVisitor extends AbstractVisitor
 {
-
     /**
      * @var \SplStack
      */
@@ -48,11 +47,12 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
 
     /**
      * Returns true if $sourceTokenPosition is separated from $targetToken by whitespace tokens only,
-     * otherwise false
+     * otherwise false.
      *
      * @param string $sourceTokenPosition Position in the token array to start search from
-     * @param bool $before true - search before source token, false - after
-     * @param string $targetToken Token value to search for
+     * @param bool   $before              true - search before source token, false - after
+     * @param string $targetToken         Token value to search for
+     *
      * @return bool
      */
     protected function isImmediateSiblingOfToken($sourceTokenPosition, $before, $targetToken)
@@ -68,5 +68,4 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
 
         return false;
     }
-
 }

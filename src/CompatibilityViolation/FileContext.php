@@ -6,7 +6,6 @@ use Sstalle\php7cc\File;
 
 class FileContext extends AbstractContext
 {
-
     /**
      * @var File
      */
@@ -29,7 +28,7 @@ class FileContext extends AbstractContext
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCheckedResourceName()
     {
@@ -37,11 +36,10 @@ class FileContext extends AbstractContext
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCheckedCode()
     {
         return $this->getFile()->getContents();
     }
-
 }

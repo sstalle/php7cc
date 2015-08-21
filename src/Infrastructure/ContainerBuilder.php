@@ -21,67 +21,67 @@ use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 
 class ContainerBuilder
 {
-
     protected $checkerVisitors = array(
         'visitor.removedFunctionCall' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
         ),
         'visitor.reservedClassName' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor',
         ),
         'visitor.duplicateFunctionParameter' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor',
         ),
         'visitor.list' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ListVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ListVisitor',
         ),
         'visitor.globalVariableVariable' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\GlobalVariableVariableVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\GlobalVariableVariableVisitor',
         ),
         'visitor.indirectVariableOrMethodAccess' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\IndirectVariableOrMethodAccessVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\IndirectVariableOrMethodAccessVisitor',
         ),
         'visitor.funcGetArgs' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor',
         ),
         'visitor.foreach' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor',
         ),
         'visitor.invalidOctalLiteral' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor',
         ),
         'visitor.hexadecimalNumberString' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor',
         ),
         'visitor.escapedUnicodeCodepoint' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor',
         ),
         'visitor.arrayOrObjectValueAssignmentByReference' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
         ),
         'visitor.bitwiseShift' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
         ),
         'visitor.newAssignmentByReference' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
         ),
         'visitor.httpRawPostData' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
         ),
         'visitor.pregReplaceEval' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PregReplaceEvalVisitor',
-            'dependencies' => array('regExpParser')
+            'dependencies' => array('regExpParser'),
         ),
         'visitor.yieldExpression' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor',
         ),
         'visitor.yieldInExpressionContext' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor'
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor',
         ),
     );
 
     /**
      * @param OutputInterface $output
+     *
      * @return \Pimple
      */
     public function buildContainer(OutputInterface $output)
@@ -96,7 +96,7 @@ class ContainerBuilder
                     'endLine',
                     'startTokenPos',
                     'endTokenPos',
-                )
+                ),
             ));
         });
         $container['parser'] = $container->share(function ($c) {
@@ -182,5 +182,4 @@ class ContainerBuilder
             });
         }
     }
-
 }

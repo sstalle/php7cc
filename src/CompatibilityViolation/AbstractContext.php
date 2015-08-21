@@ -6,7 +6,6 @@ use Sstalle\php7cc\Error\CheckError;
 
 abstract class AbstractContext implements ContextInterface
 {
-
     /**
      * @var array|Message[]
      */
@@ -34,7 +33,7 @@ abstract class AbstractContext implements ContextInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addError(CheckError $error)
     {
@@ -42,7 +41,7 @@ abstract class AbstractContext implements ContextInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getErrors()
     {
@@ -50,11 +49,10 @@ abstract class AbstractContext implements ContextInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hasMessagesOrErrors()
     {
         return $this->messages || $this->errors;
     }
-
 }

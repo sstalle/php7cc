@@ -6,7 +6,6 @@ use org\bovigo\vfs\vfsStream;
 
 abstract class AbstractFilteringIteratorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @dataProvider filterFilesProvider
      */
@@ -44,5 +43,4 @@ abstract class AbstractFilteringIteratorTest extends \PHPUnit_Framework_TestCase
      * @return string
      */
     abstract public function getIteratorClass();
-
 }

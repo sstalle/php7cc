@@ -8,7 +8,6 @@ use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 
 class CLIResultPrinter implements ResultPrinterInterface
 {
-
     /**
      * @var CLIOutputInterface
      */
@@ -25,7 +24,7 @@ class CLIResultPrinter implements ResultPrinterInterface
     protected $nodeStatementsRemover;
 
     /**
-     * @param CLIOutputInterface $output
+     * @param CLIOutputInterface    $output
      * @param StandardPrettyPrinter $prettyPrinter
      * @param NodeStatementsRemover $nodeStatementsRemover
      */
@@ -40,7 +39,7 @@ class CLIResultPrinter implements ResultPrinterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function printContext(ContextInterface $context)
     {
@@ -67,7 +66,7 @@ class CLIResultPrinter implements ResultPrinterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function printMetadata(CheckMetadata $metadata)
     {
@@ -79,5 +78,4 @@ class CLIResultPrinter implements ResultPrinterInterface
             )
         );
     }
-
 }

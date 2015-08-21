@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class NewAssignmentByReferenceVisitor extends AbstractVisitor
 {
-
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Expr\AssignRef && $node->expr instanceof Node\Expr\New_) {
@@ -16,5 +15,4 @@ class NewAssignmentByReferenceVisitor extends AbstractVisitor
             );
         }
     }
-
 }

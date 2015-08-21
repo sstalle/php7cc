@@ -11,7 +11,6 @@ use Sstalle\php7cc\NodeTraverser\Traverser;
 
 class ContextChecker
 {
-
     /**
      * @var Parser
      */
@@ -28,9 +27,9 @@ class ContextChecker
     protected $traverser;
 
     /**
-     * @param Parser $parser
+     * @param Parser        $parser
      * @param ExtendedLexer $lexer
-     * @param Traverser $traverser
+     * @param Traverser     $traverser
      */
     public function __construct(Parser $parser, ExtendedLexer $lexer, Traverser $traverser)
     {
@@ -41,6 +40,7 @@ class ContextChecker
 
     /**
      * @param ContextInterface $context
+     *
      * @return FileContext
      */
     public function checkContext(ContextInterface $context)
@@ -52,5 +52,4 @@ class ContextChecker
             $context->addError(new CheckError($e));
         }
     }
-
 }

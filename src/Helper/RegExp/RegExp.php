@@ -4,7 +4,6 @@ namespace Sstalle\php7cc\Helper\RegExp;
 
 class RegExp
 {
-
     /**
      * @var string[string]
      */
@@ -102,6 +101,7 @@ class RegExp
 
     /**
      * @param string $modifier
+     *
      * @return bool
      */
     public function hasModifier($modifier)
@@ -116,6 +116,4 @@ class RegExp
     {
         return self::$delimiterPairs;
     }
-
-
 }

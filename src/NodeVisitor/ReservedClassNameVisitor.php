@@ -7,7 +7,6 @@ use Sstalle\php7cc\Helper\NodeHelper;
 
 class ReservedClassNameVisitor extends AbstractVisitor
 {
-
     const RESERVED_NAME_MESSAGE = 'Reserved name "%s" used %s ';
     const FUTURE_RESERVED_NAME_MESSAGE = <<<MSG
 Name "%s" that is reserved for future use (does not cause an error in PHP 7) used %s
@@ -48,7 +47,6 @@ MSG;
         );
     }
 
-
     public function enterNode(Node $node)
     {
         $checkedName = '';
@@ -80,5 +78,4 @@ MSG;
             );
         }
     }
-
 }

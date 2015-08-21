@@ -9,7 +9,7 @@ use Sstalle\php7cc\NodeVisitor\VisitorInterface;
 class Traverser extends NodeTraverser
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function traverse(array $nodes, ContextInterface $context = null, array $tokens = array())
     {
@@ -24,5 +24,4 @@ class Traverser extends NodeTraverser
 
         return parent::traverse($nodes);
     }
-
 }

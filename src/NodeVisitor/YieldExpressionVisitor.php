@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class YieldExpressionVisitor extends AbstractVisitor
 {
-
     protected $lowerPrecedenceExpressionClasses = array(
         'PhpParser\\Node\\Expr\\BinaryOp\\LogicalAnd',
         'PhpParser\\Node\\Expr\\BinaryOp\\LogicalOr',
@@ -31,7 +30,5 @@ class YieldExpressionVisitor extends AbstractVisitor
                 $node
             );
         }
-
     }
-
 }

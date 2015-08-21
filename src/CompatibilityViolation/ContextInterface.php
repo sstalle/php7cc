@@ -2,12 +2,10 @@
 
 namespace Sstalle\php7cc\CompatibilityViolation;
 
-
 use Sstalle\php7cc\Error\CheckError;
 
 interface ContextInterface
 {
-
     /**
      * @param Message $message
      */
@@ -42,5 +40,4 @@ interface ContextInterface
      * @return string
      */
     public function getCheckedCode();
-
 }

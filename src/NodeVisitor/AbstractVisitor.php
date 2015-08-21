@@ -9,7 +9,6 @@ use Sstalle\php7cc\CompatibilityViolation\Message;
 
 abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInterface
 {
-
     /**
      * @var ContextInterface
      */
@@ -35,11 +34,10 @@ abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInt
 
     /**
      * @param string $text
-     * @param Node $node
+     * @param Node   $node
      */
     protected function addContextMessage($text, Node $node)
     {
         $this->context->addMessage(new Message($text, $node->getAttribute('startLine'), array($node)));
     }
-
 }

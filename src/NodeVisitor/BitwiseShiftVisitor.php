@@ -6,7 +6,6 @@ use PhpParser\Node;
 
 class BitwiseShiftVisitor extends AbstractVisitor
 {
-
     const MIN_INT_SIZE = 32;
 
     public function enterNode(Node $node)
@@ -32,5 +31,4 @@ class BitwiseShiftVisitor extends AbstractVisitor
             );
         }
     }
-
 }
