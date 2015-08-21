@@ -78,3 +78,7 @@ You should increase maximum function nesting level in your PHP or Xdebug config 
 ```cfg
 xdebug.max_nesting_level = 1000
 ```
+
+# Other useful links
+#### Contributing
+Please read the [contributing guidelines](CONTRIBUTING.md).
