@@ -1,4 +1,5 @@
 Bitwise shift by a negative binary number
+PHP >=5.4.0
 -----
 <?php $a >> -0b10;
 -----
