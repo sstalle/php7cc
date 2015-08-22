@@ -1,4 +1,5 @@
 Reserved trait name usage
+PHP >=5.4.0
 -----
 <?php
 trait False {}

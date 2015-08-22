@@ -451,31 +451,6 @@ function foo($a) { func_get_arg(1); }
 
 -----
 <?php
-function foo($a) { $a **= 1; func_get_args(); }
------
-Function argument(s) returned by "func_get_args" might have been modified
------
-<?php
-function foo($a) { func_get_args(); }
------
-
------
-<?php
-function foo($a) { $a **= 1; func_get_arg(); }
------
-Function argument(s) returned by "func_get_arg" might have been modified
------
-<?php
-function foo($a) { func_get_arg(); }
------
-
------
-<?php
-function foo($a) { $a **= 1; func_get_arg(1); }
------
-Function argument(s) returned by "func_get_arg" might have been modified
------
-<?php
 function foo($a) { func_get_arg(1); }
 -----
 

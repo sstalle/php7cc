@@ -52,7 +52,8 @@ Please don't write unit tests for compatibility violation checking visitors (lik
 in ```src/NodeVisitor```). To test them, you should create a subfolder in ```test/resource```
 folder and put a ```.test``` file in it. ```.test``` files have multiple sections separated by
 `-----`:
-1. First section is the description of the test suite.
+
+1. First section is the description of the test suite. Can also contain PHP version constraint.
 2. Second section is the php code to be tested. It must be syntactically correct. 
 3. Third section is a newline (```\n```) separated array of messages that all the checkers
  should emit for the code from the previous section. If there should be no messages, just
@@ -60,6 +61,16 @@ folder and put a ```.test``` file in it. ```.test``` files have multiple section
  so you may get messages from other checkers in your test suite.
 
 Second and third sections can be repeated one or more times. 
+
+Some tests require a particular version of PHP. For example, the `yield` keyword
+had been introduced in PHP 5.5, and tests containing it cannot be run on the lower versions.
+To specify a version constraint for the test suite, add a new line of the following format
+to the first section:
+```
+PHP <operator><version>
+```
+Operator is one of the operators supported by `version_compare` function. Multiple space separated
+constraints can be specified.
 
 
 ## Documenting your work

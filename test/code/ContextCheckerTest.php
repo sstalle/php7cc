@@ -88,15 +88,91 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
                 return $i % 2 != 0 ? $section : trim($section);
             }, array_keys($fileContents), $fileContents);
             // first part is the name
-            $name = array_shift($parts) . ' (' . $fileName . ')';
+
+            $name = $this->canonicalize(array_shift($parts));
+            if ($this->containsVersionConstraint($name)) {
+                if (!$this->satisfiesVersionConstraint($name)) {
+                    continue;
+                }
+
+                $name = $this->stripVersionConstraint($name);
+            }
+
+            $fullName = $name . ' (' . $fileName . ')';
             // multiple sections possible with always two forming a pair
             foreach (array_chunk($parts, 2) as $chunk) {
                 $messages = array_filter(explode("\n", $this->canonicalize($chunk[1])));
-                $tests[] = array($name, $chunk[0], $messages);
+                $tests[] = array($fullName, $chunk[0], $messages);
             }
         }
 
         return $tests;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    protected function stripVersionConstraint($name)
+    {
+        $nameParts = explode("\n", $name);
+        array_pop($nameParts);
+
+        return implode("\n", $nameParts);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    protected function containsVersionConstraint($name)
+    {
+        $nameParts = explode("\n", $name);
+
+        return count($nameParts) > 1 && substr(end($nameParts), 0, 3) === 'PHP';
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    protected function satisfiesVersionConstraint($name)
+    {
+        if ($this->containsVersionConstraint($name)) {
+            $nameParts = explode("\n", $name);
+            // last line contains version constraints
+            $versionConstraints = array();
+            preg_match_all(
+                '/\\s+(<|lt|<=|le|>|gt|>=|ge|==|=|eq|!=|<>|ne)([a-zA-Z0-9\\.\\-]+)/',
+                end($nameParts),
+                $versionConstraints
+            );
+
+            if (!count(array_shift($versionConstraints))) {
+                throw new \RuntimeException(
+                    sprintf(
+                        'Version constraint %s was specified for test suite "%s" but no constraints could be extracted',
+                        end($nameParts),
+                        $this->stripVersionConstraint($name)
+                    )
+                );
+            };
+
+            foreach (range(0, count($versionConstraints[0]) - 1) as $constraintIndex) {
+                if (!version_compare(
+                    PHP_VERSION,
+                    $versionConstraints[1][$constraintIndex],
+                    $versionConstraints[0][$constraintIndex]
+                )) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**

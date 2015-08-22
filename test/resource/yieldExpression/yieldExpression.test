@@ -1,4 +1,5 @@
 Yielding expression with precedence lower than "yield" operator
+PHP >=5.5.0
 -----
 <?php
 yield 1 and 2;
