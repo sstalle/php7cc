@@ -1,0 +1,21 @@
+Invalid octal literal
+PHP >=7.0
+-----
+<?php
+$i = 0781;
+-----
+Invalid numeric literal
+-----
+<?php
+$i = 011119;
+-----
+Invalid numeric literal
+-----
+<?php
+$i = 01234567;
+-----
+
+-----
+<?php
+$i = 56798;
+-----

@@ -2,26 +2,17 @@
 
 namespace Sstalle\php7cc\Error;
 
-class CheckError
+use Sstalle\php7cc\AbstractBaseMessage;
+
+class CheckError extends AbstractBaseMessage
 {
-    /**
-     * @var \Exception
-     */
-    protected $wrappedException;
-
-    /**
-     * @param \Exception $wrappedException
-     */
-    public function __construct(\Exception $wrappedException)
+    protected function generateText()
     {
-        $this->wrappedException = $wrappedException;
-    }
+        $text = $this->getRawText();
+        if ($this->getLine()) {
+            $text = sprintf('Line %d. %s', $this->getLine(), $text);
+        }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->wrappedException->getMessage();
+        return $text . '. Processing aborted.';
     }
 }

@@ -53,12 +53,14 @@ in ```src/NodeVisitor```). To test them, you should create a subfolder in ```tes
 folder and put a ```.test``` file in it. ```.test``` files have multiple sections separated by
 `-----`:
 
-1. First section is the description of the test suite. Can also contain PHP version constraint.
-2. Second section is the php code to be tested. It must be syntactically correct. 
-3. Third section is a newline (```\n```) separated array of messages that all the checkers
- should emit for the code from the previous section. If there should be no messages, just
- leave a blank like in this section. Please keep in mind that test suites are not isolated,
- so you may get messages from other checkers in your test suite.
+1. First section is the description of the test suite. It can also contain PHP version constraint.
+2. Second section is the php code to be tested. It must be syntactically correct, unless it is an expression
+ or a statement that had been correct in PHP 5 but is no longer correct in PHP 7. 
+3. Third section is a newline separated array of messages and errors that
+ should be emitted for the code from the previous section. Errors are instances of 
+ \Exception and \ParseException that are thrown during the checks. If there should be no messages
+ and no errors, just leave a blank like in this section. Please keep in mind that test suites are
+ not isolated, so you may get messages from other checkers in your test suite.
 
 Second and third sections can be repeated one or more times. 
 

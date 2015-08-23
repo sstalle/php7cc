@@ -17,6 +17,10 @@ To run php7cc, you need php installed, minimum required version is 5.3.3. Requir
  the language features that are used in the code. For example, if traits are used
  somewhere in the checked code, you'll need PHP 5.4 or higher.
  
+PHP 7 is also supported, but files with syntax errors (for example, invalid numeric literals
+ or invalid UTF-8 codepoint escape sequences) can't be processed. You will only get the
+ message about the first syntax error for such files.
+ 
 You also need [composer](https://getcomposer.org/) to install php7cc.
 
 #### Installation
