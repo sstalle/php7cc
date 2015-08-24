@@ -55,10 +55,12 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         $context = new \Sstalle\php7cc\CompatibilityViolation\StringContext($code, 'test');
         $contextChecker->checkContext($context);
         $expectedMessageCount = count($expectedMessages);
-        $actualMessageCount = count($context->getMessages());
+        $actualMessages = array_merge($context->getMessages(), $context->getErrors());
+        $actualMessageCount = count($actualMessages);
         $this->assertEquals($expectedMessageCount, $actualMessageCount, $name);
         if ($expectedMessageCount == $actualMessageCount) {
-            foreach ($context->getMessages() as $i => $message) {
+            /** @var \Sstalle\php7cc\AbstractBaseMessage $message */
+            foreach ($actualMessages as $i => $message) {
                 $this->assertEquals(
                     $this->canonicalize($expectedMessages[$i]),
                     $this->canonicalize($message->getRawText()),

@@ -49,7 +49,9 @@ class ContextChecker
             $parsedStatements = $this->parser->parse($context->getCheckedCode());
             $this->traverser->traverse($parsedStatements, $context, $this->lexer->getTokens());
         } catch (\Exception $e) {
-            $context->addError(new CheckError($e));
+            $context->addError(new CheckError($e->getMessage()));
+        } catch (\ParseException $e) {
+            $context->addError(new CheckError($e->getMessage(), $e->getLine()));
         }
     }
 }

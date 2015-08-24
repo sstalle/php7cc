@@ -1,0 +1,25 @@
+Escaped unicode codepoints in double quoted string
+PHP >=7.0
+-----
+<?php $str = "\u{xyz}";
+-----
+Invalid UTF-8 codepoint escape sequence
+-----
+<?php $str = "\\u{xyz}";
+-----
+
+-----
+<?php $str = "\u202e";
+-----
+
+-----
+<?php $str = '\u{xyz}';
+-----
+
+-----
+<?php $str = '\\u{xyz}';
+-----
+
+-----
+<?php $str = '\u202e';
+-----
