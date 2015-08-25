@@ -99,4 +99,12 @@ class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorT
     {
         return '\\Sstalle\\php7cc\\Iterator\\ExtensionFilteringRecursiveIterator';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultConstructorArguments()
+    {
+        return array();
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Sstalle\php7cc\Iterator;
 
-class ExtensionFilteringRecursiveIterator extends \RecursiveFilterIterator
+class ExtensionFilteringRecursiveIterator extends AbstractRecursiveFilterIterator
 {
     /**
      * @var string[]
