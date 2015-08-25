@@ -110,4 +110,12 @@ class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIterat
     {
         return '\\Sstalle\\php7cc\\Iterator\\ExcludedPathFilteringRecursiveIterator';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultConstructorArguments()
+    {
+        return array(array());
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Sstalle\php7cc\Iterator;
 
-class ExcludedPathFilteringRecursiveIterator extends \RecursiveFilterIterator
+class ExcludedPathFilteringRecursiveIterator extends AbstractRecursiveFilterIterator
 {
     /**
      * @var string[]
