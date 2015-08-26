@@ -3,7 +3,7 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
-use Sstalle\php7cc\Helper\NodeHelper;
+use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class RemovedFunctionCallVisitor extends AbstractVisitor
 {
@@ -77,14 +77,23 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
         'mysql_unbuffered_query',
     );
 
-    public function __construct()
+    /**
+     * @var FunctionAnalyzer
+     */
+    protected $functionAnalyzer;
+
+    /**
+     * @param FunctionAnalyzer $functionAnalyzer
+     */
+    public function __construct(FunctionAnalyzer $functionAnalyzer)
     {
+        $this->functionAnalyzer = $functionAnalyzer;
         $this->removedFunctionNames = array_flip($this->removedFunctionNames);
     }
 
     public function enterNode(Node $node)
     {
-        if (!NodeHelper::isFunctionCallByStaticName($node, $this->removedFunctionNames)) {
+        if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, $this->removedFunctionNames)) {
             return;
         }
 

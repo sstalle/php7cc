@@ -1,10 +1,10 @@
 <?php
 
-namespace Sstalle\php7cc\Helper;
+namespace Sstalle\php7cc\NodeAnalyzer;
 
 use PhpParser\Node;
 
-class NodeHelper
+class FunctionAnalyzer
 {
     /**
      * @param Node            $node
@@ -12,7 +12,7 @@ class NodeHelper
      *
      * @return bool
      */
-    public static function isFunctionCallByStaticName(Node $node, $checkedFunctionName)
+    public function isFunctionCallByStaticName(Node $node, $checkedFunctionName)
     {
         $isFunctionCallByStaticName = $node instanceof Node\Expr\FuncCall && $node->name instanceof Node\Name;
         if (!$isFunctionCallByStaticName) {

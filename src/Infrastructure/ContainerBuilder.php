@@ -11,6 +11,7 @@ use Sstalle\php7cc\Helper\OSDetector;
 use Sstalle\php7cc\Helper\Path\PathHelperFactory;
 use Sstalle\php7cc\Helper\RegExp\RegExpParser;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
+use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
 use Sstalle\php7cc\PathChecker;
@@ -24,9 +25,11 @@ class ContainerBuilder
     protected $checkerVisitors = array(
         'visitor.removedFunctionCall' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.reservedClassName' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.duplicateFunctionParameter' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor',
@@ -42,9 +45,11 @@ class ContainerBuilder
         ),
         'visitor.funcGetArgs' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.foreach' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.invalidOctalLiteral' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor',
@@ -69,7 +74,7 @@ class ContainerBuilder
         ),
         'visitor.pregReplaceEval' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PregReplaceEvalVisitor',
-            'dependencies' => array('regExpParser'),
+            'dependencies' => array('regExpParser', 'nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.yieldExpression' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor',
@@ -115,6 +120,9 @@ class ContainerBuilder
             return $traverser;
         });
 
+        $container['nodeAnalyzer.functionAnalyzer'] = $container->share(function () {
+            return new FunctionAnalyzer();
+        });
         $container['contextChecker'] = $container->share(function ($c) {
             return new ContextChecker($c['parser'], $c['lexer'], $c['traverser']);
         });

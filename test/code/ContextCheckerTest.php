@@ -9,50 +9,11 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMessages($name, $code, $expectedMessages)
     {
-        $lexer = new \Sstalle\php7cc\Lexer\ExtendedLexer(array(
-            'usedAttributes' => array(
-                'comments',
-                'startLine',
-                'endLine',
-                'startTokenPos',
-                'endTokenPos',
-            ),
-        ));
-        $parser = new \PhpParser\Parser($lexer);
-        $traverser = new \Sstalle\php7cc\NodeTraverser\Traverser(false);
-        $visitors = array();
-        foreach (array(
-                     '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\ReservedClassNameVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\DuplicateFunctionParameterVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\ListVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\GlobalVariableVariableVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\IndirectVariableOrMethodAccessVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\InvalidOctalLiteralVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\HexadecimalNumberStringVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\EscapedUnicodeCodepointVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\HTTPRawPostDataVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\YieldExpressionVisitor',
-                     '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor',
-                 ) as $visitorClass) {
-            $visitors[] = new $visitorClass();
-        }
-
-        $visitors[] = new \Sstalle\php7cc\NodeVisitor\PregReplaceEvalVisitor(
-            new \Sstalle\php7cc\Helper\RegExp\RegExpParser()
-        );
-
-        foreach ($visitors as $visitor) {
-            $traverser->addVisitor($visitor);
-        }
-
-        $contextChecker = new \Sstalle\php7cc\ContextChecker($parser, $lexer, $traverser);
+        $containerBuilder = new \Sstalle\php7cc\Infrastructure\ContainerBuilder();
+        $container = $containerBuilder->buildContainer(new Symfony\Component\Console\Output\NullOutput());
+        $contextChecker = $container['contextChecker'];
         $context = new \Sstalle\php7cc\CompatibilityViolation\StringContext($code, 'test');
+
         $contextChecker->checkContext($context);
         $expectedMessageCount = count($expectedMessages);
         $actualMessages = array_merge($context->getMessages(), $context->getErrors());
