@@ -3,7 +3,7 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
-use Sstalle\php7cc\Helper\NodeHelper;
+use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class FuncGetArgsVisitor extends AbstractVisitor
 {
@@ -25,12 +25,25 @@ class FuncGetArgsVisitor extends AbstractVisitor
     );
 
     /**
+     * @var FunctionAnalyzer
+     */
+    protected $functionAnalyzer;
+
+    /**
      * If current function's arguments could have been modified, value on top of the stack is true.
      * Otherwise false.
      *
      * @var \SplStack
      */
     protected $argumentModificationStack;
+
+    /**
+     * @param FunctionAnalyzer $functionAnalyzer
+     */
+    public function __construct(FunctionAnalyzer $functionAnalyzer)
+    {
+        $this->functionAnalyzer = $functionAnalyzer;
+    }
 
     public function beforeTraverse(array $nodes)
     {
@@ -42,7 +55,7 @@ class FuncGetArgsVisitor extends AbstractVisitor
         $isCurrentNodeFunctionLike = $node instanceof Node\FunctionLike;
         if ($isCurrentNodeFunctionLike || $this->argumentModificationStack->isEmpty()
             || !$this->argumentModificationStack->top()
-            || !NodeHelper::isFunctionCallByStaticName($node, array_flip(array('func_get_arg', 'func_get_args')))
+            || !$this->functionAnalyzer->isFunctionCallByStaticName($node, array_flip(array('func_get_arg', 'func_get_args')))
         ) {
             $isCurrentNodeFunctionLike && $this->argumentModificationStack->push(false);
 

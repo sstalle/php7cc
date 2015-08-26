@@ -3,7 +3,7 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
-use Sstalle\php7cc\Helper\NodeHelper;
+use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 use Sstalle\php7cc\Helper\RegExp\RegExpParser;
 
 class PregReplaceEvalVisitor extends AbstractVisitor
@@ -16,16 +16,23 @@ class PregReplaceEvalVisitor extends AbstractVisitor
     protected $regExpParser;
 
     /**
-     * @param RegExpParser $regExpParser
+     * @var FunctionAnalyzer
      */
-    public function __construct(RegExpParser $regExpParser)
+    protected $functionAnalyzer;
+
+    /**
+     * @param RegExpParser     $regExpParser
+     * @param FunctionAnalyzer $functionAnalyzer
+     */
+    public function __construct(RegExpParser $regExpParser, FunctionAnalyzer $functionAnalyzer)
     {
         $this->regExpParser = $regExpParser;
+        $this->functionAnalyzer = $functionAnalyzer;
     }
 
     public function enterNode(Node $node)
     {
-        if (!NodeHelper::isFunctionCallByStaticName($node, 'preg_replace')) {
+        if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, 'preg_replace')) {
             return;
         }
 

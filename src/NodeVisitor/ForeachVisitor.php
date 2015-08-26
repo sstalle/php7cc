@@ -3,7 +3,7 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
-use Sstalle\php7cc\Helper\NodeHelper;
+use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class ForeachVisitor extends AbstractVisitor
 {
@@ -35,9 +35,16 @@ class ForeachVisitor extends AbstractVisitor
     );
 
     /**
+     * @var FunctionAnalyzer
      */
-    public function __construct()
+    protected $functionAnalyzer;
+
+    /**
+     * @param FunctionAnalyzer $functionAnalyzer
+     */
+    public function __construct(FunctionAnalyzer $functionAnalyzer)
     {
+        $this->functionAnalyzer = $functionAnalyzer;
         $this->foreachStack = new \SplStack();
         $this->arrayPointerModifyingFunctions = array_flip($this->arrayPointerModifyingFunctions);
         $this->arrayModifyingFunctions = array_flip($this->arrayModifyingFunctions);
@@ -97,7 +104,7 @@ class ForeachVisitor extends AbstractVisitor
      */
     protected function hasFunctionCallWithForeachArgument(Node $node, array $functions, $skippedByRefType = null)
     {
-        if (!NodeHelper::isFunctionCallByStaticName($node, $functions)) {
+        if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, $functions)) {
             return false;
         }
 

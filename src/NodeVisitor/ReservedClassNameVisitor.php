@@ -3,7 +3,7 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
-use Sstalle\php7cc\Helper\NodeHelper;
+use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class ReservedClassNameVisitor extends AbstractVisitor
 {
@@ -32,9 +32,16 @@ MSG;
     protected $reservedNamesToMessagesMap = array();
 
     /**
+     * @var FunctionAnalyzer
      */
-    public function __construct()
+    protected $functionAnalyzer;
+
+    /**
+     * @param FunctionAnalyzer $functionAnalyzer
+     */
+    public function __construct(FunctionAnalyzer $functionAnalyzer)
     {
+        $this->functionAnalyzer = $functionAnalyzer;
         $this->reservedNamesToMessagesMap = array_merge(
             array_fill_keys(
                 $this->reservedClassNames,
@@ -55,7 +62,7 @@ MSG;
         if ($node instanceof Node\Stmt\ClassLike) {
             $checkedName = $node->name;
             $usagePatternName = 'as a class, interface or trait name';
-        } elseif (NodeHelper::isFunctionCallByStaticName($node, 'class_alias')) {
+        } elseif ($this->functionAnalyzer->isFunctionCallByStaticName($node, 'class_alias')) {
             /** @var Node\Expr\FuncCall $node */
             $secondArgument = isset($node->args[1]) ? $node->args[1] : null;
 
