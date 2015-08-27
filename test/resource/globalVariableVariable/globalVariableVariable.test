@@ -9,3 +9,7 @@ Complex variable without curly braces in global keyword
 global ${$foo->bar};
 -----
 
+-----
+<?php
+global ${ $foo->bar  };
+-----

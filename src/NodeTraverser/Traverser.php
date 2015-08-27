@@ -5,6 +5,7 @@ namespace Sstalle\php7cc\NodeTraverser;
 use PhpParser\NodeTraverser;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 use Sstalle\php7cc\NodeVisitor\VisitorInterface;
+use Sstalle\php7cc\Token\TokenCollection;
 
 class Traverser extends NodeTraverser
 {
@@ -17,7 +18,7 @@ class Traverser extends NodeTraverser
             foreach ($this->visitors as $visitor) {
                 if ($visitor instanceof VisitorInterface) {
                     $visitor->initializeContext($context);
-                    $visitor->setTokens($tokens);
+                    $visitor->setTokenCollection(new TokenCollection($tokens));
                 }
             }
         }

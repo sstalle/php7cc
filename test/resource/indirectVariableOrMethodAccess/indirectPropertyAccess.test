@@ -26,6 +26,11 @@ $foo->{$bar['baz']};
 
 -----
 <?php
+$foo->{ $bar['baz']     };
+-----
+
+-----
+<?php
 $this->db->{$this->config[$name]};
 -----
 

@@ -4,6 +4,7 @@ namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\NodeVisitor;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
+use Sstalle\php7cc\Token\TokenCollection;
 
 interface VisitorInterface extends NodeVisitor
 {
@@ -13,7 +14,7 @@ interface VisitorInterface extends NodeVisitor
     public function initializeContext(ContextInterface $context);
 
     /**
-     * @param array $tokens
+     * @param TokenCollection
      */
-    public function setTokens(array $tokens);
+    public function setTokenCollection(TokenCollection $tokenCollection);
 }

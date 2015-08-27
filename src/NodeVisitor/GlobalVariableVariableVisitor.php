@@ -21,9 +21,12 @@ class GlobalVariableVariableVisitor extends AbstractVisitor
             ) {
                 continue;
             }
-            $nextToStartToken = $this->tokens[$globalVariable->getAttribute('startTokenPos') + 1];
-            $endToken = $this->tokens[$globalVariable->getAttribute('endTokenPos')];
-            if ($nextToStartToken === '{' && $endToken === '}') {
+
+            $startTokenPosition = $globalVariable->getAttribute('startTokenPos') + 1;
+            $endTokenPosition = $globalVariable->getAttribute('endTokenPos');
+            if ($this->tokenCollection->isTokenEqualToOrPrecededBy($startTokenPosition, '{')
+                && $this->tokenCollection->isTokenEqualToOrFollowedBy($endTokenPosition, '}')
+            ) {
                 continue;
             }
 
