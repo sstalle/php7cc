@@ -8,18 +8,39 @@ use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 class RemovedFunctionCallVisitor extends AbstractVisitor
 {
     protected $removedFunctionNames = array(
+        // Removed in favor of call_user_func* functions
         'call_user_method',
-        'call_user_method',
-        'dl',
+        'call_user_method_array',
+
+        // Removed in favor of the stream_set_blocking() function
         'set_socket_blocking',
+
+        // Removed in favor of the datefmt_set_timezone()
         'datefmt_set_timezone_id',
+
+        // Removed in favor of the mcrypt_generic_deinit() function
         'mcrypt_generic_end',
+
+        // Replaced by mcrypt_decrypt() with a MCRYPT_MODE_* constant.
         'mcrypt_ecb',
         'mcrypt_cbc',
         'mcrypt_cfb',
         'mcrypt_ofb',
+
+        // Magic quotes no longer available
         'set_magic_quotes_runtime',
         'magic_quotes_runtime',
+
+        // The ereg extension was removed
+        'ereg_replace',
+        'ereg',
+        'eregi_replace',
+        'eregi',
+        'split',
+        'spliti',
+        'sql_regcase',
+
+        // Support for PostScript Type1 fonts has been removed from the GD extension
         'imagepsbbox',
         'imagepsencodefont',
         'imagepsextendedfont',
@@ -27,6 +48,8 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
         'imagepsloadfont',
         'imagepsslantfont',
         'imagepstext',
+
+        // The mysql extension removed
         'mysql_affected_rows',
         'mysql_client_encoding',
         'mysql_close',
@@ -75,6 +98,38 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
         'mysql_tablename',
         'mysql_thread_id',
         'mysql_unbuffered_query',
+
+        // The mssql extension was removed
+        'mssql_bind',
+        'mssql_close',
+        'mssql_connect',
+        'mssql_data_seek',
+        'mssql_execute',
+        'mssql_fetch_array',
+        'mssql_fetch_assoc',
+        'mssql_fetch_batch',
+        'mssql_fetch_field',
+        'mssql_fetch_object',
+        'mssql_fetch_row',
+        'mssql_field_length',
+        'mssql_field_name',
+        'mssql_field_seek',
+        'mssql_field_type',
+        'mssql_free_result',
+        'mssql_free_statement',
+        'mssql_get_last_message',
+        'mssql_guid_string',
+        'mssql_init',
+        'mssql_min_error_severity',
+        'mssql_min_message_severity',
+        'mssql_next_result',
+        'mssql_num_fields',
+        'mssql_num_rows',
+        'mssql_pconnect',
+        'mssql_query',
+        'mssql_result',
+        'mssql_rows_affected',
+        'mssql_select_db',
     );
 
     /**
