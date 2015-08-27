@@ -18,9 +18,9 @@ class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
         }
 
         $nodeName = $node->name;
-        $nextToStartToken = $this->tokens[$nodeName->getAttribute('startTokenPos') - 1];
-        $nextToEndToken = $this->tokens[$nodeName->getAttribute('endTokenPos') + 1];
-        if ($nextToStartToken === '{' && $nextToEndToken === '}') {
+        if ($this->tokenCollection->isTokenEqualToOrPrecededBy($nodeName->getAttribute('startTokenPos') - 1, '{')
+            && $this->tokenCollection->isTokenEqualToOrFollowedBy($nodeName->getAttribute('endTokenPos') + 1, '}')
+        ) {
             return;
         }
 

@@ -9,3 +9,7 @@ Indirect variable, property or method access
 ${$foo['bar']['baz']};
 -----
 
+-----
+<?php
+${ $foo['bar']['baz']    };
+-----

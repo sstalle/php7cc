@@ -18,14 +18,8 @@ class EscapedUnicodeCodepointVisitor extends AbstractVisitor
         } elseif ($node->getAttribute('isHereDoc')) {
             // Skip T_START_HEREDOC, T_END_HEREDOC
             $unquotedStringValue = '';
-            $startTokenPosition = $node->getAttribute('startTokenPos') + 1;
-            $tokenLength = $node->getAttribute('endTokenPos') - $node->getAttribute('startTokenPos') - 1;
-            foreach (array_slice($this->tokens, $startTokenPosition, $tokenLength) as $token) {
-                if (is_string($token)) {
-                    $unquotedStringValue .= $token;
-                } else {
-                    $unquotedStringValue .= $token[1];
-                }
+            foreach (range($node->getAttribute('startTokenPos') + 1, $node->getAttribute('endTokenPos') - 1) as $i) {
+                $unquotedStringValue .= $this->tokenCollection->getToken($i)->__toString();
             }
         }
 

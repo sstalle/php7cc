@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 use Sstalle\php7cc\CompatibilityViolation\Message;
+use Sstalle\php7cc\Token\TokenCollection;
 
 abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInterface
 {
@@ -15,9 +16,11 @@ abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInt
     protected $context;
 
     /**
-     * @var array
+     * @var TokenCollection
      */
-    protected $tokens = array();
+    protected $tokenCollection;
+
+    protected $tokens;
 
     public function initializeContext(ContextInterface $context)
     {
@@ -25,11 +28,11 @@ abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInt
     }
 
     /**
-     * @param array $tokens
+     * {@inheritdoc}
      */
-    public function setTokens(array $tokens)
+    public function setTokenCollection(TokenCollection $tokenCollection)
     {
-        $this->tokens = $tokens;
+        $this->tokenCollection = $tokenCollection;
     }
 
     /**
