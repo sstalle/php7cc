@@ -8,27 +8,19 @@ class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
 {
     public function enterNode(Node $node)
     {
-        $endCurlyBraceOffset = 0;
-        $startCurlyBraceOffset = 2;
-
-        if (($node instanceof Node\Expr\PropertyFetch
+        if (!($node instanceof Node\Expr\PropertyFetch
                 || $node instanceof Node\Expr\MethodCall
                 || $node instanceof Node\Expr\StaticCall
                 || $node instanceof Node\Expr\Variable
-            ) && $node->name instanceof Node\Expr\ArrayDimFetch
+            ) || !$node->name instanceof Node\Expr\ArrayDimFetch
         ) {
-            if ($node instanceof Node\Expr\Variable) {
-                $startCurlyBraceOffset = 1;
-            } elseif (!$node instanceof Node\Expr\PropertyFetch) {
-                $endCurlyBraceOffset = -2;
-            }
-        } else {
             return;
         }
 
-        $nextToStartToken = $this->tokens[$node->getAttribute('startTokenPos') + $startCurlyBraceOffset];
-        $endToken = $this->tokens[$node->getAttribute('endTokenPos') + $endCurlyBraceOffset];
-        if ($nextToStartToken === '{' && $endToken === '}') {
+        $nodeName = $node->name;
+        $nextToStartToken = $this->tokens[$nodeName->getAttribute('startTokenPos') - 1];
+        $nextToEndToken = $this->tokens[$nodeName->getAttribute('endTokenPos') + 1];
+        if ($nextToStartToken === '{' && $nextToEndToken === '}') {
             return;
         }
 
