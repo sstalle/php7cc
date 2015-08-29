@@ -1,0 +1,64 @@
+PHP 4 constructors are now deprecated
+-----
+<?php
+namespace Acme;
+class test
+{
+    public function test()
+    {
+    }
+}
+-----
+
+-----
+<?php
+class test
+{
+    public function test()
+    {
+    }
+
+    public function __construct()
+    {
+    }
+}
+-----
+
+-----
+<?php
+namespace Acme;
+class test
+{
+    public function __construct()
+    {
+    }
+
+    public function test()
+    {
+    }
+}
+-----
+
+-----
+<?php
+class test
+{
+    public function test()
+    {
+    }
+}
+-----
+PHP 4 constructors are now deprecated
+-----
+<?php
+namespace {
+    class test
+    {
+        public function test()
+        {
+        }
+    }
+}
+-----
+PHP 4 constructors are now deprecated
+

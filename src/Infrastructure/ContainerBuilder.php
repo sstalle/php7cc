@@ -97,6 +97,9 @@ class ContainerBuilder
         'visitor.newClass' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewClassVisitor',
         ),
+        'visitor.php4Constructor' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PHP4ConstructorVisitor',
+        ),
     );
 
     /**
