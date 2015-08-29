@@ -2,6 +2,7 @@
 
 namespace Sstalle\php7cc\Infrastructure;
 
+use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use Sstalle\php7cc\CLIResultPrinter;
 use Sstalle\php7cc\ContextChecker;
@@ -93,6 +94,9 @@ class ContainerBuilder
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PasswordHashSaltVisitor',
             'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
+        'visitor.newClass' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewClassVisitor',
+        ),
     );
 
     /**
@@ -124,6 +128,8 @@ class ContainerBuilder
         $visitors = $this->checkerVisitors;
         $container['traverser'] = $container->share(function ($c) use ($visitors) {
             $traverser = new Traverser(false);
+            // Resolve fully qualified name (class, interface, function, etc) to ease some process
+            $traverser->addVisitor(new NameResolver());
             foreach (array_keys($visitors) as $visitorServiceName) {
                 $traverser->addVisitor($c[$visitorServiceName]);
             }

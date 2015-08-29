@@ -65,7 +65,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
             // multiple sections possible with always two forming a pair
             foreach (array_chunk($parts, 2) as $chunk) {
                 $messages = array_filter(explode("\n", $this->canonicalize($chunk[1])));
-                $tests[] = array($fullName, $chunk[0], $messages);
+                $tests[] = array($fullName, ltrim($chunk[0]), $messages);
             }
         }
 

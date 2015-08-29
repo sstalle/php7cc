@@ -1,0 +1,41 @@
+New class added
+-----
+<?php
+class test {}
+-----
+
+-----
+<?php
+namespace Acme;
+interface Error {}
+-----
+
+-----
+<?php
+namespace Acme {
+    class TypeError {}
+}
+-----
+
+-----
+<?php
+class Error {}
+-----
+Class/trait/interface "Error" was added in the global namespace
+-----
+<?php
+class IntlChar {}
+-----
+Class/trait/interface "IntlChar" was added in the global namespace
+-----
+<?php
+class thrOwablE {}
+-----
+Class/trait/interface "Throwable" was added in the global namespace
+-----
+<?php
+namespace {
+    class AssertionError {}
+}
+-----
+Class/trait/interface "AssertionError" was added in the global namespace

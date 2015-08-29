@@ -1,0 +1,42 @@
+New class added
+PHP >=5.4.0
+-----
+<?php
+trait test {}
+-----
+
+-----
+<?php
+namespace Acme;
+trait Error {}
+-----
+
+-----
+<?php
+namespace Acme {
+    trait TypeError {}
+}
+-----
+
+-----
+<?php
+trait Error {}
+-----
+Class/trait/interface "Error" was added in the global namespace
+-----
+<?php
+trait IntlChar {}
+-----
+Class/trait/interface "IntlChar" was added in the global namespace
+-----
+<?php
+trait thrOwablE {}
+-----
+Class/trait/interface "Throwable" was added in the global namespace
+-----
+<?php
+namespace {
+    trait AssertionError {}
+}
+-----
+Class/trait/interface "AssertionError" was added in the global namespace
