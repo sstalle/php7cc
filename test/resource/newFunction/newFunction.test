@@ -1,0 +1,42 @@
+New function added
+-----
+<?php
+function test() {}
+-----
+
+-----
+<?php
+namespace Acme;
+function test() {}
+-----
+
+-----
+<?php
+function intdiv() {}
+-----
+Cannot redeclare global function "intdiv"
+-----
+<?php
+function inTdiV() {}
+-----
+Cannot redeclare global function "intdiv"
+-----
+<?php
+namespace {
+    function random_int() {}
+}
+-----
+Cannot redeclare global function "random_int"
+-----
+<?php
+namespace Acme;
+function random_bytes() {}
+-----
+Your namespaced function "random_bytes" could replace the new global function added in PHP 7
+-----
+<?php
+namespace Acme {
+    function random_bytes() {}
+}
+-----
+Your namespaced function "random_bytes" could replace the new global function added in PHP 7
