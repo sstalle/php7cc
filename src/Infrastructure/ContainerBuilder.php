@@ -89,6 +89,10 @@ class ContainerBuilder
         'visitor.multipleSwitchDefaults' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\MultipleSwitchDefaultsVisitor',
         ),
+        'visitor.passwordHashSalt' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PasswordHashSaltVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
+        ),
     );
 
     /**
