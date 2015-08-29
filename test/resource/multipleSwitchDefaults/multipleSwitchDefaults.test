@@ -1,0 +1,30 @@
+Defining multiple default cases for a switch statement
+-----
+<?php
+switch (true) {case 1: break; default: break; default: break; default: break; }
+-----
+Multiple default cases defined for the switch statement
+-----
+<?php
+switch (true) {case 1: break; default: break; default: break; }
+-----
+Multiple default cases defined for the switch statement
+-----
+<?php
+switch (true) {case 1: break; default: switch (false) { default: break; default: break; }; }
+-----
+Multiple default cases defined for the switch statement
+-----
+<?php
+switch (true) {case 1: break; default: switch (false) { default: break; }; }
+-----
+
+-----
+<?php
+switch (true) {case 1: break; default: break; }
+-----
+
+-----
+<?php
+switch (true) {case 1: break; }
+-----

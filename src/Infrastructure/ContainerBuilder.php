@@ -86,6 +86,9 @@ class ContainerBuilder
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\MktimeVisitor',
             'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
+        'visitor.multipleSwitchDefaults' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\MultipleSwitchDefaultsVisitor',
+        ),
     );
 
     /**

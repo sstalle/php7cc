@@ -25,6 +25,10 @@ class NodeStatementsRemover
                 $node->stmts = array();
             }
 
+            if ($node instanceof Node\Stmt\Switch_) {
+                $node->cases = array();
+            }
+
             $resultNodes[] = $node;
         }
 
