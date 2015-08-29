@@ -44,22 +44,28 @@ class CLIResultPrinter implements ResultPrinterInterface
     public function printContext(ContextInterface $context)
     {
         $this->output->writeln('');
-        $this->output->writeln(sprintf('File: %s', $context->getCheckedResourceName()));
+        $this->output->writeln(sprintf('File: <fg=cyan>%s</fg=cyan>', $context->getCheckedResourceName()));
 
         foreach ($context->getMessages() as $message) {
             $nodes = $this->nodeStatementsRemover->removeInnerStatements($message->getNodes());
 
             $this->output->writeln(
                 sprintf(
-                    '%s: %s',
-                    $message->getText(),
-                    $this->prettyPrinter->prettyPrint($nodes)
+                    "> Line <fg=cyan>%s</fg=cyan>: <fg=yellow>%s</fg=yellow>\n    %s",
+                    $message->getLine(),
+                    $message->getRawText(),
+                    str_replace("\n", "\n    ", $this->prettyPrinter->prettyPrint($nodes))
                 )
             );
         }
 
         foreach ($context->getErrors() as $error) {
-            $this->output->writeln($error->getText());
+            $this->output->writeln(
+                sprintf(
+                    '> <fg=red>%s</fg=red>',
+                    $error->getText()
+                )
+            );
         }
 
         $this->output->writeln('');
@@ -70,11 +76,16 @@ class CLIResultPrinter implements ResultPrinterInterface
      */
     public function printMetadata(CheckMetadata $metadata)
     {
+        $checkedFileCount = $metadata->getCheckedFileCount();
+        $elapsedTime = $metadata->getElapsedTime();
+
         $this->output->writeln(
             sprintf(
-                'Checked %d file(s) in %f second(s)',
-                $metadata->getCheckedFileCount(),
-                $metadata->getElapsedTime()
+                'Checked <fg=green>%d</fg=green> file%s in <fg=green>%.3f</fg=green> second%s',
+                $checkedFileCount,
+                $checkedFileCount > 1 ? 's' : '',
+                $elapsedTime,
+                $elapsedTime > 1 ? 's' : ''
             )
         );
     }
