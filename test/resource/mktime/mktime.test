@@ -1,0 +1,30 @@
+Usage of the removed $is_dst argument for mktime and gmmktime functions
+-----
+<?php
+echo gmmktime(0, 0, 0, 9, 17, 1986, -1);
+-----
+Removed argument $is_dst used for function "gmmktime"
+-----
+<?php
+echo mktime(0, 0, 0, 9, 17, 1986, -1);
+-----
+Removed argument $is_dst used for function "mktime"
+-----
+<?php
+echo gmmktime(0, 0, 0, 9, 17, 1986, -1, -1);
+-----
+Removed argument $is_dst used for function "gmmktime"
+-----
+<?php
+echo mktime(0, 0, 0, 9, 17, 1986, -1, -1);
+-----
+Removed argument $is_dst used for function "mktime"
+-----
+<?php
+echo gmmktime(0, 0, 0, 9, 17, 1986);
+-----
+
+-----
+<?php
+echo mktime(0, 0, 0, 9, 17, 1986);
+-----

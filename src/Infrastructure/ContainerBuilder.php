@@ -82,6 +82,10 @@ class ContainerBuilder
         'visitor.yieldInExpressionContext' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\YieldInExpressionContextVisitor',
         ),
+        'visitor.mktime' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\MktimeVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
+        ),
     );
 
     /**
