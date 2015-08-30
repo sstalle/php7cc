@@ -106,6 +106,10 @@ class ContainerBuilder
         'visitor.divisionModuloByZero' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DivisionModuloByZeroVisitor',
         ),
+        'visitor.sessionSetSaveHandler' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\SessionSetSaveHandlerVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
+        ),
     );
 
     /**

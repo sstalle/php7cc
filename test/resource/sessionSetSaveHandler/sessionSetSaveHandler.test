@@ -1,0 +1,15 @@
+Calling session_set_save_handler function
+-----
+<?php
+session_set_save_handler($a, $b, $c, $d, $e, $f);
+-----
+Check that callbacks that are passed to "session_set_save_handler" and return false or -1 (if any) operate correctly
+-----
+<?php
+session_set_save_handler($a);
+-----
+Check that callbacks that are passed to "session_set_save_handler" and return false or -1 (if any) operate correctly
+-----
+<?php
+test();
+-----
