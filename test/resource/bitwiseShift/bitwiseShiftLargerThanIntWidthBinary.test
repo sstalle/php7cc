@@ -1,5 +1,4 @@
 Bitwise shift by a binary number of bits greater or equal to minimum int size constant
-PHP >=5.4.0
 -----
 <?php $a >> 0b100000;
 -----

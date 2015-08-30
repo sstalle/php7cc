@@ -1,5 +1,4 @@
 Reserved for future use trait name usage
-PHP >=5.4.0
 -----
 <?php
 trait Numeric {}

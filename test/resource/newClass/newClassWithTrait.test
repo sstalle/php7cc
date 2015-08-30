@@ -1,5 +1,4 @@
 New class added
-PHP >=5.4.0
 -----
 <?php
 trait test {}

@@ -5,7 +5,7 @@ namespace Sstalle\php7cc\Lexer;
 use PhpParser\Lexer;
 use PhpParser\Parser;
 
-class ExtendedLexer extends Lexer
+class ExtendedLexer extends Lexer\Emulative
 {
     public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null)
     {

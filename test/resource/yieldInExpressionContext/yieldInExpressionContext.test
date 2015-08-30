@@ -1,5 +1,4 @@
 Yield usage in expression context
-PHP >=5.5.0
 -----
 <?php
 echo yield -1;
