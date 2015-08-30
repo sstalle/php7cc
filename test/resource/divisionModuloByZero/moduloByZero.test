@@ -1,0 +1,36 @@
+Modulo by zero
+-----
+<?php 1 % 0;
+-----
+Modulo by zero
+-----
+<?php 1 % 0x0;
+-----
+Modulo by zero
+-----
+<?php 1 % 00;
+-----
+Modulo by zero
+-----
+<?php 1 % 0b0;
+-----
+Modulo by zero
+-----
+<?php $foo % 0;
+-----
+Modulo by zero
+-----
+<?php $foo %= 0;
+-----
+Modulo by zero
+-----
+<?php 1 % 0.5;
+-----
+
+-----
+<?php $foo % 1;
+-----
+
+-----
+<?php $foo %= 0.5;
+-----

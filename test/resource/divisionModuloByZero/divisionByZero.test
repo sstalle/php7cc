@@ -1,0 +1,36 @@
+Division by zero
+-----
+<?php 1 / 0;
+-----
+Division by zero
+-----
+<?php 1 / 0x0;
+-----
+Division by zero
+-----
+<?php 1 / 00;
+-----
+Division by zero
+-----
+<?php 1 / 0b0;
+-----
+Division by zero
+-----
+<?php $foo / 0;
+-----
+Division by zero
+-----
+<?php $foo /= 0;
+-----
+Division by zero
+-----
+<?php 1 / 0.5;
+-----
+
+-----
+<?php $foo / 1;
+-----
+
+-----
+<?php $foo /= 0.5;
+-----

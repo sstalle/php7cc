@@ -103,6 +103,9 @@ class ContainerBuilder
         'visitor.newFunction' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewFunctionVisitor',
         ),
+        'visitor.divisionModuloByZero' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DivisionModuloByZeroVisitor',
+        ),
     );
 
     /**
