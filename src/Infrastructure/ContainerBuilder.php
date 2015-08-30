@@ -124,7 +124,6 @@ class ContainerBuilder
         $container['lexer'] = $container->share(function () {
             return new ExtendedLexer(array(
                 'usedAttributes' => array(
-                    'comments',
                     'startLine',
                     'endLine',
                     'startTokenPos',
