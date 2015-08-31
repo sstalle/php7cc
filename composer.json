@@ -18,5 +18,8 @@
     "phpunit/phpunit": "4.7.*",
     "mikey179/vfsStream": "~1.5",
     "fabpot/php-cs-fixer": "~1.10"
-  }
+  },
+  "bin": [
+    "bin/php7cc"
+  ]
 }
