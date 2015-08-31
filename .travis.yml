@@ -3,22 +3,36 @@ language: php
 sudo: false
 
 cache:
-    directories:
-        - $HOME/.composer/cache
+  directories:
+    - "$HOME/.composer/cache"
 
 php:
-    - 5.3
-    - 5.4
-    - 5.5
-    - 5.6
-    - 7.0
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
 
 matrix:
-    allow_failures:
-        - php: 7.0
+  allow_failures:
+    - php: 7.0
 
 install:
-    - composer install --no-interaction
+  - composer install --no-interaction
 
 script:
-    - ./vendor/bin/phpunit
+  - "./vendor/bin/phpunit"
+
+before_deploy:
+  - "./vendor/bin/box build"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: k+qvKnFTICcFZzx868c7IfM2fneyiA2F5RdDmFmTAhAulxAVnxnNcJBul4iBdZeE5UATaqK/Jydkj66safJZNdBz8z3yILf3redNamOO3np0TM9vo8QCjE+PMEOnDL5sY+7DgfEW3sApClRnWwqK0+X6UjPypktF6PfFMLVxqeXklTOxHuwn9JYmlTWb3CQYLOJ/dyDxPGMelDhHR4A0WD71J/8+XjJIm3zppJMae33b5FE7XavOT2d2LyDtfVjMMXxWys4a8W+Q5KkT+TrejD2J+zluB++eqNBH5hU+/jVq14qflI8gfQ1B/uZxMj1YbBfOTNpG/9oPdDJ7Yk2XspfzxbmzUtVccZt2iEQxAmoD1HJ9F2StWSdksUa2GGIhKuYi8iRK4r1UwOp98/wFmAURsDp0jbkkWdys3Pv4Jp8zLwZvqX0jT/T6F0hIaOBrS9408R+QQz0kZOQ6sLuBo0tt5v5lczg4DpsbkaXj+4RcTEbOl44s8sUdtAsoyLotT4a14kKteNtyS5rI155qFS3uNM+oTzpaor4Aa/bfbA9D2mBbOXblXWjvGqFlouHJPjwbFU+rRcCCZyG1hG+Vf4YVUEPnVvXLuecWeY7tMvNEQe5Ne5MzhBOS4+LlukcfbwLemBpD8w+SQkKd2wahGtE/x5YNTeSQo+AlDJnXx+c=
+  file: php7cc.phar
+  skip_cleanup: true
+  on:
+    repo: sstalle/php7cc
+    php: 5.6
+    tags: true

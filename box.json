@@ -11,14 +11,28 @@
         "phpunit",
         "phpspec",
         "phpdocumentor",
-        "sebastian"
+        "sebastian",
+        "phpseclib",
+        "fabpot",
+        "phine",
+        "justinrainbow",
+        "herrera-io",
+        "seld",
+        "doctrine",
+        "tedivm",
+        "kherge"
       ],
-      "in": "vendor"
+      "in": [
+        "vendor"
+      ]
     }
   ],
   "files": [
     "LICENSE",
-    "README.md"
+    "README.md",
+    "vendor/phpseclib/phpseclib/phpseclib/Crypt/Random.php",
+    "vendor/herrera-io/json/src/lib/json_version.php",
+    "vendor/herrera-io/phar-update/src/lib/constants.php"
   ],
   "main": "bin/php7cc.php",
   "output": "php7cc.phar",
