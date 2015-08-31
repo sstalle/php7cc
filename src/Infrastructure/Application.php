@@ -6,6 +6,16 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class Application extends \Symfony\Component\Console\Application
 {
+    const VERSION = '1.0.0-beta';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct()
+    {
+        parent::__construct('PHP 7 Compatibility Checker', static::VERSION);
+    }
+
     /**
      * {@inheritdoc}
      */
