@@ -8,68 +8,86 @@ code to work with the new PHP version.
 #### What kind of problems does it detect?
 It tries to find statements that change their behaviour or lead to fatal errors in PHP 7.
 A list of such statements can be found in [php-src repository](https://github.com/php/php-src/blob/master/UPGRADING).
-***php7cc is a work in progress, so not all of them are detected at the time of writing.***
+***Although php7cc tries to detect as much problems as accurately as possible, sometimes 100% reliable detection
+is very hard to achieve. That's why you should also run a comprehensive test suite for the code
+you are going to migrate.***
 
-# Usage
-#### Prerequisites
+# Prerequisites
 To run php7cc, you need php installed, minimum required version is 5.3.3. PHP 7 is supported,
  but files with syntax errors (for example, invalid numeric literals
  or invalid UTF-8 codepoint escape sequences) can't be processed. You will only get the
  warning message about the first syntax error for such files.
  
-You also need [composer](https://getcomposer.org/) to install php7cc.
+You may also need [composer](https://getcomposer.org/) to install php7cc.
 
-#### Installation
-The only way to install php7cc as of now is using composer:
+# Installation
+#### Phar package
+You can download a phar package for any stable version from the Github
+ [releases](https://github.com/sstalle/php7cc/releases) page.
+
+#### Composer (globally)
+Make sure you have composer installed. Then execute the following command:
 ```bash
-composer create-project sstalle/php7cc php7cc --stability=dev
+composer global require sstalle/php7cc
 ```
-
-During the installation process, composer will ask:
-```
-Do you want to remove the existing VCS (.git, .svn..) history? 
-```
-It's better to answer "no", as it will allow updating php7cc code using ```git pull```.
-
-#### Running
-***Note that argument names and order can change until the first stable version is released.
-Please consult readme.md file in the installation directory for correct way of passing parameters to your particular
-version of the tool.***
-
-Main executable file is bin/php7cc.php. To see the full list of available options, run:
+It is also recommended to add ```~/.composer/vendor/bin``` to your ```PATH``` environment
+variable:
 ```bash
-php bin/php7cc.php --help
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+```
+This makes it possible to run php7cc by entering just the executable name.
+
+#### Composer (locally, per project)
+Make sure you have composer installed. Then execute the following command from your project
+directory:
+```bash
+composer require sstalle/php7cc
 ```
 
+
+# Usage
+Examples in this section assume that you have installed php7cc globally using composer
+and that you have added it's vendor binaries directory to your ```PATH```. If this is not
+the case, just substitute ```php7cc``` with the correct path to the binary of phar package.
+For local per project installation the executable will be located at ```<your_project_path>/vendor/bin/php7cc```.
+
+#### Getting help
+To see the full list of available options, run:
+```bash
+php7cc --help
+```
+
+#### Checking a single file or directory
 To check a file or a directory, pass its name as the first argument. Directories are checked
 recursively.
  
 So, to check a file you could run:
 ```bash
-php bin/php7cc.php /path/to/my/file.php
+php7cc /path/to/my/file.php
 ```
 To check a directory:
 ```bash
-php bin/php7cc.php /path/to/my/directory/
+php7cc /path/to/my/directory/
 ```
 
+#### Specifying file extensions to check
 When checking a directory, you can also specify a comma-separated list of file extensions that
 should be checked. By default, only .php files are processed.
  
 For example, if you want to check .php, .inc and .lib files, you could run:
 ```bash
-php bin/php7cc.php --extensions=php,inc,lib /path/to/my/directory/
+php7cc --extensions=php,inc,lib /path/to/my/directory/
 ```
 
+#### Excluding file or directories
 You can specify a list of absolute or relative paths to exclude from checking.
 Relative paths are relative to the checked directories.
 
 So, if you want to exclude vendor and test directories, you could run:
 ```bash
-php bin/php7cc.php --except=vendor --except=/path/to/my/directory/test /path/to/my/directory/
+php7cc --except=vendor --except=/path/to/my/directory/test /path/to/my/directory/
 ```
 In this example, directories ```/path/to/my/directory/vendor```,  ```/path/to/my/directory/test``` and their contents will not be checked.
-
 
 
 # Troubleshooting
@@ -82,3 +100,6 @@ xdebug.max_nesting_level = 1000
 # Other useful links
 #### Contributing
 Please read the [contributing guidelines](CONTRIBUTING.md).
+#### Credits
+[The list of contributors](https://github.com/sstalle/php7cc/graphs/contributors) is available on the corresponding
+ Github page.
