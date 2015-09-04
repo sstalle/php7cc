@@ -41,7 +41,7 @@ This makes it possible to run php7cc by entering just the executable name.
 Make sure you have composer installed. Then execute the following command from your project
 directory:
 ```bash
-composer require sstalle/php7cc
+composer require sstalle/php7cc --dev
 ```
 
 
