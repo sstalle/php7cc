@@ -64,8 +64,8 @@ folder and put a ```.test``` file in it. ```.test``` files have multiple section
 
 Second and third sections can be repeated one or more times. 
 
-Some tests require a particular version of PHP. For example, the `yield` keyword
-had been introduced in PHP 5.5, and tests containing it cannot be run on the lower versions.
+Some tests require a particular version of PHP. For example, some syntactical constructs that
+have been valid in PHP < 7 could be invalid in PHP 7, and tests containing them cannot be run on PHP 7.
 To specify a version constraint for the test suite, add a new line of the following format
 to the first section:
 ```
@@ -76,7 +76,8 @@ constraints can be specified.
 
 
 ## Documenting your work
-You SHOULD write documentation for the code you add.
+You SHOULD write documentation for the code you add. You SHOULD document your changes for the end
+users in CHANGELOG.md file.
 
 Also, please, write [commit messages that make
 sense](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
