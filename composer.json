@@ -11,7 +11,7 @@
   "require": {
     "php": ">=5.3.3",
     "symfony/console": "~2.3",
-    "pimple/pimple": "~1.1",
+    "pimple/pimple": "~3.0",
     "nikic/php-parser": "~1.4"
   },
   "require-dev": {
