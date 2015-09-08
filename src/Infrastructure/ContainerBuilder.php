@@ -4,6 +4,7 @@ namespace Sstalle\php7cc\Infrastructure;
 
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
+use Pimple\Container;
 use Sstalle\php7cc\CLIResultPrinter;
 use Sstalle\php7cc\ContextChecker;
 use Sstalle\php7cc\ExcludedPathCanonicalizer;
@@ -115,13 +116,13 @@ class ContainerBuilder
     /**
      * @param OutputInterface $output
      *
-     * @return \Pimple
+     * @return Container
      */
     public function buildContainer(OutputInterface $output)
     {
-        $container = new \Pimple();
+        $container = new Container();
 
-        $container['lexer'] = $container->share(function () {
+        $container['lexer'] = function () {
             return new ExtendedLexer(array(
                 'usedAttributes' => array(
                     'startLine',
@@ -130,15 +131,15 @@ class ContainerBuilder
                     'endTokenPos',
                 ),
             ));
-        });
-        $container['parser'] = $container->share(function ($c) {
+        };
+        $container['parser'] = function ($c) {
             return new Parser($c['lexer']);
-        });
+        };
 
         $this->addVisitors($container);
 
         $visitors = $this->checkerVisitors;
-        $container['traverser'] = $container->share(function ($c) use ($visitors) {
+        $container['traverser'] = function ($c) use ($visitors) {
             $traverser = new Traverser(false);
             // Resolve fully qualified name (class, interface, function, etc) to ease some process
             $traverser->addVisitor(new NameResolver());
@@ -147,64 +148,64 @@ class ContainerBuilder
             }
 
             return $traverser;
-        });
+        };
 
-        $container['nodeAnalyzer.functionAnalyzer'] = $container->share(function () {
+        $container['nodeAnalyzer.functionAnalyzer'] = function () {
             return new FunctionAnalyzer();
-        });
-        $container['contextChecker'] = $container->share(function ($c) {
+        };
+        $container['contextChecker'] = function ($c) {
             return new ContextChecker($c['parser'], $c['lexer'], $c['traverser']);
-        });
-        $container['output'] = $container->share(function () use ($output) {
+        };
+        $container['output'] = function () use ($output) {
             return new CLIOutputBridge($output);
-        });
-        $container['nodePrinter'] = $container->share(function () {
+        };
+        $container['nodePrinter'] = function () {
             return new StandardPrettyPrinter();
-        });
-        $container['resultPrinter'] = $container->share(function ($c) {
+        };
+        $container['resultPrinter'] = function ($c) {
             return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
-        });
-        $container['pathChecker'] = $container->share(function ($c) {
+        };
+        $container['pathChecker'] = function ($c) {
             return new PathChecker($c['contextChecker'], $c['fileContextFactory'], $c['resultPrinter']);
-        });
-        $container['nodeStatementsRemover'] = $container->share(function () {
+        };
+        $container['nodeStatementsRemover'] = function () {
             return new NodeStatementsRemover();
-        });
-        $container['fileContextFactory'] = $container->share(function () {
+        };
+        $container['fileContextFactory'] = function () {
             return new FileContextFactory();
-        });
-        $container['pathTraversableFactory'] = $container->share(function ($c) {
+        };
+        $container['pathTraversableFactory'] = function ($c) {
             return new PathTraversableFactory($c['excludedPathCanonicalizer']);
-        });
-        $container['pathCheckExecutor'] = $container->share(function ($c) {
+        };
+        $container['pathCheckExecutor'] = function ($c) {
             return new PathCheckExecutor($c['pathTraversableFactory'], $c['pathChecker']);
-        });
-        $container['excludedPathCanonicalizer'] = $container->share(function ($c) {
+        };
+        $container['excludedPathCanonicalizer'] = function ($c) {
             return new ExcludedPathCanonicalizer($c['pathHelper']);
-        });
-        $container['osDetector'] = $container->share(function () {
+        };
+        $container['osDetector'] = function () {
             return new OSDetector();
-        });
-        $container['pathHelperFactory'] = $container->share(function ($c) {
+        };
+        $container['pathHelperFactory'] = function ($c) {
             return new PathHelperFactory($c['osDetector']);
-        });
-        $container['pathHelper'] = $container->share(function ($c) {
+        };
+        $container['pathHelper'] = function ($c) {
             /** @var PathHelperFactory $pathHelperFactory */
             $pathHelperFactory = $c['pathHelperFactory'];
 
             return $pathHelperFactory->createPathHelper();
-        });
-        $container['regExpParser'] = $container->share(function () {
+        };
+        $container['regExpParser'] = function () {
             return new RegExpParser();
-        });
+        };
 
         return $container;
     }
 
-    protected function addVisitors(\Pimple $container)
+    protected function addVisitors(Container $container)
     {
         foreach ($this->checkerVisitors as $visitorServiceName => $visitorParameters) {
-            $container[$visitorServiceName] = $container->share(function ($c) use ($visitorParameters) {
+            $container[$visitorServiceName] = function ($c) use ($visitorParameters) {
                 $visitorClassReflection = new \ReflectionClass($visitorParameters['class']);
                 $visitorDependencyServiceNames = isset($visitorParameters['dependencies'])
                     ? $visitorParameters['dependencies']
@@ -216,7 +217,7 @@ class ContainerBuilder
                 }
 
                 return $visitorClassReflection->newInstanceArgs($visitorDependencies);
-            });
+            };
         }
     }
 }
