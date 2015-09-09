@@ -1,0 +1,81 @@
+Calling setcookie or setrawcookie with an empty cookie name
+-----
+<?php
+setcookie('');
+-----
+Function "setcookie" called with an empty cookie name
+-----
+<?php
+setcookie('', 'b');
+-----
+Function "setcookie" called with an empty cookie name
+-----
+<?php
+setcookie(false);
+-----
+Function "setcookie" called with an empty cookie name
+-----
+<?php
+setcookie(False);
+-----
+Function "setcookie" called with an empty cookie name
+-----
+<?php
+setcookie(null);
+-----
+Function "setcookie" called with an empty cookie name
+-----
+<?php
+setcookie(NULL);
+-----
+Function "setcookie" called with an empty cookie name
+-----
+<?php
+setcookie('a');
+-----
+
+-----
+<?php
+setcookie('a', 'b');
+-----
+
+-----
+<?php
+setrawcookie('');
+-----
+Function "setrawcookie" called with an empty cookie name
+-----
+<?php
+setrawcookie('', 'b');
+-----
+Function "setrawcookie" called with an empty cookie name
+-----
+<?php
+setrawcookie(false);
+-----
+Function "setrawcookie" called with an empty cookie name
+-----
+<?php
+setrawcookie(False);
+-----
+Function "setrawcookie" called with an empty cookie name
+-----
+<?php
+setrawcookie(null);
+-----
+Function "setrawcookie" called with an empty cookie name
+-----
+<?php
+setrawcookie(NULL);
+-----
+Function "setrawcookie" called with an empty cookie name
+-----
+<?php
+setrawcookie('a');
+-----
+
+-----
+<?php
+setrawcookie('a', 'b');
+-----
+
