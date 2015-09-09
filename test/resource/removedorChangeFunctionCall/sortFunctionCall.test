@@ -1,0 +1,109 @@
+Sort function call
+-----
+<?php asort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php asort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php arsort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php arsort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php krsort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php krsort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php ksort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php ksort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php natcasesort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php natcasesort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php natsort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php natsort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php rsort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php rsort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php sort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php sort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php uasort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php uasort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php uksort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php uksort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php usort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php usort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php collator_sort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php collator_sort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php collator_asort($foo);
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php collator_asort(array());
+-----
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+-----
+<?php array_multisort(array());
+-----
+

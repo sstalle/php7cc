@@ -26,7 +26,7 @@ class ContainerBuilder
 {
     protected $checkerVisitors = array(
         'visitor.removedFunctionCall' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedOrChangedFunctionCallVisitor',
             'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.reservedClassName' => array(

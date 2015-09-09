@@ -5,8 +5,13 @@ namespace Sstalle\php7cc\NodeVisitor;
 use PhpParser\Node;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
-class RemovedFunctionCallVisitor extends AbstractVisitor
+class RemovedOrChangedFunctionCallVisitor extends AbstractVisitor
 {
+    const REMOVED_FUNCTION_MESSAGE = 'Removed function "%s" called';
+    const SORT_FUNCTION_MESSAGE = <<<MSG
+The internal sorting algorithm has been changed, what may result in different sort order of elements that compare as equal
+MSG;
+
     protected $removedFunctionNames = array(
         // Removed in favor of call_user_func* functions
         'call_user_method',
@@ -132,6 +137,24 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
         'mssql_select_db',
     );
 
+    protected $sortFunctionNames = array(
+        'asort',
+        'arsort',
+        'krsort',
+        'ksort',
+        'natcasesort',
+        'natsort',
+        'rsort',
+        'sort',
+        'uasort',
+        'uksort',
+        'usort',
+        'collator_sort',
+        'collator_asort',
+    );
+
+    protected $functionNamesToMessagesMap = array();
+
     /**
      * @var FunctionAnalyzer
      */
@@ -143,18 +166,28 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
     public function __construct(FunctionAnalyzer $functionAnalyzer)
     {
         $this->functionAnalyzer = $functionAnalyzer;
-        $this->removedFunctionNames = array_flip($this->removedFunctionNames);
+        $this->functionNamesToMessagesMap = array_merge(
+            array_fill_keys(
+                $this->removedFunctionNames,
+                static::REMOVED_FUNCTION_MESSAGE
+            ),
+            array_fill_keys(
+                $this->sortFunctionNames,
+                static::SORT_FUNCTION_MESSAGE
+            )
+        );
     }
 
     public function enterNode(Node $node)
     {
-        if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, $this->removedFunctionNames)) {
+        if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, $this->functionNamesToMessagesMap)) {
             return;
         }
 
         /** @var Node\Expr\FuncCall $node */
+        $functionName = $node->name->toString();
         $this->addContextMessage(
-            sprintf('Removed function "%s" called', $node->name->toString()),
+            sprintf($this->functionNamesToMessagesMap[$functionName], $functionName),
             $node
         );
     }
