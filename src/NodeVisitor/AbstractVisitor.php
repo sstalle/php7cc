@@ -10,6 +10,10 @@ use Sstalle\php7cc\Token\TokenCollection;
 
 abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInterface
 {
+    public function __construct()
+    {
+    }
+    
     /**
      * @var ContextInterface
      */
