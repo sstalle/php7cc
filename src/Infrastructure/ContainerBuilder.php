@@ -210,11 +210,19 @@ class ContainerBuilder
     {
         foreach ($this->checkerVisitors as $visitorServiceName => $visitorParameters) {
             $container[$visitorServiceName] = function ($c) use ($visitorParameters) {
-                $visitorClassReflection = new \ReflectionClass($visitorParameters['class']);
                 $visitorDependencyServiceNames = isset($visitorParameters['dependencies'])
                     ? $visitorParameters['dependencies']
                     : array();
+                $visitorClassName = $visitorParameters['class'];
+                if (!$visitorDependencyServiceNames) {
+                    /* This early return is required, because a ReflectionException is thrown
+                     * from ReflectionClass::newInstanceArgs for classes without constructors
+                     * on PHP 5.3.3
+                     */
+                    return new $visitorClassName();
+                }
 
+                $visitorClassReflection = new \ReflectionClass($visitorClassName);
                 $visitorDependencies = array();
                 foreach ($visitorDependencyServiceNames as $serviceName) {
                     $visitorDependencies[] = $c[$serviceName];
