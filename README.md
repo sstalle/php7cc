@@ -7,7 +7,7 @@ code to work with the new PHP version.
 
 #### What kind of problems does it detect?
 It tries to find statements that change their behaviour or lead to fatal errors in PHP 7.
-A list of such statements can be found in [php-src repository](https://github.com/php/php-src/blob/master/UPGRADING).
+A list of such statements can be found in [php-src repository](https://github.com/php/php-src/blob/PHP-7.0/UPGRADING).
 ***Although php7cc tries to detect as much problems as accurately as possible, sometimes 100% reliable detection
 is very hard to achieve. That's why you should also run a comprehensive test suite for the code
 you are going to migrate.***
