@@ -61,4 +61,40 @@ namespace {
 }
 -----
 PHP 4 constructors are now deprecated
+-----
+<?php new class { public function foo() {} };
+-----
 
+-----
+<?php new class extends stdClass {};
+-----
+
+-----
+<?php new class extends stdClass { public function __construct() {} };
+-----
+
+-----
+<?php
+namespace {
+    new class extends stdClass { public function __construct() {} };
+}
+-----
+
+-----
+<?php
+namespace {
+    new class extends stdClass {};
+}
+-----
+
+-----
+<?php
+namespace Acme;
+new class extends stdClass { public function __construct() {} };
+-----
+
+-----
+<?php
+namespace Acme;
+new class extends stdClass {};
+-----
