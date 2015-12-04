@@ -14,6 +14,11 @@ class PHP4ConstructorVisitor extends AbstractVisitor
             $hasPhp5Constructor = false;
             $php4ConstructorNode = null;
 
+            // Anonymous class can't use php4 constructor by definition
+            if (empty($currentClassName)) {
+                return;
+            }
+
             // Checks if class is namespaced (property namespacedName was set by the NameResolver visitor)
             if (count($node->namespacedName->parts) > 1) {
                 return;
