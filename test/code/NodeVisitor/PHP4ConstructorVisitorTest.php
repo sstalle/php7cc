@@ -1,18 +1,19 @@
 <?php
+
 namespace code\NodeVisitor;
 
 use PHPUnit_Framework_TestCase;
 use Sstalle\php7cc\NodeVisitor\PHP4ConstructorVisitor;
 
 /**
- * Unit test for the PHP4 constructor visitor
+ * Unit test for the PHP4 constructor visitor.
  *
  * @author Ron Rademaker
  */
 class PHP4ConstructorVisitorTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * Test if an anonymous class is dealt with correctly
+     * Test if an anonymous class is dealt with correctly.
      */
     public function testAnonymousClassIsValid()
     {
