@@ -44,6 +44,9 @@ directory:
 composer require sstalle/php7cc
 ```
 
+#### Docker image
+A docker image is available on [Docker Hub](https://hub.docker.com/r/ypereirareis/php7cc/)
+ (contributed and maintained by [ypereirareis](https://github.com/ypereirareis)).
 
 # Usage
 Examples in this section assume that you have installed php7cc globally using composer
