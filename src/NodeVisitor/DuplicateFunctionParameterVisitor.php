@@ -7,11 +7,6 @@ use PhpParser\Node;
 class DuplicateFunctionParameterVisitor extends AbstractVisitor
 {
     /**
-     * @var Node|null
-     */
-    protected $currentFunction;
-
-    /**
      * {@inheritdoc}
      */
     public function enterNode(Node $node)
