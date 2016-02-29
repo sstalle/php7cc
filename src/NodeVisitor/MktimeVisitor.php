@@ -34,7 +34,7 @@ class MktimeVisitor extends AbstractVisitor
             return;
         }
 
-        $this->addContextMessage(
+        $this->addContextError(
             sprintf('Removed argument $is_dst used for function "%s"', $node->name->__toString()),
             $node
         );

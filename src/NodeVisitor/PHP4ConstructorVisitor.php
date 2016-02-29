@@ -39,7 +39,7 @@ class PHP4ConstructorVisitor extends AbstractVisitor
             }
 
             if ($hasPhp4Constructor && !$hasPhp5Constructor) {
-                $this->addContextMessage(
+                $this->addContextError(
                     'PHP 4 constructors are now deprecated',
                     $php4ConstructorNode
                 );

@@ -18,7 +18,7 @@ class ListVisitor extends AbstractVisitor
             }
 
             if (!$hasNonNullVar) {
-                $this->addContextMessage(
+                $this->addContextError(
                     'Empty list assignment',
                     $node
                 );
@@ -28,7 +28,7 @@ class ListVisitor extends AbstractVisitor
         if ($node instanceof Node\Expr\Assign && $node->var instanceof Node\Expr\List_
             && ($node->expr instanceof Node\Scalar\String_ || $node->expr instanceof Node\Expr\Cast\String_)
         ) {
-            $this->addContextMessage(
+            $this->addContextError(
                 'list unpacking string',
                 $node
             );

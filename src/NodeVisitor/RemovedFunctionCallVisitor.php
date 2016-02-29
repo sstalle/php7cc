@@ -153,7 +153,7 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
         }
 
         /** @var Node\Expr\FuncCall $node */
-        $this->addContextMessage(
+        $this->addContextError(
             sprintf('Removed function "%s" called', $node->name->toString()),
             $node
         );

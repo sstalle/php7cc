@@ -41,7 +41,7 @@ class NewFunctionVisitor extends AbstractVisitor
             && ($lowerCasedFunction = strtolower($node->name))
             && array_key_exists($lowerCasedFunction, self::$lowerCasedNewFunctions)) {
             if (isset($node->namespacedName) && count($node->namespacedName->parts) === 1) {
-                $this->addContextMessage(
+                $this->addContextError(
                     sprintf(
                         'Cannot redeclare global function "%s"',
                         self::$lowerCasedNewFunctions[$lowerCasedFunction]
@@ -49,7 +49,7 @@ class NewFunctionVisitor extends AbstractVisitor
                     $node
                 );
             } else {
-                $this->addContextMessage(
+                $this->addContextWarning(
                     sprintf(
                         'Your namespaced function "%s" could replace the new global function added in PHP 7',
                         self::$lowerCasedNewFunctions[$lowerCasedFunction]

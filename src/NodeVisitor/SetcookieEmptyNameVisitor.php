@@ -42,7 +42,7 @@ class SetcookieEmptyNameVisitor extends AbstractVisitor
             && in_array(strtolower($cookieNameArgumentValue->name->toString()), array('null', 'false'), true);
 
         if ($isEmptyConstant || $isEmptyString) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf('Function "%s" called with an empty cookie name', $node->name->toString()),
                 $node
             );

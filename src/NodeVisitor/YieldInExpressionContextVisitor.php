@@ -28,7 +28,7 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
                 )
                 && !$this->expressionStack->isEmpty()
             ) {
-                $this->addContextMessage(
+                $this->addContextWarning(
                     '"yield" usage in expression context',
                     $this->expressionStack->top()
                 );

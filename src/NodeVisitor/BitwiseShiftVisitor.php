@@ -20,12 +20,12 @@ class BitwiseShiftVisitor extends AbstractVisitor
         if ($rightOperand instanceof Node\Expr\UnaryMinus && $rightOperand->expr instanceof Node\Scalar\LNumber
             && $rightOperand->expr->value > 0
         ) {
-            $this->addContextMessage(
+            $this->addContextError(
                 'Bitwise shift by a negative number',
                 $node
             );
         } elseif ($rightOperand instanceof Node\Scalar\LNumber && $rightOperand->value >= static::MIN_INT_SIZE) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf('Bitwise shift by %d bits', $rightOperand->value),
                 $node
             );

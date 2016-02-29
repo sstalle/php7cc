@@ -79,7 +79,7 @@ MSG;
 
         $checkedName = strtolower($checkedName);
         if ($checkedName && isset($this->reservedNamesToMessagesMap[$checkedName])) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf($this->reservedNamesToMessagesMap[$checkedName], $checkedName, $usagePatternName),
                 $node
             );

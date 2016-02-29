@@ -29,7 +29,7 @@ class EscapedUnicodeCodepointVisitor extends AbstractVisitor
 
         $matches = array();
         if (preg_match('/((?<!\\\\)\\\\u{.*})/', $unquotedStringValue, $matches)) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf('Unicode codepoint escaping "%s" in a string', $matches[0]),
                 $node
             );

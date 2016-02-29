@@ -5,9 +5,16 @@ namespace Sstalle\php7cc;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 use Sstalle\php7cc\CompatibilityViolation\CheckMetadata;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class CLIResultPrinter implements ResultPrinterInterface
 {
+    private static $colors = array(
+        Message::LEVEL_INFO => null,
+        Message::LEVEL_WARNING => 'yellow',
+        Message::LEVEL_ERROR => 'red',
+    );
+
     /**
      * @var CLIOutputInterface
      */
@@ -47,15 +54,8 @@ class CLIResultPrinter implements ResultPrinterInterface
         $this->output->writeln(sprintf('File: <fg=cyan>%s</fg=cyan>', $context->getCheckedResourceName()));
 
         foreach ($context->getMessages() as $message) {
-            $nodes = $this->nodeStatementsRemover->removeInnerStatements($message->getNodes());
-
             $this->output->writeln(
-                sprintf(
-                    "> Line <fg=cyan>%s</fg=cyan>: <fg=yellow>%s</fg=yellow>\n    %s",
-                    $message->getLine(),
-                    $message->getRawText(),
-                    str_replace("\n", "\n    ", $this->prettyPrinter->prettyPrint($nodes))
-                )
+                $this->formatMessage($message)
             );
         }
 
@@ -87,6 +87,36 @@ class CLIResultPrinter implements ResultPrinterInterface
                 $elapsedTime,
                 $elapsedTime > 1 ? 's' : ''
             )
+        );
+    }
+
+    /**
+     * @param Message $message
+     *
+     * @return string
+     */
+    private function formatMessage(Message $message)
+    {
+        $nodes = $this->nodeStatementsRemover->removeInnerStatements($message->getNodes());
+        $prettyPrintedNodes = str_replace("\n", "\n    ", $this->prettyPrinter->prettyPrint($nodes));
+
+        $text = $message->getRawText();
+        $color = self::$colors[$message->getLevel()];
+
+        if ($color) {
+            $text = sprintf(
+                '<fg=%s>%s</fg=%s>',
+                $color,
+                $text,
+                $color
+            );
+        }
+
+        return sprintf(
+            "> Line <fg=cyan>%s</fg=cyan>: %s\n    %s",
+            $message->getLine(),
+            $text,
+            $prettyPrintedNodes
         );
     }
 }

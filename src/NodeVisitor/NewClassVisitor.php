@@ -39,7 +39,7 @@ class NewClassVisitor extends AbstractVisitor
             && count($node->namespacedName->parts) === 1
             && ($lowerCasedClassName = strtolower($node->name))
             && array_key_exists($lowerCasedClassName, self::$lowerCasedNewClasses)) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf(
                     'Class/trait/interface "%s" was added in the global namespace',
                     self::$lowerCasedNewClasses[$lowerCasedClassName]

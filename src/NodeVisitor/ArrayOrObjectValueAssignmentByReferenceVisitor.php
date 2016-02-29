@@ -25,7 +25,7 @@ class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
         if ($node->var instanceof Node\Expr\ArrayDimFetch && $node->var->dim
             && $node->expr instanceof Node\Expr\ArrayDimFetch && $node->expr->dim
         ) {
-            $this->addContextMessage(
+            $this->addContextWarning(
                 'Possible array element creation during by-reference assignment',
                 $node
             );
@@ -44,7 +44,7 @@ class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
     protected function checkObjectPropertyByReferenceCreation(Node\Expr\AssignRef $node)
     {
         if ($node->var instanceof Node\Expr\PropertyFetch && $node->expr instanceof Node\Expr\PropertyFetch) {
-            $this->addContextMessage(
+            $this->addContextWarning(
                 'Possible object property creation during by-reference assignment',
                 $node
             );
