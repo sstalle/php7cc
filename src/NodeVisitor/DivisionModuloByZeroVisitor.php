@@ -17,7 +17,7 @@ class DivisionModuloByZeroVisitor extends AbstractVisitor
 
         $divisor = $node instanceof Node\Expr\BinaryOp ? $node->right : $node->expr;
         if ($divisor instanceof Node\Scalar\LNumber && $divisor->value == 0) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf('%s by zero', $isDivision ? 'Division' : 'Modulo'),
                 $node
             );

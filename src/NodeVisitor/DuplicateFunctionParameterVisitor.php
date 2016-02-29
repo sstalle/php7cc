@@ -21,7 +21,7 @@ class DuplicateFunctionParameterVisitor extends AbstractVisitor
             if (!isset($parametersNames[$currentParameterName])) {
                 $parametersNames[$currentParameterName] = false;
             } elseif (!$parametersNames[$currentParameterName]) {
-                $this->addContextMessage(
+                $this->addContextError(
                     sprintf('Duplicate function parameter name "%s"', $currentParameterName),
                     $node
                 );

@@ -15,7 +15,7 @@ class InvalidOctalLiteralVisitor extends AbstractVisitor
         $originalNumberValue = $node->getAttribute('originalValue', '');
 
         if (preg_match('/^0[0-7]*[89]+/', $originalNumberValue)) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf('Invalid octal literal %s', $originalNumberValue),
                 $node
             );
