@@ -30,7 +30,7 @@ class GlobalVariableVariableVisitor extends AbstractVisitor
                 continue;
             }
 
-            $this->addContextMessage(
+            $this->addContextError(
                 'Complex variable without curly braces in global keyword',
                 $node
             );

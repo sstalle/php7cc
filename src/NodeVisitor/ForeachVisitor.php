@@ -75,7 +75,7 @@ class ForeachVisitor extends AbstractVisitor
     protected function checkInternalArrayPointerAccessInByValueForeach(Node $node)
     {
         if ($this->hasFunctionCallWithForeachArgument($node, $this->arrayPointerModifyingFunctions, true)) {
-            $this->addContextMessage(
+            $this->addContextWarning(
                 'Possible internal array pointer access/modification in a by-value foreach loop',
                 $node
             );
@@ -88,7 +88,7 @@ class ForeachVisitor extends AbstractVisitor
     protected function checkArrayModificationByFunctionInByReferenceForeach(Node $node)
     {
         if ($this->hasFunctionCallWithForeachArgument($node, $this->arrayModifyingFunctions, false)) {
-            $this->addContextMessage(
+            $this->addContextWarning(
                 'Possible array modification using internal function in a by-reference foreach loop',
                 $node
             );
@@ -145,7 +145,7 @@ class ForeachVisitor extends AbstractVisitor
             }
 
             if ($node->var->var->name === $this->getForeachVariableName($foreach)) {
-                $this->addContextMessage(
+                $this->addContextWarning(
                     'Possible adding to array on the last iteration of a by-reference foreach loop',
                     $node
                 );
@@ -162,7 +162,7 @@ class ForeachVisitor extends AbstractVisitor
         /** @var Node\Stmt\Foreach_ $ancestorForeach */
         foreach ($this->foreachStack as $ancestorForeach) {
             if ($ancestorForeach->byRef) {
-                $this->addContextMessage(
+                $this->addContextWarning(
                     'Nested by-reference foreach loop, make sure there is no iteration over the same array',
                     $foreach
                 );

@@ -64,7 +64,7 @@ class FuncGetArgsVisitor extends AbstractVisitor
 
         /** @var Node\Expr\FuncCall $node */
         $functionName = $node->name->toString();
-        $this->addContextMessage(
+        $this->addContextWarning(
             sprintf('Function argument(s) returned by "%s" might have been modified', $functionName),
             $node
         );

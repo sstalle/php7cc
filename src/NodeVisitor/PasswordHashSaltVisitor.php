@@ -36,7 +36,7 @@ class PasswordHashSaltVisitor extends AbstractVisitor
         /** @var $node Node\Expr\FuncCall */
         foreach ($passwordHashOptions->items as $option) {
             if ($option->key instanceof Node\Scalar\String_ && $option->key->value === 'salt') {
-                $this->addContextMessage(
+                $this->addContextError(
                     'Deprecated option "salt" passed to password_hash function',
                     $node
                 );

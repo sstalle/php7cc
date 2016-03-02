@@ -9,7 +9,7 @@ class NewAssignmentByReferenceVisitor extends AbstractVisitor
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Expr\AssignRef && $node->expr instanceof Node\Expr\New_) {
-            $this->addContextMessage(
+            $this->addContextError(
                 'Result of new is assigned by reference',
                 $node
             );

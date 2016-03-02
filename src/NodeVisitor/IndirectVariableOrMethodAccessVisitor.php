@@ -24,7 +24,7 @@ class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
             return;
         }
 
-        $this->addContextMessage(
+        $this->addContextWarning(
             'Indirect variable, property or method access',
             $node
         );

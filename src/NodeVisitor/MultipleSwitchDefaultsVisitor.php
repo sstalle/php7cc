@@ -20,7 +20,7 @@ class MultipleSwitchDefaultsVisitor extends AbstractVisitor
         }
 
         if ($defaultCaseCount > 1) {
-            $this->addContextMessage(
+            $this->addContextError(
                 'Multiple default cases defined for the switch statement',
                 $node
             );

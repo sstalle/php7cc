@@ -19,7 +19,7 @@ class HTTPRawPostDataVisitor extends AbstractVisitor
             && $node->dim->value === static::HTTP_RAW_POST_DATA_VARIABLE_NAME;
 
         if ($isVariableAccessedByName || $isVariableAccessedThroughGlobals) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf(
                     'Removed "%s" variable used',
                     static::HTTP_RAW_POST_DATA_VARIABLE_NAME

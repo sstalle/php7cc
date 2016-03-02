@@ -25,7 +25,7 @@ class YieldExpressionVisitor extends AbstractVisitor
 
         $valueClass = get_class($node->value);
         if (isset($this->lowerPrecedenceExpressionClasses[$valueClass])) {
-            $this->addContextMessage(
+            $this->addContextWarning(
                 'Yielding expression with precedence lower than "yield"',
                 $node
             );

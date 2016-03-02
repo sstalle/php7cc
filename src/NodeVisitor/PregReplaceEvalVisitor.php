@@ -44,7 +44,7 @@ class PregReplaceEvalVisitor extends AbstractVisitor
 
         $regExp = $this->regExpParser->parse($regExpPatternArgument->value->value);
         if ($regExp->hasModifier(static::PREG_REPLACE_EVAL_MODIFIER)) {
-            $this->addContextMessage(
+            $this->addContextError(
                 sprintf('Removed regular expression modifier "%s" used', static::PREG_REPLACE_EVAL_MODIFIER),
                 $node
             );

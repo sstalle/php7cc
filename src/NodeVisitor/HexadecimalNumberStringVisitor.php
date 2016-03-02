@@ -13,7 +13,7 @@ class HexadecimalNumberStringVisitor extends AbstractVisitor
         }
 
         if (preg_match('/^0x[a-fA-F0-9]+$/', $node->value)) {
-            $this->addContextMessage(
+            $this->addContextError(
                 'String containing number in hexadecimal notation',
                 $node
             );

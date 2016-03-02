@@ -7,6 +7,15 @@ use Sstalle\php7cc\AbstractBaseMessage;
 
 class Message extends AbstractBaseMessage
 {
+    const LEVEL_INFO = 0;
+    const LEVEL_WARNING = 1;
+    const LEVEL_ERROR = 2;
+
+    /**
+     * @var int
+     */
+    protected $level;
+
     /**
      * @var Node[]
      */
@@ -15,12 +24,22 @@ class Message extends AbstractBaseMessage
     /**
      * @param string   $text
      * @param int|null $line
+     * @param int      $level
      * @param Node[]   $nodes
      */
-    public function __construct($text, $line = null, array $nodes = array())
+    public function __construct($text, $line = null, $level = self::LEVEL_INFO, array $nodes = array())
     {
         parent::__construct($text, $line);
+        $this->level = $level;
         $this->nodes = $nodes;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLevel()
+    {
+        return $this->level;
     }
 
     /**
