@@ -12,7 +12,7 @@
     "php": ">=5.3.3",
     "symfony/console": "~2.3 || ~3.0",
     "pimple/pimple": "~3.0",
-    "nikic/php-parser": "~1.4"
+    "nikic/php-parser": "~2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.7.*",
@@ -24,7 +24,7 @@
   ],
   "extra": {
     "branch-alias": {
-      "dev-master": "1.1-dev"
+      "dev-master": "dev-custom"
     }
   }
 }
