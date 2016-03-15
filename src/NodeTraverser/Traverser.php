@@ -15,10 +15,12 @@ class Traverser extends NodeTraverser
     public function traverse(array $nodes, ContextInterface $context = null, array $tokens = array())
     {
         if ($context) {
+            $tokenCollection = new TokenCollection($tokens);
+
             foreach ($this->visitors as $visitor) {
                 if ($visitor instanceof VisitorInterface) {
                     $visitor->initializeContext($context);
-                    $visitor->setTokenCollection(new TokenCollection($tokens));
+                    $visitor->setTokenCollection($tokenCollection);
                 }
             }
         }
