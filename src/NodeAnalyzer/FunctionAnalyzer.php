@@ -19,7 +19,7 @@ class FunctionAnalyzer
             return $isFunctionCallByStaticName;
         }
 
-        $calledFunctionName = $node->name->toString();
+        $calledFunctionName = strtolower($node->name->toString());
 
         return is_array($checkedFunctionName)
             ? isset($checkedFunctionName[$calledFunctionName])
