@@ -28,14 +28,22 @@ class FunctionAnalyzerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider isFunctionCallByStaticNameChecksFunctionNameCorrectlyProvider
+     * @dataProvider isFunctionCallByStaticNameChecksLowercaseFunctionNameCorrectlyProvider
      */
-    public function testIsFunctionCallByStaticNameChecksFunctionNameCorrectly($node, $checkedFunctionNames, $result)
+    public function testIsFunctionCallByStaticNameChecksLowercaseFunctionNameCorrectly($node, $checkedFunctionNames, $result)
     {
         $this->assertSame($this->functionAnalyzer->isFunctionCallByStaticName($node, $checkedFunctionNames), $result);
     }
 
-    public function isFunctionCallByStaticNameChecksFunctionNameCorrectlyProvider()
+    /**
+     * @dataProvider isFunctionCallByStaticNameChecksMixedCaseFunctionNameCorrectlyProvider
+     */
+    public function testIsFunctionCallByStaticNameChecksMixedCaseFunctionNameCorrectly($node, $checkedFunctionNames, $result)
+    {
+        $this->assertSame($this->functionAnalyzer->isFunctionCallByStaticName($node, $checkedFunctionNames), $result);
+    }
+
+    public function isFunctionCallByStaticNameChecksLowercaseFunctionNameCorrectlyProvider()
     {
         return array(
             array(
@@ -67,6 +75,22 @@ class FunctionAnalyzerTest extends \PHPUnit_Framework_TestCase
                 $this->buildFuncCallNodeWithStaticName('baz'),
                 array('foo' => true, 'bar' => true),
                 false,
+            ),
+        );
+    }
+
+    public function isFunctionCallByStaticNameChecksMixedCaseFunctionNameCorrectlyProvider()
+    {
+        return array(
+            array(
+                $this->buildFuncCallNodeWithStaticName('fOo'),
+                'foo',
+                true,
+            ),
+            array(
+                $this->buildFuncCallNodeWithStaticName('FoO'),
+                array('foo' => true),
+                true,
             ),
         );
     }

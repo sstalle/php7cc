@@ -10,5 +10,10 @@ Removed function "mysql_query" called
 Removed function "mysql_query" called
 
 -----
+<?php MYSQL_query($foo, $bar, $baz);
+-----
+Removed function "MYSQL_query" called
+
+-----
 <?php test();
 -----
