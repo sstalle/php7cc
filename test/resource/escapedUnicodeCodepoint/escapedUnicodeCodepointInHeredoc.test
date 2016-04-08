@@ -1,5 +1,4 @@
 Escaped unicode codepoints in heredoc
-PHP >=7.0
 -----
 <?php
 $str = <<<EOD
@@ -7,7 +6,7 @@ $str = <<<EOD
 EOD;
 
 -----
-Invalid UTF-8 codepoint escape sequence
+Unicode codepoint escaping "\u{xyz}" in a string
 -----
 <?php
 $str = <<<EOD

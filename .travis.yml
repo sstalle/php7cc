@@ -17,10 +17,6 @@ env:
   - COMPOSER_FLAGS="--prefer-lowest"
   - COMPOSER_FLAGS=""
 
-matrix:
-  allow_failures:
-    - php: 7.0
-
 install:
   - composer update $COMPOSER_FLAGS --no-interaction
 

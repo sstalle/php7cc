@@ -1,5 +1,4 @@
 Invalid octal literal
-PHP <7.0
 -----
 <?php
 $i = 0781;
