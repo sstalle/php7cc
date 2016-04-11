@@ -12,6 +12,15 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         $containerBuilder = new \Sstalle\php7cc\Infrastructure\ContainerBuilder();
         $container = $containerBuilder->buildContainer(new Symfony\Component\Console\Output\NullOutput());
         $contextChecker = $container['contextChecker'];
+        /** @var \PhpParser\NodeTraverserInterface $traverser */
+        $traverser = $container['traverser'];
+        /** @var \Sstalle\php7cc\NodeVisitor\ResolverInterface $resolver */
+        $resolver = $container['nodeVisitorResolver'];
+        $resolver->setLevel(\Sstalle\php7cc\CompatibilityViolation\Message::LEVEL_INFO);
+        foreach ($resolver->resolve() as $visitor) {
+            $traverser->addVisitor($visitor);
+        }
+
         $context = new \Sstalle\php7cc\CompatibilityViolation\StringContext($code, 'test');
 
         $contextChecker->checkContext($context);

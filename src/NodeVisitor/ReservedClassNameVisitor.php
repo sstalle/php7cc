@@ -3,10 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class ReservedClassNameVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
     const RESERVED_NAME_MESSAGE = 'Reserved name "%s" used %s ';
     const FUTURE_RESERVED_NAME_MESSAGE = <<<MSG
 Name "%s" that is reserved for future use (does not cause an error in PHP 7) used %s
@@ -79,7 +81,7 @@ MSG;
 
         $checkedName = strtolower($checkedName);
         if ($checkedName && isset($this->reservedNamesToMessagesMap[$checkedName])) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf($this->reservedNamesToMessagesMap[$checkedName], $checkedName, $usagePatternName),
                 $node
             );

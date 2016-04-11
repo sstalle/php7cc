@@ -3,10 +3,13 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class RemovedFunctionCallVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     protected $removedFunctionNames = array(
         // Removed in favor of call_user_func* functions
         'call_user_method',
@@ -153,7 +156,7 @@ class RemovedFunctionCallVisitor extends AbstractVisitor
         }
 
         /** @var Node\Expr\FuncCall $node */
-        $this->addContextError(
+        $this->addContextMessage(
             sprintf('Removed function "%s" called', $node->name->toString()),
             $node
         );

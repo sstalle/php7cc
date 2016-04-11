@@ -3,11 +3,13 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 use Sstalle\php7cc\Helper\RegExp\RegExpParser;
 
 class PregReplaceEvalVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
     const PREG_REPLACE_EVAL_MODIFIER = 'e';
 
     /**
@@ -44,7 +46,7 @@ class PregReplaceEvalVisitor extends AbstractVisitor
 
         $regExp = $this->regExpParser->parse($regExpPatternArgument->value->value);
         if ($regExp->hasModifier(static::PREG_REPLACE_EVAL_MODIFIER)) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf('Removed regular expression modifier "%s" used', static::PREG_REPLACE_EVAL_MODIFIER),
                 $node
             );

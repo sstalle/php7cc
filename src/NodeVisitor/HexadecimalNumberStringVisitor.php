@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class HexadecimalNumberStringVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Scalar\String_) {
@@ -13,7 +16,7 @@ class HexadecimalNumberStringVisitor extends AbstractVisitor
         }
 
         if (preg_match('/^0x[a-fA-F0-9]+$/', $node->value)) {
-            $this->addContextError(
+            $this->addContextMessage(
                 'String containing number in hexadecimal notation',
                 $node
             );

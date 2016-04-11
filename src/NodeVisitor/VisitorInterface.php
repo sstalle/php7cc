@@ -14,7 +14,12 @@ interface VisitorInterface extends NodeVisitor
     public function initializeContext(ContextInterface $context);
 
     /**
-     * @param TokenCollection
+     * @param TokenCollection $tokenCollection
      */
     public function setTokenCollection(TokenCollection $tokenCollection);
+
+    /**
+     * @return int
+     */
+    public function getLevel();
 }

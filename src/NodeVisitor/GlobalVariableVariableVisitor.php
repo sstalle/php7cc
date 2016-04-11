@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class GlobalVariableVariableVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Stmt\Global_) {
@@ -30,7 +33,7 @@ class GlobalVariableVariableVisitor extends AbstractVisitor
                 continue;
             }
 
-            $this->addContextError(
+            $this->addContextMessage(
                 'Complex variable without curly braces in global keyword',
                 $node
             );

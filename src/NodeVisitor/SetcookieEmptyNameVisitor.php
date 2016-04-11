@@ -3,10 +3,13 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class SetcookieEmptyNameVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     /**
      * @var array
      */
@@ -42,7 +45,7 @@ class SetcookieEmptyNameVisitor extends AbstractVisitor
             && in_array(strtolower($cookieNameArgumentValue->name->toString()), array('null', 'false'), true);
 
         if ($isEmptyConstant || $isEmptyString) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf('Function "%s" called with an empty cookie name', $node->name->toString()),
                 $node
             );

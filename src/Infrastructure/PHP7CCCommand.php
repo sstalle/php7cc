@@ -2,6 +2,7 @@
 
 namespace Sstalle\php7cc\Infrastructure;
 
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,6 +16,16 @@ class PHP7CCCommand extends Command
     const PATHS_ARGUMENT_NAME = 'paths';
     const EXTENSIONS_OPTION_NAME = 'extensions';
     const EXCEPT_OPTION_NAME = 'except';
+    const MESSAGE_LEVEL_OPTION_NAME = 'level';
+
+    /**
+     * @var string[]
+     */
+    protected static $messageLevelMap = array(
+        'info' => Message::LEVEL_INFO,
+        'warning' => Message::LEVEL_WARNING,
+        'error' => Message::LEVEL_ERROR,
+    );
 
     /**
      * {@inheritdoc}
@@ -39,6 +50,12 @@ class PHP7CCCommand extends Command
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Excluded files and directories',
                 array()
+            )->addOption(
+                static::MESSAGE_LEVEL_OPTION_NAME,
+                'l',
+                InputOption::VALUE_REQUIRED,
+                'Only show messages having this or higher severity level (can be info, message or warning)',
+                'info'
             );
     }
 
@@ -70,9 +87,17 @@ class PHP7CCCommand extends Command
             return;
         }
 
+        $messageLevelName = $input->getOption(static::MESSAGE_LEVEL_OPTION_NAME);
+        if (!isset(static::$messageLevelMap[$messageLevelName])) {
+            $output->writeln(sprintf('Unknown message level %s', $messageLevelName));
+
+            return;
+        }
+        $messageLevel = static::$messageLevelMap[$messageLevelName];
+
         $containerBuilder = new ContainerBuilder();
         $container = $containerBuilder->buildContainer($output);
 
-        $container['pathCheckExecutor']->check($paths, $extensions, $input->getOption(static::EXCEPT_OPTION_NAME));
+        $container['pathCheckExecutor']->check($paths, $extensions, $input->getOption(static::EXCEPT_OPTION_NAME), $messageLevel);
     }
 }

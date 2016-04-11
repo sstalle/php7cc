@@ -3,10 +3,13 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class ForeachVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_WARNING;
+
     /**
      * @var \SplStack
      */
@@ -75,7 +78,7 @@ class ForeachVisitor extends AbstractVisitor
     protected function checkInternalArrayPointerAccessInByValueForeach(Node $node)
     {
         if ($this->hasFunctionCallWithForeachArgument($node, $this->arrayPointerModifyingFunctions, true)) {
-            $this->addContextWarning(
+            $this->addContextMessage(
                 'Possible internal array pointer access/modification in a by-value foreach loop',
                 $node
             );
@@ -88,7 +91,7 @@ class ForeachVisitor extends AbstractVisitor
     protected function checkArrayModificationByFunctionInByReferenceForeach(Node $node)
     {
         if ($this->hasFunctionCallWithForeachArgument($node, $this->arrayModifyingFunctions, false)) {
-            $this->addContextWarning(
+            $this->addContextMessage(
                 'Possible array modification using internal function in a by-reference foreach loop',
                 $node
             );
@@ -145,7 +148,7 @@ class ForeachVisitor extends AbstractVisitor
             }
 
             if ($node->var->var->name === $this->getForeachVariableName($foreach)) {
-                $this->addContextWarning(
+                $this->addContextMessage(
                     'Possible adding to array on the last iteration of a by-reference foreach loop',
                     $node
                 );
@@ -162,7 +165,7 @@ class ForeachVisitor extends AbstractVisitor
         /** @var Node\Stmt\Foreach_ $ancestorForeach */
         foreach ($this->foreachStack as $ancestorForeach) {
             if ($ancestorForeach->byRef) {
-                $this->addContextWarning(
+                $this->addContextMessage(
                     'Nested by-reference foreach loop, make sure there is no iteration over the same array',
                     $foreach
                 );

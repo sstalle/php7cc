@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_WARNING;
+
     public function enterNode(Node $node)
     {
         if (!($node instanceof Node\Expr\PropertyFetch
@@ -24,7 +27,7 @@ class IndirectVariableOrMethodAccessVisitor extends AbstractVisitor
             return;
         }
 
-        $this->addContextWarning(
+        $this->addContextMessage(
             'Indirect variable, property or method access',
             $node
         );

@@ -10,6 +10,8 @@ use Sstalle\php7cc\Token\TokenCollection;
 
 abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInterface
 {
+    const LEVEL = Message::LEVEL_INFO;
+
     /**
      * @var ContextInterface
      */
@@ -36,30 +38,19 @@ abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInt
     }
 
     /**
-     * @param string $text
-     * @param Node   $node
+     * {@inheritdoc}
      */
-    protected function addContextWarning($text, Node $node)
+    public function getLevel()
     {
-        $this->addContextMessage($text, $node, Message::LEVEL_WARNING);
+        return static::LEVEL;
     }
 
     /**
      * @param string $text
      * @param Node   $node
      */
-    protected function addContextError($text, Node $node)
+    protected function addContextMessage($text, Node $node)
     {
-        $this->addContextMessage($text, $node, Message::LEVEL_ERROR);
-    }
-
-    /**
-     * @param string $text
-     * @param Node   $node
-     * @param int    $level
-     */
-    private function addContextMessage($text, Node $node, $level)
-    {
-        $this->context->addMessage(new Message($text, $node->getAttribute('startLine'), $level, array($node)));
+        $this->context->addMessage(new Message($text, $node->getAttribute('startLine'), $this->getLevel(), array($node)));
     }
 }
