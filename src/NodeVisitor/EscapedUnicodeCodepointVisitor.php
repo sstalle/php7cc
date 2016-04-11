@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class EscapedUnicodeCodepointVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Scalar\String_) {
@@ -29,7 +32,7 @@ class EscapedUnicodeCodepointVisitor extends AbstractVisitor
 
         $matches = array();
         if (preg_match('/((?<!\\\\)\\\\u{.*})/', $unquotedStringValue, $matches)) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf('Unicode codepoint escaping "%s" in a string', $matches[0]),
                 $node
             );

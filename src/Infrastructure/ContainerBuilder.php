@@ -16,6 +16,7 @@ use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
+use Sstalle\php7cc\NodeVisitor\Resolver;
 use Sstalle\php7cc\PathChecker;
 use Sstalle\php7cc\PathCheckExecutor;
 use Sstalle\php7cc\PathTraversableFactory;
@@ -101,8 +102,11 @@ class ContainerBuilder
         'visitor.php4Constructor' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\PHP4ConstructorVisitor',
         ),
-        'visitor.newFunction' => array(
-            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewFunctionVisitor',
+        'visitor.namespacedNewFunction' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NamespacedNewFunctionVisitor',
+        ),
+        'visitor.globalNewFunction' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\GlobalNewFunctionVisitor',
         ),
         'visitor.divisionModuloByZero' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DivisionModuloByZeroVisitor',
@@ -143,17 +147,22 @@ class ContainerBuilder
         $this->addVisitors($container);
 
         $visitors = $this->checkerVisitors;
-        $container['traverser'] = function ($c) use ($visitors) {
+        $container['traverser'] = function () {
             $traverser = new Traverser(false);
             // Resolve fully qualified name (class, interface, function, etc) to ease some process
             $traverser->addVisitor(new NameResolver());
-            foreach (array_keys($visitors) as $visitorServiceName) {
-                $traverser->addVisitor($c[$visitorServiceName]);
-            }
 
             return $traverser;
         };
 
+        $container['nodeVisitorResolver'] = function ($c) use ($visitors) {
+            $visitorInstances = array();
+            foreach (array_keys($visitors) as $visitorServiceName) {
+                $visitorInstances[] = $c[$visitorServiceName];
+            }
+
+            return new Resolver($visitorInstances);
+        };
         $container['nodeAnalyzer.functionAnalyzer'] = function () {
             return new FunctionAnalyzer();
         };
@@ -182,7 +191,7 @@ class ContainerBuilder
             return new PathTraversableFactory($c['excludedPathCanonicalizer']);
         };
         $container['pathCheckExecutor'] = function ($c) {
-            return new PathCheckExecutor($c['pathTraversableFactory'], $c['pathChecker']);
+            return new PathCheckExecutor($c['pathTraversableFactory'], $c['pathChecker'], $c['traverser'], $c['nodeVisitorResolver']);
         };
         $container['excludedPathCanonicalizer'] = function ($c) {
             return new ExcludedPathCanonicalizer($c['pathHelper']);

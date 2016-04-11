@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class YieldExpressionVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_WARNING;
+
     protected $lowerPrecedenceExpressionClasses = array(
         'PhpParser\\Node\\Expr\\BinaryOp\\LogicalAnd',
         'PhpParser\\Node\\Expr\\BinaryOp\\LogicalOr',
@@ -25,7 +28,7 @@ class YieldExpressionVisitor extends AbstractVisitor
 
         $valueClass = get_class($node->value);
         if (isset($this->lowerPrecedenceExpressionClasses[$valueClass])) {
-            $this->addContextWarning(
+            $this->addContextMessage(
                 'Yielding expression with precedence lower than "yield"',
                 $node
             );

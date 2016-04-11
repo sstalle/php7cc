@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class DivisionModuloByZeroVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     public function enterNode(Node $node)
     {
         $isDivision = $node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div;
@@ -17,7 +20,7 @@ class DivisionModuloByZeroVisitor extends AbstractVisitor
 
         $divisor = $node instanceof Node\Expr\BinaryOp ? $node->right : $node->expr;
         if ($divisor instanceof Node\Scalar\LNumber && $divisor->value == 0) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf('%s by zero', $isDivision ? 'Division' : 'Modulo'),
                 $node
             );

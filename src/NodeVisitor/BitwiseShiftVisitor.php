@@ -3,9 +3,11 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class BitwiseShiftVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
     const MIN_INT_SIZE = 32;
 
     public function enterNode(Node $node)
@@ -20,12 +22,12 @@ class BitwiseShiftVisitor extends AbstractVisitor
         if ($rightOperand instanceof Node\Expr\UnaryMinus && $rightOperand->expr instanceof Node\Scalar\LNumber
             && $rightOperand->expr->value > 0
         ) {
-            $this->addContextError(
+            $this->addContextMessage(
                 'Bitwise shift by a negative number',
                 $node
             );
         } elseif ($rightOperand instanceof Node\Scalar\LNumber && $rightOperand->value >= static::MIN_INT_SIZE) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf('Bitwise shift by %d bits', $rightOperand->value),
                 $node
             );

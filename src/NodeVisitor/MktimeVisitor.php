@@ -3,10 +3,13 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class MktimeVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     /**
      * @var array
      */
@@ -34,7 +37,7 @@ class MktimeVisitor extends AbstractVisitor
             return;
         }
 
-        $this->addContextError(
+        $this->addContextMessage(
             sprintf('Removed argument $is_dst used for function "%s"', $node->name->__toString()),
             $node
         );

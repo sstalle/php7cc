@@ -3,10 +3,13 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class FuncGetArgsVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_WARNING;
+
     protected $possiblyArgumentModifyingClasses = array(
         'PhpParser\\Node\\Stmt\\Foreach_',
         'PhpParser\\Node\\Stmt\\Global_',
@@ -64,7 +67,7 @@ class FuncGetArgsVisitor extends AbstractVisitor
 
         /** @var Node\Expr\FuncCall $node */
         $functionName = $node->name->toString();
-        $this->addContextWarning(
+        $this->addContextMessage(
             sprintf('Function argument(s) returned by "%s" might have been modified', $functionName),
             $node
         );

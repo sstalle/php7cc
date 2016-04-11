@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class PHP4ConstructorVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Stmt\Class_) {
@@ -39,7 +42,7 @@ class PHP4ConstructorVisitor extends AbstractVisitor
             }
 
             if ($hasPhp4Constructor && !$hasPhp5Constructor) {
-                $this->addContextError(
+                $this->addContextMessage(
                     'PHP 4 constructors are now deprecated',
                     $php4ConstructorNode
                 );
