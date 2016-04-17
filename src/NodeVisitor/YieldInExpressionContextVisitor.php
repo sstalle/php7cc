@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class YieldInExpressionContextVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_WARNING;
+
     /**
      * @var \SplStack
      */
@@ -28,7 +31,7 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
                 )
                 && !$this->expressionStack->isEmpty()
             ) {
-                $this->addContextWarning(
+                $this->addContextMessage(
                     '"yield" usage in expression context',
                     $this->expressionStack->top()
                 );

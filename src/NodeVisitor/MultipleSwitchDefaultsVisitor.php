@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class MultipleSwitchDefaultsVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Stmt\Switch_) {
@@ -20,7 +23,7 @@ class MultipleSwitchDefaultsVisitor extends AbstractVisitor
         }
 
         if ($defaultCaseCount > 1) {
-            $this->addContextError(
+            $this->addContextMessage(
                 'Multiple default cases defined for the switch statement',
                 $node
             );

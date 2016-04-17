@@ -3,10 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 class PasswordHashSaltVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
     const PASSWORD_HASH_OPTIONS_ARGUMENT_INDEX = 2;
 
     /**
@@ -36,7 +38,7 @@ class PasswordHashSaltVisitor extends AbstractVisitor
         /** @var $node Node\Expr\FuncCall */
         foreach ($passwordHashOptions->items as $option) {
             if ($option->key instanceof Node\Scalar\String_ && $option->key->value === 'salt') {
-                $this->addContextError(
+                $this->addContextMessage(
                     'Deprecated option "salt" passed to password_hash function',
                     $node
                 );

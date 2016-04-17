@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class DuplicateFunctionParameterVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     /**
      * {@inheritdoc}
      */
@@ -21,7 +24,7 @@ class DuplicateFunctionParameterVisitor extends AbstractVisitor
             if (!isset($parametersNames[$currentParameterName])) {
                 $parametersNames[$currentParameterName] = false;
             } elseif (!$parametersNames[$currentParameterName]) {
-                $this->addContextError(
+                $this->addContextMessage(
                     sprintf('Duplicate function parameter name "%s"', $currentParameterName),
                     $node
                 );

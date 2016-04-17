@@ -3,9 +3,11 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class HTTPRawPostDataVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
     const HTTP_RAW_POST_DATA_VARIABLE_NAME = 'HTTP_RAW_POST_DATA';
 
     public function enterNode(Node $node)
@@ -19,7 +21,7 @@ class HTTPRawPostDataVisitor extends AbstractVisitor
             && $node->dim->value === static::HTTP_RAW_POST_DATA_VARIABLE_NAME;
 
         if ($isVariableAccessedByName || $isVariableAccessedThroughGlobals) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf(
                     'Removed "%s" variable used',
                     static::HTTP_RAW_POST_DATA_VARIABLE_NAME

@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class NewClassVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_ERROR;
+
     private static $newClasses = array(
         'IntlChar',
 
@@ -39,7 +42,7 @@ class NewClassVisitor extends AbstractVisitor
             && count($node->namespacedName->parts) === 1
             && ($lowerCasedClassName = strtolower($node->name))
             && array_key_exists($lowerCasedClassName, self::$lowerCasedNewClasses)) {
-            $this->addContextError(
+            $this->addContextMessage(
                 sprintf(
                     'Class/trait/interface "%s" was added in the global namespace',
                     self::$lowerCasedNewClasses[$lowerCasedClassName]

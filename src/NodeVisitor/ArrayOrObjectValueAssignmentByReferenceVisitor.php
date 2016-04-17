@@ -3,9 +3,12 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
 {
+    const LEVEL = Message::LEVEL_WARNING;
+
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Expr\AssignRef) {
@@ -25,7 +28,7 @@ class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
         if ($node->var instanceof Node\Expr\ArrayDimFetch && $node->var->dim
             && $node->expr instanceof Node\Expr\ArrayDimFetch && $node->expr->dim
         ) {
-            $this->addContextWarning(
+            $this->addContextMessage(
                 'Possible array element creation during by-reference assignment',
                 $node
             );
@@ -44,7 +47,7 @@ class ArrayOrObjectValueAssignmentByReferenceVisitor extends AbstractVisitor
     protected function checkObjectPropertyByReferenceCreation(Node\Expr\AssignRef $node)
     {
         if ($node->var instanceof Node\Expr\PropertyFetch && $node->expr instanceof Node\Expr\PropertyFetch) {
-            $this->addContextWarning(
+            $this->addContextMessage(
                 'Possible object property creation during by-reference assignment',
                 $node
             );
