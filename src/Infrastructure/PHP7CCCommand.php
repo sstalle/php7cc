@@ -3,6 +3,7 @@
 namespace Sstalle\php7cc\Infrastructure;
 
 use Sstalle\php7cc\CompatibilityViolation\Message;
+use Sstalle\php7cc\PathCheckSettings;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,6 +18,7 @@ class PHP7CCCommand extends Command
     const EXTENSIONS_OPTION_NAME = 'extensions';
     const EXCEPT_OPTION_NAME = 'except';
     const MESSAGE_LEVEL_OPTION_NAME = 'level';
+    const RELATIVE_PATHS_OPTION_NAME = 'relative-paths';
 
     /**
      * @var string[]
@@ -56,6 +58,11 @@ class PHP7CCCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Only show messages having this or higher severity level (can be info, message or warning)',
                 'info'
+            )->addOption(
+                static::RELATIVE_PATHS_OPTION_NAME,
+                'r',
+                InputOption::VALUE_NONE,
+                'Output paths relative to a checked directory instead of full paths to files'
             );
     }
 
@@ -98,6 +105,11 @@ class PHP7CCCommand extends Command
         $containerBuilder = new ContainerBuilder();
         $container = $containerBuilder->buildContainer($output);
 
-        $container['pathCheckExecutor']->check($paths, $extensions, $input->getOption(static::EXCEPT_OPTION_NAME), $messageLevel);
+        $checkSettings = new PathCheckSettings($paths, $extensions);
+        $checkSettings->setExcludedPaths($input->getOption(static::EXCEPT_OPTION_NAME));
+        $checkSettings->setMessageLevel($messageLevel);
+        $checkSettings->setUseRelativePaths($input->getOption(static::RELATIVE_PATHS_OPTION_NAME));
+
+        $container['pathCheckExecutor']->check($checkSettings);
     }
 }

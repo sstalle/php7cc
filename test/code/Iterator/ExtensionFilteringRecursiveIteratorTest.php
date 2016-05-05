@@ -2,6 +2,8 @@
 
 namespace code\Iterator;
 
+require dirname(__FILE__) . '/realpath.php';
+
 class ExtensionFilteringRecursiveIteratorTest extends AbstractFilteringIteratorTest
 {
     /**

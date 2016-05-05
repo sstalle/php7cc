@@ -1,13 +1,6 @@
 <?php
 
-namespace Sstalle\php7cc\Iterator;
-
-use code\Iterator\AbstractFilteringIteratorTest;
-
-function realpath($path)
-{
-    return $path;
-}
+namespace code\Iterator;
 
 class ExcludedPathFilteringRecursiveIteratorTest extends AbstractFilteringIteratorTest
 {
