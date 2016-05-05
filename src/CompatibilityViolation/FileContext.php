@@ -2,25 +2,32 @@
 
 namespace Sstalle\php7cc\CompatibilityViolation;
 
-use Sstalle\php7cc\File;
+use Symfony\Component\Finder\SplFileInfo;
 
 class FileContext extends AbstractContext
 {
     /**
-     * @var File
+     * @var SplFileInfo
      */
     protected $file;
 
     /**
-     * @param File $file
+     * @var bool
      */
-    public function __construct(File $file)
+    protected $useRelativePaths;
+
+    /**
+     * @param SplFileInfo $file
+     * @param bool        $useRelativePaths
+     */
+    public function __construct(SplFileInfo $file, $useRelativePaths)
     {
         $this->file = $file;
+        $this->useRelativePaths = $useRelativePaths;
     }
 
     /**
-     * @return File
+     * @return SplFileInfo
      */
     public function getFile()
     {
@@ -32,7 +39,9 @@ class FileContext extends AbstractContext
      */
     public function getCheckedResourceName()
     {
-        return $this->getFile()->getRealPath();
+        $file = $this->getFile();
+
+        return $this->useRelativePaths ? $file->getRelativePathname() : $file->getRealPath();
     }
 
     /**

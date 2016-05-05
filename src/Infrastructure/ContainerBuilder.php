@@ -8,7 +8,6 @@ use Pimple\Container;
 use Sstalle\php7cc\CLIResultPrinter;
 use Sstalle\php7cc\ContextChecker;
 use Sstalle\php7cc\ExcludedPathCanonicalizer;
-use Sstalle\php7cc\FileContextFactory;
 use Sstalle\php7cc\Helper\OSDetector;
 use Sstalle\php7cc\Helper\Path\PathHelperFactory;
 use Sstalle\php7cc\Helper\RegExp\RegExpParser;
@@ -179,13 +178,10 @@ class ContainerBuilder
             return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
         };
         $container['pathChecker'] = function ($c) {
-            return new PathChecker($c['contextChecker'], $c['fileContextFactory'], $c['resultPrinter']);
+            return new PathChecker($c['contextChecker'], $c['resultPrinter']);
         };
         $container['nodeStatementsRemover'] = function () {
             return new NodeStatementsRemover();
-        };
-        $container['fileContextFactory'] = function () {
-            return new FileContextFactory();
         };
         $container['pathTraversableFactory'] = function ($c) {
             return new PathTraversableFactory($c['excludedPathCanonicalizer']);

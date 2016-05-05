@@ -2,6 +2,9 @@
 
 namespace Sstalle\php7cc\Iterator;
 
+use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
+use Symfony\Component\Finder\SplFileInfo;
+
 class FileDirectoryListRecursiveIterator implements \RecursiveIterator
 {
     /**
@@ -33,7 +36,9 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
      */
     public function current()
     {
-        return new \SplFileInfo($this->data[$this->position]);
+        $fileName = realpath($this->data[$this->position]);
+
+        return new SplFileInfo($fileName, '', basename($fileName));
     }
 
     /**
@@ -81,7 +86,7 @@ class FileDirectoryListRecursiveIterator implements \RecursiveIterator
      */
     public function getChildren()
     {
-        return new \RecursiveDirectoryIterator(
+        return new RecursiveDirectoryIterator(
             $this->data[$this->position],
             \RecursiveDirectoryIterator::KEY_AS_PATHNAME
             | \RecursiveDirectoryIterator::CURRENT_AS_FILEINFO

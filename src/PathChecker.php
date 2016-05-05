@@ -3,6 +3,8 @@
 namespace Sstalle\php7cc;
 
 use Sstalle\php7cc\CompatibilityViolation\CheckMetadata;
+use Sstalle\php7cc\CompatibilityViolation\FileContext;
+use Symfony\Component\Finder\SplFileInfo;
 
 class PathChecker
 {
@@ -12,40 +14,31 @@ class PathChecker
     protected $contextChecker;
 
     /**
-     * @var FileContextFactory
-     */
-    protected $fileContextFactory;
-
-    /**
      * @var ResultPrinterInterface
      */
     protected $resultPrinter;
 
     /**
      * @param ContextChecker         $fileChecker
-     * @param FileContextFactory     $contextFactory
      * @param ResultPrinterInterface $resultPrinter
      */
-    public function __construct(
-        ContextChecker $fileChecker,
-        FileContextFactory $contextFactory,
-        ResultPrinterInterface $resultPrinter
-    ) {
+    public function __construct(ContextChecker $fileChecker, ResultPrinterInterface $resultPrinter)
+    {
         $this->contextChecker = $fileChecker;
-        $this->fileContextFactory = $contextFactory;
         $this->resultPrinter = $resultPrinter;
     }
 
     /**
      * @param \Traversable $traversablePaths
+     * @param bool         $useRelativePaths
      */
-    public function check(\Traversable $traversablePaths)
+    public function check(\Traversable $traversablePaths, $useRelativePaths)
     {
         $checkMetadata = new CheckMetadata();
 
-        /** @var \SplFileInfo $fileInfo */
-        foreach ($traversablePaths as $pathName => $fileInfo) {
-            $this->checkFile($checkMetadata, $pathName);
+        /** @var SplFileInfo $fileInfo */
+        foreach ($traversablePaths as $fileInfo) {
+            $this->checkFile($checkMetadata, $fileInfo, $useRelativePaths);
         }
 
         $checkMetadata->endCheck();
@@ -55,11 +48,12 @@ class PathChecker
 
     /**
      * @param CheckMetadata $checkMetadata
-     * @param string        $pathName
+     * @param SplFileInfo   $fileInfo
+     * @param bool          $useRelativePaths
      */
-    protected function checkFile(CheckMetadata $checkMetadata, $pathName)
+    protected function checkFile(CheckMetadata $checkMetadata, SplFileInfo $fileInfo, $useRelativePaths)
     {
-        $context = $this->fileContextFactory->createContext($pathName);
+        $context = new FileContext($fileInfo, $useRelativePaths);
         $this->contextChecker->checkContext($context);
 
         if ($context->hasMessagesOrErrors()) {

@@ -46,24 +46,22 @@ class PathCheckExecutor
     }
 
     /**
-     * @param array $paths
-     * @param array $checkedExtensions
-     * @param array $excludedPaths
-     * @param int   $messageLevel
+     * @param PathCheckSettings $checkSettings
      */
-    public function check(array $paths, array $checkedExtensions, array $excludedPaths, $messageLevel)
+    public function check(PathCheckSettings $checkSettings)
     {
-        $this->visitorResolver->setLevel($messageLevel);
+        $this->visitorResolver->setLevel($checkSettings->getMessageLevel());
         foreach ($this->visitorResolver->resolve() as $visitor) {
             $this->traverser->addVisitor($visitor);
         }
 
         $this->pathChecker->check(
             $this->pathTraversableFactory->createTraversable(
-                $paths,
-                $checkedExtensions,
-                $excludedPaths
-            )
+                $checkSettings->getCheckedPaths(),
+                $checkSettings->getCheckedFileExtensions(),
+                $checkSettings->getExcludedPaths()
+            ),
+            $checkSettings->getUseRelativePaths()
         );
     }
 }
