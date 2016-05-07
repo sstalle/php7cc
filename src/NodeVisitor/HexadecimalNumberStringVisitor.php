@@ -7,7 +7,7 @@ use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class HexadecimalNumberStringVisitor extends AbstractVisitor
 {
-    const LEVEL = Message::LEVEL_ERROR;
+    const LEVEL = Message::LEVEL_WARNING;
 
     public function enterNode(Node $node)
     {
