@@ -10,7 +10,10 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
     public function testMessages($name, $code, $expectedMessages)
     {
         $containerBuilder = new \Sstalle\php7cc\Infrastructure\ContainerBuilder();
-        $container = $containerBuilder->buildContainer(new Symfony\Component\Console\Output\NullOutput());
+        $container = $containerBuilder->buildContainer(
+            new Symfony\Component\Console\Output\NullOutput(),
+            \Sstalle\php7cc\NodeVisitor\BitwiseShiftVisitor::MIN_INT_SIZE
+        );
         $contextChecker = $container['contextChecker'];
         /** @var \PhpParser\NodeTraverserInterface $traverser */
         $traverser = $container['traverser'];

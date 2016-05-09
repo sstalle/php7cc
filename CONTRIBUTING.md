@@ -48,7 +48,7 @@ Test suite can be run using the following command:
 vendor/bin/phpunit
 ```
 
-Please don't write unit tests for compatibility violation checking visitors (like the ones found
+In most cases you should not write unit tests for compatibility violation checking visitors (like the ones found
 in ```src/NodeVisitor```). To test them, you should create a subfolder in ```test/resource```
 folder and put a ```.test``` file in it. ```.test``` files have multiple sections separated by
 `-----`:

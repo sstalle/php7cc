@@ -24,6 +24,8 @@ use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 
 class ContainerBuilder
 {
+    const BITWISE_SHIFT_VISITOR_ID = 'visitor.bitwiseShift';
+
     protected $checkerVisitors = array(
         'visitor.removedFunctionCall' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\RemovedFunctionCallVisitor',
@@ -65,8 +67,9 @@ class ContainerBuilder
         'visitor.arrayOrObjectValueAssignmentByReference' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ArrayOrObjectValueAssignmentByReferenceVisitor',
         ),
-        'visitor.bitwiseShift' => array(
+        self::BITWISE_SHIFT_VISITOR_ID => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\BitwiseShiftVisitor',
+            'arguments' => array(),
         ),
         'visitor.newAssignmentByReference' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NewAssignmentByReferenceVisitor',
@@ -122,11 +125,14 @@ class ContainerBuilder
 
     /**
      * @param OutputInterface $output
+     * @param int             $intSize
      *
      * @return Container
      */
-    public function buildContainer(OutputInterface $output)
+    public function buildContainer(OutputInterface $output, $intSize)
     {
+        $this->checkerVisitors[static::BITWISE_SHIFT_VISITOR_ID]['arguments'][] = $intSize;
+
         $container = new Container();
 
         $container['lexer'] = function () {
@@ -218,8 +224,11 @@ class ContainerBuilder
                 $visitorDependencyServiceNames = isset($visitorParameters['dependencies'])
                     ? $visitorParameters['dependencies']
                     : array();
+                $otherVisitorArguments = isset($visitorParameters['arguments'])
+                    ? $visitorParameters['arguments']
+                    : array();
                 $visitorClassName = $visitorParameters['class'];
-                if (!$visitorDependencyServiceNames) {
+                if (!$visitorDependencyServiceNames && !$otherVisitorArguments) {
                     /* This early return is required, because a ReflectionException is thrown
                      * from ReflectionClass::newInstanceArgs for classes without constructors
                      * on PHP 5.3.3
@@ -233,7 +242,9 @@ class ContainerBuilder
                     $visitorDependencies[] = $c[$serviceName];
                 }
 
-                return $visitorClassReflection->newInstanceArgs($visitorDependencies);
+                return $visitorClassReflection->newInstanceArgs(
+                    array_merge($visitorDependencies, $otherVisitorArguments)
+                );
             };
         }
     }

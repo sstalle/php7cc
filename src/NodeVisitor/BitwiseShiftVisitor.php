@@ -10,6 +10,20 @@ class BitwiseShiftVisitor extends AbstractVisitor
     const LEVEL = Message::LEVEL_ERROR;
     const MIN_INT_SIZE = 32;
 
+    protected $intSize;
+
+    /**
+     * @param $intSize
+     */
+    public function __construct($intSize = self::MIN_INT_SIZE)
+    {
+        if ($intSize <= 0) {
+            throw new \InvalidArgumentException(sprintf('Integer size must be greater than 0, %d given', $intSize));
+        }
+
+        $this->intSize = $intSize;
+    }
+
     public function enterNode(Node $node)
     {
         $isLeftShift = $node instanceof Node\Expr\BinaryOp\ShiftLeft;
@@ -26,7 +40,7 @@ class BitwiseShiftVisitor extends AbstractVisitor
                 'Bitwise shift by a negative number',
                 $node
             );
-        } elseif ($rightOperand instanceof Node\Scalar\LNumber && $rightOperand->value >= static::MIN_INT_SIZE) {
+        } elseif ($rightOperand instanceof Node\Scalar\LNumber && $rightOperand->value >= $this->intSize) {
             $this->addContextMessage(
                 sprintf('Bitwise shift by %d bits', $rightOperand->value),
                 $node

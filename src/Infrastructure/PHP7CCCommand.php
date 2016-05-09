@@ -3,6 +3,7 @@
 namespace Sstalle\php7cc\Infrastructure;
 
 use Sstalle\php7cc\CompatibilityViolation\Message;
+use Sstalle\php7cc\NodeVisitor\BitwiseShiftVisitor;
 use Sstalle\php7cc\PathCheckSettings;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,6 +20,7 @@ class PHP7CCCommand extends Command
     const EXCEPT_OPTION_NAME = 'except';
     const MESSAGE_LEVEL_OPTION_NAME = 'level';
     const RELATIVE_PATHS_OPTION_NAME = 'relative-paths';
+    const INT_SIZE_OPTION_NAME = 'integer-size';
 
     /**
      * @var string[]
@@ -63,6 +65,12 @@ class PHP7CCCommand extends Command
                 'r',
                 InputOption::VALUE_NONE,
                 'Output paths relative to a checked directory instead of full paths to files'
+            )->addOption(
+                static::INT_SIZE_OPTION_NAME,
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Target system\'s integer size in bits (needed for bitwise shift checks)',
+                BitwiseShiftVisitor::MIN_INT_SIZE
             );
     }
 
@@ -102,8 +110,15 @@ class PHP7CCCommand extends Command
         }
         $messageLevel = static::$messageLevelMap[$messageLevelName];
 
+        $intSize = (int) $input->getOption(static::INT_SIZE_OPTION_NAME);
+        if ($intSize <= 0) {
+            $output->writeln('Integer size must be greater than 0');
+
+            return;
+        }
+
         $containerBuilder = new ContainerBuilder();
-        $container = $containerBuilder->buildContainer($output);
+        $container = $containerBuilder->buildContainer($output, $intSize);
 
         $checkSettings = new PathCheckSettings($paths, $extensions);
         $checkSettings->setExcludedPaths($input->getOption(static::EXCEPT_OPTION_NAME));

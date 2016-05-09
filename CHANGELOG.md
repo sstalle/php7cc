@@ -3,6 +3,7 @@
 * Added color differentiation between error messages and warnings
 * Added detection of non-lowercase function names
 * Added the ```--relative-paths (-r)``` option to output file paths relative to checked directories
+* Added the ```--integer-size``` option to specify integer size of the target system
 
 ## Version 1.0.2
 * Fixed notice in ```PHP4ConstructorVisitor``` caused by anonymous classes
