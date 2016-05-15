@@ -9,20 +9,38 @@ class TokenCollectionTest extends \PHPUnit_Framework_TestCase
     protected static $tokens = array('foo', 'bar', "\n", "\r\n", "\t", 'baz', 'foo1', 'bar1', 'baz1');
 
     /**
-     * @expectedException \OutOfBoundsException
+     * @expectedException \InvalidArgumentException
+     * @dataProvider throwsExceptionOnArrayTokenWithNotEnoughElementsProvider
      */
-    public function testGetTokenThrowsExceptionForNonExistentIndex()
+    public function testThrowsExceptionOnArrayTokenWithNotEnoughElements($rawToken)
     {
-        $collection = new TokenCollection(array());
-        $collection->getToken(0);
+        new TokenCollection(array($rawToken));
     }
 
-    public function testGetTokenReturnTokenAtCorrectIndex()
+    /**
+     * @expectedException \OutOfBoundsException
+     */
+    public function testGetTokenStringValueAtThrowsExceptionForNonExistentIndex()
+    {
+        $collection = new TokenCollection(array());
+        $collection->getTokenStringValueAt(0);
+    }
+
+    /**
+     * @dataProvider getTokenStringValueAtReturnsCorrectStringValueProvider
+     */
+    public function testGetTokenStringValueAtReturnsCorrectStringValue($rawToken, $stringValue)
+    {
+        $collection = new TokenCollection(array($rawToken));
+        $this->assertSame($stringValue, $collection->getTokenStringValueAt(0));
+    }
+
+    public function testGetTokenStringValueAtReturnTokenAtCorrectIndex()
     {
         $rawTokens = self::$tokens;
         $collection = new TokenCollection($rawTokens);
         foreach ($rawTokens as $i => $rawValue) {
-            $this->assertSame($rawValue, $collection->getToken($i)->__toString());
+            $this->assertSame($rawValue, $collection->getTokenStringValueAt($i));
         }
     }
 
@@ -237,6 +255,29 @@ class TokenCollectionTest extends \PHPUnit_Framework_TestCase
     public function isTokenEqualToOrFollowedByProvider()
     {
         return $this->addEqualsToCurentConditionToPrecededOrFollowedByData($this->isTokenFollowedByProvider());
+    }
+
+    public function throwsExceptionOnArrayTokenWithNotEnoughElementsProvider()
+    {
+        return array(
+            array(array()),
+            array(array(1)),
+            array(array(1, '')),
+        );
+    }
+
+    public function getTokenStringValueAtReturnsCorrectStringValueProvider()
+    {
+        return array(
+            array(
+                'foo',
+                'foo',
+            ),
+            array(
+                array(1, 'foo', 'bar'),
+                'foo',
+            ),
+        );
     }
 
     protected function addEqualsToCurentConditionToPrecededOrFollowedByData($data)

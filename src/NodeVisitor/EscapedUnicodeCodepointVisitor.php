@@ -22,7 +22,7 @@ class EscapedUnicodeCodepointVisitor extends AbstractVisitor
             // Skip T_START_HEREDOC, T_END_HEREDOC
             $unquotedStringValue = '';
             foreach (range($node->getAttribute('startTokenPos') + 1, $node->getAttribute('endTokenPos') - 1) as $i) {
-                $unquotedStringValue .= $this->tokenCollection->getToken($i)->__toString();
+                $unquotedStringValue .= $this->tokenCollection->getTokenStringValueAt($i);
             }
         }
 

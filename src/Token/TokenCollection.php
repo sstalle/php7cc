@@ -4,8 +4,10 @@ namespace Sstalle\php7cc\Token;
 
 class TokenCollection
 {
+    const TOKEN_ORIGINAL_VALUE_OFFSET = 1;
+
     /**
-     * @var Token[]
+     * @var array
      */
     protected $tokens = array();
 
@@ -14,23 +16,29 @@ class TokenCollection
      */
     public function __construct(array $rawTokens)
     {
-        foreach ($rawTokens as $rawToken) {
-            $this->tokens[] = new Token($rawToken);
+        foreach ($rawTokens as $i => $rawToken) {
+            if (is_array($rawToken) && count($rawToken) < 3) {
+                throw new \InvalidArgumentException(sprintf('Array token at index %d has less than 3 elements', $i));
+            }
         }
+
+        $this->tokens = $rawTokens;
     }
 
     /**
      * @param int $tokenPosition
-     *
-     * @return Token
+     * 
+     * @return string
      */
-    public function getToken($tokenPosition)
+    public function getTokenStringValueAt($tokenPosition)
     {
         if (!isset($this->tokens[$tokenPosition])) {
             throw new \OutOfBoundsException(sprintf('Token at offset %d does not exist', $tokenPosition));
         }
 
-        return $this->tokens[$tokenPosition];
+        $originalToken = $this->tokens[$tokenPosition];
+
+        return is_string($originalToken) ? $originalToken : $originalToken[static::TOKEN_ORIGINAL_VALUE_OFFSET];
     }
 
     /**
@@ -41,7 +49,7 @@ class TokenCollection
      */
     public function isTokenEqualTo($tokenPosition, $stringValue)
     {
-        return $this->getToken($tokenPosition)->isStringValueEqualTo($stringValue);
+        return $this->getTokenStringValueAt($tokenPosition) === $stringValue;
     }
 
     /**
@@ -104,12 +112,12 @@ class TokenCollection
         $ignoreWhitespace = !ctype_space($stringValue);
 
         while (isset($this->tokens[$scanForward ? ++$tokenPosition : --$tokenPosition])) {
-            $currentToken = $this->tokens[$tokenPosition];
-            if ($ignoreWhitespace && ctype_space($currentToken->__toString())) {
+            $currentTokenString = $this->getTokenStringValueAt($tokenPosition);
+            if ($ignoreWhitespace && ctype_space($currentTokenString)) {
                 continue;
             }
 
-            return $currentToken->isStringValueEqualTo($stringValue);
+            return $stringValue === $currentTokenString;
         }
 
         return false;
