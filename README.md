@@ -115,6 +115,14 @@ You should increase maximum function nesting level in your PHP or Xdebug config 
 xdebug.max_nesting_level = 1000
 ```
 
+#### Allowed memory size of N bytes exhausted 
+You should increase amount of memory available to CLI PHP scripts or disable PHP memory limit.
+The latter can be done by setting the `memory_limit` PHP option to -1. This option can be set by editing
+`php.ini` or by passing a command-line argument to PHP executable like this:
+```bash
+php -d memory_limit=-1 php7cc.php /path/to/my/directory
+```
+
 # Other useful links
 #### Contributing
 Please read the [contributing guidelines](CONTRIBUTING.md).
