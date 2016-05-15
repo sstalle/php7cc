@@ -1,4 +1,6 @@
-## Version 1.1-dev
+## Version 1.2-dev
+
+## Version 1.1.0
 * Added warning for setting cookies with empty names
 * Added color differentiation between error messages and warnings
 * Added the ```--level (-l)``` option to specify minimum reported issue level

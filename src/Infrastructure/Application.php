@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class Application extends \Symfony\Component\Console\Application
 {
-    const VERSION = '1.1.0-dev';
+    const VERSION = '1.2.0-dev';
 
     /**
      * {@inheritdoc}
