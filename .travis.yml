@@ -17,15 +17,18 @@ env:
   - COMPOSER_FLAGS="--prefer-lowest"
   - COMPOSER_FLAGS=""
 
+before_install:
+  - travis_retry composer self-update
+
 install:
   - composer update $COMPOSER_FLAGS --no-interaction
 
-before_script:
-  - travis_retry composer self-update
-
 script:
-  - composer test
+  - composer test -- --coverage-text --coverage-clover=coverage.clover
   - composer cs -- --dry-run --diff
+
+after_script:
+  - if [[ $TRAVIS_PHP_VERSION != 'hhvm' && $TRAVIS_PHP_VERSION != '7.0' && $COMPOSER_FLAGS != '--prefer-lowest' ]]; then wget https://scrutinizer-ci.com/ocular.phar; && php ocular code-coverage:upload --format=php-clover coverage.clover; fi
 
 before_deploy:
   - "composer require kherge/box:~2.5"
