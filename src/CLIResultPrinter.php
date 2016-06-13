@@ -9,6 +9,9 @@ use Sstalle\php7cc\CompatibilityViolation\Message;
 
 class CLIResultPrinter implements ResultPrinterInterface
 {
+    /**
+     * @var array
+     */
     private static $colors = array(
         Message::LEVEL_INFO => null,
         Message::LEVEL_WARNING => 'yellow',

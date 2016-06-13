@@ -9,6 +9,9 @@ class ListVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_ERROR;
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Expr\List_) {

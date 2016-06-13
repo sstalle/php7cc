@@ -10,6 +10,9 @@ class HTTPRawPostDataVisitor extends AbstractVisitor
     const LEVEL = Message::LEVEL_ERROR;
     const HTTP_RAW_POST_DATA_VARIABLE_NAME = 'HTTP_RAW_POST_DATA';
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         $isVariableAccessedByName = $node instanceof Node\Expr\Variable

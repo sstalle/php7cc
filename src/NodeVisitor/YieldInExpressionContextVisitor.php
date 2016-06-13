@@ -14,11 +14,17 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
      */
     protected $expressionStack;
 
+    /**
+     * {@inheritdoc}
+     */
     public function beforeTraverse(array $nodes)
     {
         $this->expressionStack = new \SplStack();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Expr\Yield_) {
@@ -41,6 +47,9 @@ class YieldInExpressionContextVisitor extends AbstractVisitor
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function leaveNode(Node $node)
     {
         if (!$this->expressionStack->isEmpty() && $node === $this->expressionStack->top()) {

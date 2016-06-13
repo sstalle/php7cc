@@ -9,6 +9,9 @@ class NewClassVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_ERROR;
 
+    /**
+     * @var string[]
+     */
     private static $newClasses = array(
         'IntlChar',
 
@@ -26,6 +29,9 @@ class NewClassVisitor extends AbstractVisitor
         'DivisionByZeroError',
     );
 
+    /**
+     * @var string[]
+     */
     private static $lowerCasedNewClasses = array();
 
     public function __construct()
@@ -35,6 +41,9 @@ class NewClassVisitor extends AbstractVisitor
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Stmt\ClassLike

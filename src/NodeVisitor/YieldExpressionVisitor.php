@@ -9,6 +9,9 @@ class YieldExpressionVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_WARNING;
 
+    /**
+     * @var string[]
+     */
     protected $lowerPrecedenceExpressionClasses = array(
         'PhpParser\\Node\\Expr\\BinaryOp\\LogicalAnd',
         'PhpParser\\Node\\Expr\\BinaryOp\\LogicalOr',
@@ -20,6 +23,9 @@ class YieldExpressionVisitor extends AbstractVisitor
         $this->lowerPrecedenceExpressionClasses = array_flip($this->lowerPrecedenceExpressionClasses);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if (!($node instanceof Node\Expr\Yield_ && $node->value && $node->value instanceof Node\Expr)) {

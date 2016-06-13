@@ -23,6 +23,9 @@ class SessionSetSaveHandlerVisitor extends AbstractVisitor
         $this->functionAnalyzer = $functionAnalyzer;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if ($this->functionAnalyzer->isFunctionCallByStaticName($node, array('session_set_save_handler' => true))) {

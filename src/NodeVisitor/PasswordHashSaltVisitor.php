@@ -24,6 +24,9 @@ class PasswordHashSaltVisitor extends AbstractVisitor
         $this->functionAnalyzer = $functionAnalyzer;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, array('password_hash' => true))

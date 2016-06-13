@@ -50,6 +50,9 @@ class Message extends AbstractBaseMessage
         return $this->nodes;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function generateText()
     {
         return sprintf('Line %d. %s', $this->getLine(), $this->getRawText());

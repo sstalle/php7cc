@@ -9,6 +9,9 @@ class NewAssignmentByReferenceVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_ERROR;
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Expr\AssignRef && $node->expr instanceof Node\Expr\New_) {

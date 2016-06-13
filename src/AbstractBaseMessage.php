@@ -54,5 +54,8 @@ abstract class AbstractBaseMessage
         return $this->line;
     }
 
+    /**
+     * @return string
+     */
     abstract protected function generateText();
 }

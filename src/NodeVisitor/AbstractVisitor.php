@@ -24,6 +24,9 @@ abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInt
 
     protected $tokens;
 
+    /**
+     * @param ContextInterface $context
+     */
     public function initializeContext(ContextInterface $context)
     {
         $this->context = $context;

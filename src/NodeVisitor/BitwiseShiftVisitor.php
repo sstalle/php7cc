@@ -10,6 +10,9 @@ class BitwiseShiftVisitor extends AbstractVisitor
     const LEVEL = Message::LEVEL_ERROR;
     const MIN_INT_SIZE = 32;
 
+    /**
+     * @var int
+     */
     protected $intSize;
 
     /**
@@ -24,6 +27,9 @@ class BitwiseShiftVisitor extends AbstractVisitor
         $this->intSize = $intSize;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         $isLeftShift = $node instanceof Node\Expr\BinaryOp\ShiftLeft;

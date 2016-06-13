@@ -9,6 +9,9 @@ class DivisionModuloByZeroVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_ERROR;
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         $isDivision = $node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div;

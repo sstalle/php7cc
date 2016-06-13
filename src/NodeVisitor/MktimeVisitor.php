@@ -11,7 +11,7 @@ class MktimeVisitor extends AbstractVisitor
     const LEVEL = Message::LEVEL_ERROR;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $mktimeFamilyFunctions = array('mktime', 'gmmktime');
 
@@ -29,6 +29,9 @@ class MktimeVisitor extends AbstractVisitor
         $this->mktimeFamilyFunctions = array_flip($this->mktimeFamilyFunctions);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, $this->mktimeFamilyFunctions)

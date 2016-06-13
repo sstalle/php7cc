@@ -53,6 +53,9 @@ class ForeachVisitor extends AbstractVisitor
         $this->arrayModifyingFunctions = array_flip($this->arrayModifyingFunctions);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Stmt\Foreach_) {
@@ -65,6 +68,9 @@ class ForeachVisitor extends AbstractVisitor
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function leaveNode(Node $node)
     {
         if ($node instanceof Node\Stmt\Foreach_) {
@@ -156,6 +162,9 @@ class ForeachVisitor extends AbstractVisitor
         }
     }
 
+    /**
+     * @param Node\Stmt\Foreach_ $foreach
+     */
     protected function checkNestedByReferenceForeach(Node\Stmt\Foreach_ $foreach)
     {
         if (!$foreach->byRef) {
@@ -175,6 +184,11 @@ class ForeachVisitor extends AbstractVisitor
         }
     }
 
+    /**
+     * @param Node\Stmt\Foreach_ $foreach
+     *
+     * @return Node\Expr|string|void
+     */
     protected function getForeachVariableName(Node\Stmt\Foreach_ $foreach)
     {
         if ($foreach->expr instanceof Node\Expr\Variable) {

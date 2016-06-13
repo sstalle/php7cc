@@ -7,6 +7,9 @@ use PhpParser\Parser;
 
 class ExtendedLexer extends Lexer\Emulative
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null)
     {
         $tokenId = parent::getNextToken($value, $startAttributes, $endAttributes);

@@ -32,6 +32,9 @@ class PregReplaceEvalVisitor extends AbstractVisitor
         $this->functionAnalyzer = $functionAnalyzer;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if (!$this->functionAnalyzer->isFunctionCallByStaticName($node, 'preg_replace')) {

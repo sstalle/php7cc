@@ -10,6 +10,9 @@ class FuncGetArgsVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_WARNING;
 
+    /**
+     * @var string[]
+     */
     protected $possiblyArgumentModifyingClasses = array(
         'PhpParser\\Node\\Stmt\\Foreach_',
         'PhpParser\\Node\\Stmt\\Global_',
@@ -48,11 +51,17 @@ class FuncGetArgsVisitor extends AbstractVisitor
         $this->functionAnalyzer = $functionAnalyzer;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function beforeTraverse(array $nodes)
     {
         $this->argumentModificationStack = new \SplStack();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         $isCurrentNodeFunctionLike = $node instanceof Node\FunctionLike;
@@ -73,6 +82,9 @@ class FuncGetArgsVisitor extends AbstractVisitor
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function leaveNode(Node $node)
     {
         if ($this->argumentModificationStack->isEmpty()) {

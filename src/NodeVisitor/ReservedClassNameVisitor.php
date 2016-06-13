@@ -14,6 +14,9 @@ class ReservedClassNameVisitor extends AbstractVisitor
 Name "%s" that is reserved for future use (does not cause an error in PHP 7) used %s
 MSG;
 
+    /**
+     * @var string[]
+     */
     protected $reservedClassNames = array(
         'bool',
         'int',
@@ -24,6 +27,9 @@ MSG;
         'true',
     );
 
+    /**
+     * @var string[]
+     */
     protected $futureReservedClassNames = array(
         'resource',
         'object',
@@ -31,6 +37,9 @@ MSG;
         'numeric',
     );
 
+    /**
+     * @var array
+     */
     protected $reservedNamesToMessagesMap = array();
 
     /**

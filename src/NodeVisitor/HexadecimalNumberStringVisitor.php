@@ -9,6 +9,9 @@ class HexadecimalNumberStringVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_WARNING;
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if (!$node instanceof Node\Scalar\String_) {

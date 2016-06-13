@@ -6,6 +6,9 @@ use PhpParser\Node;
 
 abstract class AbstractNewFunctionVisitor extends AbstractVisitor
 {
+    /**
+     * @var string[]
+     */
     private static $newFunctions = array(
         'random_bytes',
         'random_int',
@@ -26,6 +29,9 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
         'deflate_init',
     );
 
+    /**
+     * @var string[]
+     */
     private static $lowerCasedNewFunctions = array();
 
     public function __construct()
@@ -35,6 +41,9 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Stmt\Function_

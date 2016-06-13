@@ -6,6 +6,9 @@ use Sstalle\php7cc\AbstractBaseMessage;
 
 class CheckError extends AbstractBaseMessage
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function generateText()
     {
         $text = $this->getRawText();
