@@ -34,7 +34,7 @@ If you don't know about any of them, you should really read the recommendations.
 To fix your code according to the project standards, you can run
 [PHP-CS-Fixer tool](http://cs.sensiolabs.org/) before commit: 
 ```bash
-vendor/bin/php-cs-fixer fix . --config-file=.php_cs 
+composer cs
 ```
 
 
@@ -45,7 +45,7 @@ vendor/bin/php-cs-fixer fix . --config-file=.php_cs
 
 Test suite can be run using the following command:
 ```bash
-vendor/bin/phpunit
+composer test
 ```
 
 In most cases you should not write unit tests for compatibility violation checking visitors (like the ones found
