@@ -20,8 +20,12 @@ env:
 install:
   - composer update $COMPOSER_FLAGS --no-interaction
 
+before_script:
+  - travis_retry composer self-update
+
 script:
-  - "./vendor/bin/phpunit"
+  - composer test
+  - composer cs -- --dry-run --diff
 
 before_deploy:
   - "composer require kherge/box:~2.5"
