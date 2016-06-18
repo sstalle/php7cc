@@ -32,7 +32,7 @@ after_script:
 
 before_deploy:
   - "composer require kherge/box:~2.5"
-  - "composer update --prefer-lowest"
+  - "composer update --prefer-lowest --no-dev"
   - "./vendor/bin/box build"
 
 deploy:
