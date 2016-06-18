@@ -29,4 +29,8 @@ preg_replace('/foo/ab', '', '');
 preg_replace('#foo#ab', '', '');
 -----
 
-
+-----
+<?php
+$a = '#foo#ab';
+preg_replace($a, '', '');
+-----

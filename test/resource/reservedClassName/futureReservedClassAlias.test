@@ -19,3 +19,8 @@ Name "resource" that is reserved for future use (does not cause an error in PHP 
 
 class_alias('A', 'B');
 -----
+
+-----
+<?php
+class_alias('A');
+-----
