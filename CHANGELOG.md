@@ -1,4 +1,5 @@
 ## Version 1.2-dev
+* Fixed false positives for nested by-reference foreach loops wrapped in functions or class methods
 
 ## Version 1.1.0
 * Added warning for setting cookies with empty names

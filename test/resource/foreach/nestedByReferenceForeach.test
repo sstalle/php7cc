@@ -23,6 +23,47 @@ Nested by-reference foreach loop, make sure there is no iteration over the same 
 <?php
 foreach ($a as &$b) {
     foreach ($a as $c) {
+        $f = function() {
+            foreach ($a as &$e) {
+
+            }
+        };
+    }
+}
+-----
+
+-----
+<?php
+foreach ($a as &$b) {
+    foreach ($a as $c) {
+        function f() {
+            foreach ($a as &$e) {
+
+            }
+        }
+    }
+}
+-----
+
+-----
+<?php
+foreach ($a as &$b) {
+    foreach ($a as $c) {
+        class Foo {
+            public function foo() {
+                foreach ($a as &$e) {
+
+                }
+            }
+        }
+    }
+}
+-----
+
+-----
+<?php
+foreach ($a as &$b) {
+    foreach ($a as $c) {
 
     }
 }

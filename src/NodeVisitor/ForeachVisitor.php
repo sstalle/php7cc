@@ -6,14 +6,9 @@ use PhpParser\Node;
 use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
-class ForeachVisitor extends AbstractVisitor
+class ForeachVisitor extends AbstractNestedLoopVisitor
 {
     const LEVEL = Message::LEVEL_WARNING;
-
-    /**
-     * @var \SplStack
-     */
-    protected $foreachStack;
 
     /**
      * @var array
@@ -48,7 +43,6 @@ class ForeachVisitor extends AbstractVisitor
     public function __construct(FunctionAnalyzer $functionAnalyzer)
     {
         $this->functionAnalyzer = $functionAnalyzer;
-        $this->foreachStack = new \SplStack();
         $this->arrayPointerModifyingFunctions = array_flip($this->arrayPointerModifyingFunctions);
         $this->arrayModifyingFunctions = array_flip($this->arrayModifyingFunctions);
     }
@@ -58,10 +52,11 @@ class ForeachVisitor extends AbstractVisitor
      */
     public function enterNode(Node $node)
     {
-        if ($node instanceof Node\Stmt\Foreach_) {
+        parent::enterNode($node);
+
+        if ($this->isTargetLoopNode($node)) {
             $this->checkNestedByReferenceForeach($node);
-            $this->foreachStack->push($node);
-        } elseif (!$this->foreachStack->isEmpty()) {
+        } elseif (!$this->getCurrentLoopStack()->isEmpty()) {
             $this->checkInternalArrayPointerAccessInByValueForeach($node);
             $this->checkArrayModificationByFunctionInByReferenceForeach($node);
             $this->checkAddingToArrayInByReferenceForeach($node);
@@ -71,11 +66,9 @@ class ForeachVisitor extends AbstractVisitor
     /**
      * {@inheritdoc}
      */
-    public function leaveNode(Node $node)
+    protected function isTargetLoopNode(Node $node)
     {
-        if ($node instanceof Node\Stmt\Foreach_) {
-            $this->foreachStack->pop();
-        }
+        return $node instanceof Node\Stmt\Foreach_;
     }
 
     /**
@@ -120,7 +113,7 @@ class ForeachVisitor extends AbstractVisitor
         /** @var Node\Expr\FuncCall $node */
         foreach ($node->args as $argument) {
             /** @var Node\Stmt\Foreach_ $foreach */
-            foreach ($this->foreachStack as $foreach) {
+            foreach ($this->getCurrentLoopStack() as $foreach) {
                 if ($skippedByRefType !== null && $foreach->byRef === $skippedByRefType) {
                     continue;
                 }
@@ -148,7 +141,7 @@ class ForeachVisitor extends AbstractVisitor
         }
 
         /** @var Node\Stmt\Foreach_ $foreach */
-        foreach ($this->foreachStack as $foreach) {
+        foreach ($this->getCurrentLoopStack() as $foreach) {
             if (!$foreach->byRef) {
                 continue;
             }
@@ -172,7 +165,11 @@ class ForeachVisitor extends AbstractVisitor
         }
 
         /** @var Node\Stmt\Foreach_ $ancestorForeach */
-        foreach ($this->foreachStack as $ancestorForeach) {
+        foreach ($this->getCurrentLoopStack() as $ancestorForeach) {
+            if ($ancestorForeach === $foreach) {
+                continue;
+            }
+
             if ($ancestorForeach->byRef) {
                 $this->addContextMessage(
                     'Nested by-reference foreach loop, make sure there is no iteration over the same array',
