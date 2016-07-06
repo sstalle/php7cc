@@ -54,6 +54,9 @@ class ContainerBuilder
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\FuncGetArgsVisitor',
             'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
+        'visitor.continueBreakOutsideLoop' => array(
+            'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ContinueBreakOutsideLoopVisitor',
+        ),
         'visitor.foreach' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\ForeachVisitor',
             'dependencies' => array('nodeAnalyzer.functionAnalyzer'),

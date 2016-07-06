@@ -1,0 +1,200 @@
+Using continue outside of loop or switch context
+-----
+<?php
+while (true) {
+    continue;
+}
+-----
+
+-----
+<?php
+do {
+    continue;
+} while (true);
+-----
+
+-----
+<?php
+for (;;) {
+    continue;
+}
+-----
+
+-----
+<?php
+foreach ($a as $b) {
+    continue;
+}
+-----
+
+-----
+<?php
+switch (true) {
+    case true:
+        continue;
+}
+-----
+
+-----
+<?php
+while (true) {
+    function foo() {
+        continue;
+    }
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+do {
+    function foo() {
+        continue;
+    }
+} while (true);
+-----
+continue not in the loop or switch context
+-----
+<?php
+for (;;) {
+    function foo() {
+        continue;
+    }
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+foreach ($a as $b) {
+    function foo() {
+        continue;
+    }
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+switch (true) {
+    case true:
+        function foo() {
+            continue;
+        }
+        continue;
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+while (true) {
+    $f = function() {
+        continue;
+    };
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+do {
+    $f = function() {
+        continue;
+    };
+} while (true);
+-----
+continue not in the loop or switch context
+-----
+<?php
+for (;;) {
+    $f = function() {
+        continue;
+    };
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+foreach ($a as $b) {
+    $f = function() {
+        continue;
+    };
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+switch (true) {
+    case true:
+        $f = function() {
+            continue;
+        };
+        continue;
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+while (true) {
+    class Foo {
+        public function foo() {
+            continue;
+        }
+    }
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+do {
+    class Foo {
+        public function foo() {
+            continue;
+        }
+    }
+} while (true);
+-----
+continue not in the loop or switch context
+-----
+<?php
+for (;;) {
+    class Foo {
+        public function foo() {
+            continue;
+        }
+    }
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+foreach ($a as $b) {
+    class Foo {
+        public function foo() {
+            continue;
+        }
+    }
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+switch (true) {
+    case true:
+        class Foo {
+            public function foo() {
+                continue;
+            }
+        }
+        continue;
+}
+-----
+continue not in the loop or switch context
+-----
+<?php
+continue;
+-----
+continue not in the loop or switch context
+-----
+<?php
+if (true) {
+    continue;
+}
+-----
+continue not in the loop or switch context

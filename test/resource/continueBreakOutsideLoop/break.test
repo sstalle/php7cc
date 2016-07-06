@@ -1,0 +1,200 @@
+Using break outside of loop or switch context
+-----
+<?php
+while (true) {
+    break;
+}
+-----
+
+-----
+<?php
+do {
+    break;
+} while (true);
+-----
+
+-----
+<?php
+for (;;) {
+    break;
+}
+-----
+
+-----
+<?php
+foreach ($a as $b) {
+    break;
+}
+-----
+
+-----
+<?php
+switch (true) {
+    case true:
+        break;
+}
+-----
+
+-----
+<?php
+while (true) {
+    function foo() {
+        break;
+    }
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+do {
+    function foo() {
+        break;
+    }
+} while (true);
+-----
+break not in the loop or switch context
+-----
+<?php
+for (;;) {
+    function foo() {
+        break;
+    }
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+foreach ($a as $b) {
+    function foo() {
+        break;
+    }
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+switch (true) {
+    case true:
+        function foo() {
+            break;
+        }
+        break;
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+while (true) {
+    $f = function() {
+        break;
+    };
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+do {
+    $f = function() {
+        break;
+    };
+} while (true);
+-----
+break not in the loop or switch context
+-----
+<?php
+for (;;) {
+    $f = function() {
+        break;
+    };
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+foreach ($a as $b) {
+    $f = function() {
+        break;
+    };
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+switch (true) {
+    case true:
+        $f = function() {
+            break;
+        };
+        break;
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+while (true) {
+    class Foo {
+        public function foo() {
+            break;
+        }
+    }
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+do {
+    class Foo {
+        public function foo() {
+            break;
+        }
+    }
+} while (true);
+-----
+break not in the loop or switch context
+-----
+<?php
+for (;;) {
+    class Foo {
+        public function foo() {
+            break;
+        }
+    }
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+foreach ($a as $b) {
+    class Foo {
+        public function foo() {
+            break;
+        }
+    }
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+switch (true) {
+    case true:
+        class Foo {
+            public function foo() {
+                break;
+            }
+        }
+        break;
+}
+-----
+break not in the loop or switch context
+-----
+<?php
+break;
+-----
+break not in the loop or switch context
+-----
+<?php
+if (true) {
+    break;
+}
+-----
+break not in the loop or switch context
