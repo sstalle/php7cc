@@ -7,10 +7,6 @@ use Sstalle\php7cc\AbstractBaseMessage;
 
 class Message extends AbstractBaseMessage
 {
-    const LEVEL_INFO = 0;
-    const LEVEL_WARNING = 1;
-    const LEVEL_ERROR = 2;
-
     /**
      * @var int
      */

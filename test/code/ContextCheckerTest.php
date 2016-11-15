@@ -12,14 +12,15 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         $containerBuilder = new \Sstalle\php7cc\Infrastructure\ContainerBuilder();
         $container = $containerBuilder->buildContainer(
             new Symfony\Component\Console\Output\NullOutput(),
-            \Sstalle\php7cc\NodeVisitor\BitwiseShiftVisitor::MIN_INT_SIZE
+            \Sstalle\php7cc\NodeVisitor\BitwiseShiftVisitor::MIN_INT_SIZE,
+            \Sstalle\php7cc\Infrastructure\PHP7CCCommand::OUTPUT_FORMAT_TEXT
         );
         $contextChecker = $container['contextChecker'];
         /** @var \PhpParser\NodeTraverserInterface $traverser */
         $traverser = $container['traverser'];
         /** @var \Sstalle\php7cc\NodeVisitor\ResolverInterface $resolver */
         $resolver = $container['nodeVisitorResolver'];
-        $resolver->setLevel(\Sstalle\php7cc\CompatibilityViolation\Message::LEVEL_INFO);
+        $resolver->setLevel(\Sstalle\php7cc\AbstractBaseMessage::LEVEL_INFO);
         foreach ($resolver->resolve() as $visitor) {
             $traverser->addVisitor($visitor);
         }
@@ -134,7 +135,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
                         $this->stripVersionConstraint($name)
                     )
                 );
-            };
+            }
 
             foreach (range(0, count($versionConstraints[0]) - 1) as $constraintIndex) {
                 if (!version_compare(

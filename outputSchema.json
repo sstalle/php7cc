@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "info",
+              "warning",
+              "error",
+              "parse_error"
+            ]
+          },
+          "line": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file",
+          "level",
+          "line",
+          "text"
+        ]
+      }
+    },
+    "filesChecked": {
+      "type": "integer"
+    },
+    "elapsedTime": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "errors",
+    "filesChecked",
+    "elapsedTime"
+  ]
+}

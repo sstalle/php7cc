@@ -2,10 +2,12 @@
 
 namespace Sstalle\php7cc\Infrastructure;
 
+use Bcn\Component\Json\Writer;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use Pimple\Container;
-use Sstalle\php7cc\CLIResultPrinter;
+use Sstalle\php7cc\CLIJSONResultPrinter;
+use Sstalle\php7cc\CLITextResultPrinter;
 use Sstalle\php7cc\ContextChecker;
 use Sstalle\php7cc\ExcludedPathCanonicalizer;
 use Sstalle\php7cc\Helper\OSDetector;
@@ -13,6 +15,7 @@ use Sstalle\php7cc\Helper\Path\PathHelperFactory;
 use Sstalle\php7cc\Helper\RegExp\RegExpParser;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
+use Sstalle\php7cc\NodePrinter;
 use Sstalle\php7cc\NodeStatementsRemover;
 use Sstalle\php7cc\NodeTraverser\Traverser;
 use Sstalle\php7cc\NodeVisitor\Resolver;
@@ -132,10 +135,11 @@ class ContainerBuilder
     /**
      * @param OutputInterface $output
      * @param int             $intSize
+     * @param string          $outputFormat
      *
      * @return Container
      */
-    public function buildContainer(OutputInterface $output, $intSize)
+    public function buildContainer(OutputInterface $output, $intSize, $outputFormat)
     {
         $this->checkerVisitors[static::BITWISE_SHIFT_VISITOR_ID]['arguments'][] = $intSize;
 
@@ -183,11 +187,20 @@ class ContainerBuilder
         $container['output'] = function () use ($output) {
             return new CLIOutputBridge($output);
         };
-        $container['nodePrinter'] = function () {
+        $container['phpParserNodePrinter'] = function () {
             return new StandardPrettyPrinter();
         };
-        $container['resultPrinter'] = function ($c) {
-            return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
+        $container['nodePrinter'] = function ($c) {
+            return new NodePrinter($c['phpParserNodePrinter'], $c['nodeStatementsRemover']);
+        };
+        $container['textResultPrinter'] = function ($c) {
+            return new CLITextResultPrinter($c['output'], $c['nodePrinter']);
+        };
+        $container['jsonResultPrinter'] = function ($c) {
+            return new CLIJSONResultPrinter($c['output'], $c['nodePrinter'], $c['jsonStreamWriter']);
+        };
+        $container['resultPrinter'] = function ($c) use ($outputFormat) {
+            return $c[$outputFormat . 'ResultPrinter'];
         };
         $container['pathChecker'] = function ($c) {
             return new PathChecker($c['contextChecker'], $c['resultPrinter']);
@@ -218,6 +231,13 @@ class ContainerBuilder
         };
         $container['regExpParser'] = function () {
             return new RegExpParser();
+        };
+        $container['jsonStreamWriter'] = function () use ($output) {
+            stream_wrapper_register('output', 'Sstalle\\php7cc\\OutputStreamWrapper');
+            $context = stream_context_create(array('output' => array('output' => $output)));
+            $outputStream = fopen('output://console', 'a', null, $context);
+
+            return new Writer($outputStream);
         };
 
         return $container;

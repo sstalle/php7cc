@@ -99,14 +99,22 @@ In this example, directories ```/path/to/my/directory/vendor```,  ```/path/to/my
 
 #### Specifying minimum issue level
 If you set a minimum issue level, only issues having that or higher severity level will be
-reported by `php7cc`. There are 3 issue levels: "info", "warning" and "error". "info" is
-reserved for future use and is the same as "warning".
+reported by `php7cc`. There are 3 issue levels: `info`, `warning` and `error`. `info` is
+reserved for future use and is the same as `warning`.
 
 Example usage:
 ```bash
 php7cc --level=error /path/to/my/directory/
 ```
 Only errors, but not warnings will be shown in this case.
+
+#### Specifying output format
+`php7cc` supports two output formats: `text` (human-readable) and `json` (machine-readable).
+`output` command-line option can be used to specify the desired format:
+```bash
+php7cc --output=json /path/to/my/directory/
+```
+There is a [schema](outputSchema.json) that describes output structure for the `json` format.
 
 # Troubleshooting
 #### Maximum function nesting level of 100/250/N reached, aborting!

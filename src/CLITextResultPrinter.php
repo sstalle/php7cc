@@ -2,20 +2,19 @@
 
 namespace Sstalle\php7cc;
 
-use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 use Sstalle\php7cc\CompatibilityViolation\CheckMetadata;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 use Sstalle\php7cc\CompatibilityViolation\Message;
 
-class CLIResultPrinter implements ResultPrinterInterface
+class CLITextResultPrinter implements ResultPrinterInterface
 {
     /**
      * @var array
      */
     private static $colors = array(
-        Message::LEVEL_INFO => null,
-        Message::LEVEL_WARNING => 'yellow',
-        Message::LEVEL_ERROR => 'red',
+        AbstractBaseMessage::LEVEL_INFO => null,
+        AbstractBaseMessage::LEVEL_WARNING => 'yellow',
+        AbstractBaseMessage::LEVEL_ERROR => 'red',
     );
 
     /**
@@ -24,28 +23,18 @@ class CLIResultPrinter implements ResultPrinterInterface
     protected $output;
 
     /**
-     * @var StandardPrettyPrinter
+     * @var NodePrinterInterface
      */
-    protected $prettyPrinter;
+    protected $nodePrinter;
 
     /**
-     * @var NodeStatementsRemover
+     * @param CLIOutputInterface   $output
+     * @param NodePrinterInterface $nodePrinter
      */
-    protected $nodeStatementsRemover;
-
-    /**
-     * @param CLIOutputInterface    $output
-     * @param StandardPrettyPrinter $prettyPrinter
-     * @param NodeStatementsRemover $nodeStatementsRemover
-     */
-    public function __construct(
-        CLIOutputInterface $output,
-        StandardPrettyPrinter $prettyPrinter,
-        NodeStatementsRemover $nodeStatementsRemover
-    ) {
+    public function __construct(CLIOutputInterface $output, NodePrinterInterface $nodePrinter)
+    {
         $this->output = $output;
-        $this->prettyPrinter = $prettyPrinter;
-        $this->nodeStatementsRemover = $nodeStatementsRemover;
+        $this->nodePrinter = $nodePrinter;
     }
 
     /**
@@ -100,8 +89,7 @@ class CLIResultPrinter implements ResultPrinterInterface
      */
     private function formatMessage(Message $message)
     {
-        $nodes = $this->nodeStatementsRemover->removeInnerStatements($message->getNodes());
-        $prettyPrintedNodes = str_replace("\n", "\n    ", $this->prettyPrinter->prettyPrint($nodes));
+        $prettyPrintedNodes = $this->nodePrinter->printNodes($message->getNodes());
 
         $text = $message->getRawText();
         $color = self::$colors[$message->getLevel()];

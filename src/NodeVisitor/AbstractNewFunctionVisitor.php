@@ -57,14 +57,14 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
 
     /**
      * @param Node\Stmt\Function_ $node
-     * 
+     *
      * @return bool
      */
     abstract protected function accepts(Node\Stmt\Function_ $node);
 
     /**
      * @param string $functionName
-     * 
+     *
      * @return string
      */
     abstract protected function getMessageText($functionName);
