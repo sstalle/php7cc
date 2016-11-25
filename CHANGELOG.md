@@ -1,6 +1,7 @@
 ## Version 1.2-dev
 * Fixed false positives for nested by-reference foreach loops wrapped in functions or class methods
 * Added detection of continue/break outside of loop/switch contexts
+* Added JSON output format
 
 ## Version 1.1.0
 * Added warning for setting cookies with empty names

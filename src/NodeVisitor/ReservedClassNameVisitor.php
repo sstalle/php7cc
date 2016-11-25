@@ -10,7 +10,7 @@ class ReservedClassNameVisitor extends AbstractVisitor
 {
     const LEVEL = Message::LEVEL_ERROR;
     const RESERVED_NAME_MESSAGE = 'Reserved name "%s" used %s ';
-    const FUTURE_RESERVED_NAME_MESSAGE = <<<MSG
+    const FUTURE_RESERVED_NAME_MESSAGE = <<<'MSG'
 Name "%s" that is reserved for future use (does not cause an error in PHP 7) used %s
 MSG;
 

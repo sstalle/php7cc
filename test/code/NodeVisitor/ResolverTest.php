@@ -2,7 +2,7 @@
 
 namespace code\NodeVisitor;
 
-use Sstalle\php7cc\CompatibilityViolation\Message;
+use Sstalle\php7cc\AbstractBaseMessage;
 use Sstalle\php7cc\NodeVisitor\AbstractVisitor;
 use Sstalle\php7cc\NodeVisitor\Resolver;
 use Sstalle\php7cc\NodeVisitor\VisitorInterface;
@@ -31,11 +31,11 @@ class ResolverTest extends \PHPUnit_Framework_TestCase
     public function testResolvesCorrectlyAccordingToLevelProvider()
     {
         $data = array(
-            array(array(), Message::LEVEL_INFO),
-            array(array(Message::LEVEL_INFO, Message::LEVEL_INFO), Message::LEVEL_INFO),
-            array(array(Message::LEVEL_INFO, Message::LEVEL_WARNING), Message::LEVEL_WARNING),
-            array(array(Message::LEVEL_INFO, Message::LEVEL_WARNING, Message::LEVEL_ERROR, Message::LEVEL_WARNING), Message::LEVEL_ERROR),
-            array(array(Message::LEVEL_INFO, Message::LEVEL_INFO), Message::LEVEL_ERROR),
+            array(array(), AbstractBaseMessage::LEVEL_INFO),
+            array(array(AbstractBaseMessage::LEVEL_INFO, AbstractBaseMessage::LEVEL_INFO), AbstractBaseMessage::LEVEL_INFO),
+            array(array(AbstractBaseMessage::LEVEL_INFO, AbstractBaseMessage::LEVEL_WARNING), AbstractBaseMessage::LEVEL_WARNING),
+            array(array(AbstractBaseMessage::LEVEL_INFO, AbstractBaseMessage::LEVEL_WARNING, AbstractBaseMessage::LEVEL_ERROR, AbstractBaseMessage::LEVEL_WARNING), AbstractBaseMessage::LEVEL_ERROR),
+            array(array(AbstractBaseMessage::LEVEL_INFO, AbstractBaseMessage::LEVEL_INFO), AbstractBaseMessage::LEVEL_ERROR),
         );
 
         foreach ($data as $i => $item) {

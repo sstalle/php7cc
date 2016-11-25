@@ -2,8 +2,6 @@
 
 namespace Sstalle\php7cc;
 
-use Sstalle\php7cc\CompatibilityViolation\Message;
-
 class PathCheckSettings
 {
     /**
@@ -24,7 +22,7 @@ class PathCheckSettings
     /**
      * @var int
      */
-    protected $messageLevel = Message::LEVEL_INFO;
+    protected $messageLevel = AbstractBaseMessage::LEVEL_INFO;
 
     /**
      * @var bool

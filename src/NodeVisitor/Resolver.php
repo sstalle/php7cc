@@ -2,7 +2,7 @@
 
 namespace Sstalle\php7cc\NodeVisitor;
 
-use Sstalle\php7cc\CompatibilityViolation\Message;
+use Sstalle\php7cc\AbstractBaseMessage;
 
 class Resolver implements ResolverInterface
 {
@@ -20,7 +20,7 @@ class Resolver implements ResolverInterface
      * @param array $visitors
      * @param int   $level
      */
-    public function __construct($visitors = array(), $level = Message::LEVEL_INFO)
+    public function __construct($visitors = array(), $level = AbstractBaseMessage::LEVEL_INFO)
     {
         foreach ($visitors as $visitor) {
             $this->addVisitor($visitor);

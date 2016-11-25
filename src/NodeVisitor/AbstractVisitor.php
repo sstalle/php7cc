@@ -4,13 +4,14 @@ namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
+use Sstalle\php7cc\AbstractBaseMessage;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\Token\TokenCollection;
 
 abstract class AbstractVisitor extends NodeVisitorAbstract implements VisitorInterface
 {
-    const LEVEL = Message::LEVEL_INFO;
+    const LEVEL = AbstractBaseMessage::LEVEL_INFO;
 
     /**
      * @var ContextInterface
