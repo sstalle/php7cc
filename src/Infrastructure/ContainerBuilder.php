@@ -11,6 +11,7 @@ use Sstalle\php7cc\ExcludedPathCanonicalizer;
 use Sstalle\php7cc\Helper\OSDetector;
 use Sstalle\php7cc\Helper\Path\PathHelperFactory;
 use Sstalle\php7cc\Helper\RegExp\RegExpParser;
+use Sstalle\php7cc\JsonResultPrinter;
 use Sstalle\php7cc\Lexer\ExtendedLexer;
 use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 use Sstalle\php7cc\NodeStatementsRemover;
@@ -19,6 +20,7 @@ use Sstalle\php7cc\NodeVisitor\Resolver;
 use Sstalle\php7cc\PathChecker;
 use Sstalle\php7cc\PathCheckExecutor;
 use Sstalle\php7cc\PathTraversableFactory;
+use Sstalle\php7cc\ResultPrinterInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 
@@ -130,6 +132,11 @@ class ContainerBuilder
     );
 
     /**
+     * @var string $outputFormat
+     */
+    private $outputFormat;
+
+    /**
      * @param OutputInterface $output
      * @param int             $intSize
      *
@@ -187,7 +194,14 @@ class ContainerBuilder
             return new StandardPrettyPrinter();
         };
         $container['resultPrinter'] = function ($c) {
-            return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
+            switch ($this->outputFormat) {
+                case ResultPrinterInterface::PLAIN_FORMAT:
+                    return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
+                case ResultPrinterInterface::JSON_FORMAT:
+                    return new JsonResultPrinter($c['output']);
+                default: throw new \InvalidArgumentException('Invalid output format: ' . $this->outputFormat);
+            }
+
         };
         $container['pathChecker'] = function ($c) {
             return new PathChecker($c['contextChecker'], $c['resultPrinter']);
@@ -256,5 +270,14 @@ class ContainerBuilder
                 );
             };
         }
+    }
+
+    /**
+     * @param string $outputFormat
+     * @return ContainerBuilder
+     */
+    public function withOutputFormat($outputFormat) {
+        $this->outputFormat = $outputFormat;
+        return $this;
     }
 }
