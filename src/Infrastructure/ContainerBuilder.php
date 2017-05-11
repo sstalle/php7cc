@@ -132,7 +132,7 @@ class ContainerBuilder
     );
 
     /**
-     * @var string $outputFormat
+     * @var string
      */
     private $outputFormat;
 
@@ -201,7 +201,6 @@ class ContainerBuilder
                     return new JsonResultPrinter($c['output']);
                 default: throw new \InvalidArgumentException('Invalid output format: ' . $this->outputFormat);
             }
-
         };
         $container['pathChecker'] = function ($c) {
             return new PathChecker($c['contextChecker'], $c['resultPrinter']);
@@ -274,10 +273,13 @@ class ContainerBuilder
 
     /**
      * @param string $outputFormat
+     *
      * @return ContainerBuilder
      */
-    public function withOutputFormat($outputFormat) {
+    public function withOutputFormat($outputFormat)
+    {
         $this->outputFormat = $outputFormat;
+
         return $this;
     }
 }

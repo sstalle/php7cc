@@ -27,7 +27,7 @@ class TokenCollection
 
     /**
      * @param int $tokenPosition
-     * 
+     *
      * @return string
      */
     public function getTokenStringValueAt($tokenPosition)

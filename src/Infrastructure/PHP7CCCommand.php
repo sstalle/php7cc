@@ -37,7 +37,7 @@ class PHP7CCCommand extends Command
      * @var string[]
      */
     protected static $validOutputFormats = array(
-        ResultPrinterInterface::PLAIN_FORMAT, ResultPrinterInterface::JSON_FORMAT
+        ResultPrinterInterface::PLAIN_FORMAT, ResultPrinterInterface::JSON_FORMAT,
     );
 
     /**
@@ -134,7 +134,7 @@ class PHP7CCCommand extends Command
 
         $outputFormat = $input->getOption(static::OUTPUT_FORMAT_OPTION_NAME);
         if (!in_array($outputFormat, static::$validOutputFormats)) {
-            $output->writeln('Invalid output format: '.$outputFormat);
+            $output->writeln('Invalid output format: ' . $outputFormat);
 
             return;
         }

@@ -8,7 +8,7 @@ use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 class JsonResultPrinter implements ResultPrinterInterface
 {
     /**
-     * @var array $resultData json output content and structure
+     * @var array json output content and structure
      */
     private $resultData;
     /**
@@ -33,7 +33,7 @@ class JsonResultPrinter implements ResultPrinterInterface
 
         $this->resultData[$resource] = array(
             'errors' => array_map($extractMessageDataCallback, $context->getErrors()),
-            'messages' => array_map($extractMessageDataCallback, $context->getMessages())
+            'messages' => array_map($extractMessageDataCallback, $context->getMessages()),
         );
     }
     /**
