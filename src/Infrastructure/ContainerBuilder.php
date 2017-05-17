@@ -148,6 +148,8 @@ class ContainerBuilder
 
         $container = new Container();
 
+        $self = $this;
+
         $container['lexer'] = function () {
             return new ExtendedLexer(array(
                 'usedAttributes' => array(
@@ -193,8 +195,8 @@ class ContainerBuilder
         $container['nodePrinter'] = function () {
             return new StandardPrettyPrinter();
         };
-        $container['resultPrinter'] = function ($c) {
-            switch ($this->outputFormat) {
+        $container['resultPrinter'] = function ($c) use ($self) {
+            switch ($self->outputFormat) {
                 case ResultPrinterInterface::PLAIN_FORMAT:
                     return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
                 case ResultPrinterInterface::JSON_FORMAT:
