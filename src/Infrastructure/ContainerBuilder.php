@@ -201,7 +201,7 @@ class ContainerBuilder
                     return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
                 case ResultPrinterInterface::JSON_FORMAT:
                     return new JsonResultPrinter($c['output']);
-                default: throw new \InvalidArgumentException('Invalid output format: ' . $this->outputFormat);
+                default: throw new \InvalidArgumentException('Invalid output format: ' . $self->outputFormat);
             }
         };
         $container['pathChecker'] = function ($c) {

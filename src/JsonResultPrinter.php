@@ -2,24 +2,32 @@
 
 namespace Sstalle\php7cc;
 
+use Bcn\Component\Json\Writer;
 use Sstalle\php7cc\CompatibilityViolation\CheckMetadata;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 
 class JsonResultPrinter implements ResultPrinterInterface
 {
     /**
-     * @var array json output content and structure
-     */
-    private $resultData;
-    /**
      * @var CLIOutputInterface
      */
     private $output;
+    /**
+     * @var Writer
+     */
+    private $writer;
+    /**
+     * @var resource
+     */
+    private $json_file;
 
     public function __construct(CLIOutputInterface $output)
     {
         $this->output = $output;
-        $this->resultData = array();
+        $this->json_file = fopen('php://temp', 'wb');
+        $this->writer = new Writer($this->json_file);
+        $this->writer->enter(Writer::TYPE_OBJECT);
+        $this->writer->enter('files', Writer::TYPE_ARRAY);
     }
 
     /**
@@ -31,17 +39,26 @@ class JsonResultPrinter implements ResultPrinterInterface
 
         $extractMessageDataCallback = $this->buildCallback();
 
-        $this->resultData[$resource] = array(
+        $this->writer->write(null, array(
+            'name' => $resource,
             'errors' => array_map($extractMessageDataCallback, $context->getErrors()),
             'messages' => array_map($extractMessageDataCallback, $context->getMessages()),
-        );
+        ));
     }
     /**
      * @param CheckMetadata $metadata
      */
     public function printMetadata(CheckMetadata $metadata)
     {
-        $this->output->writeln(json_encode($this->resultData, JSON_PRETTY_PRINT));
+        $this->writer->leave();
+        $this->writer->enter('summary', Writer::TYPE_OBJECT);
+        $this->writer->write('checkedFiles', $metadata->getCheckedFileCount());
+        $this->writer->write('elapsedTime', $metadata->getElapsedTime());
+        $this->writer->leave();
+        $this->writer->leave();
+
+        rewind($this->json_file);
+        $this->output->writeln(stream_get_contents($this->json_file));
     }
 
     /**
@@ -52,5 +69,10 @@ class JsonResultPrinter implements ResultPrinterInterface
         return function (AbstractBaseMessage $m) {
             return array('line' => $m->getLine(), 'text' => $m->getRawText());
         };
+    }
+
+    public function __destruct()
+    {
+        fclose($this->json_file);
     }
 }

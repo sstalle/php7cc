@@ -114,28 +114,41 @@ There are two output format available: `plain` and `json`.
 `output-format` command-line option, `o` in short form, can be used in order to change the output format:
 
 ```bash
-php7cc -o json /path/to/my/directory/
+php7cc -o json /path/to/my/directory/ | json_pp
 ```
 
 Would output:
 
 ```json
 {
-  "/path/to/my/directory/myfile.php": {
-    "errors": [
+   "summary" : {
+      "elapsedTime" : 0.0060338973999023,
+      "checkedFiles" : 3
+   },
+   "files" : [
       {
-        "line": 33,
-        "text": "Invalid octal literal 008"
-      }
-    ],
-    "messages": [
+         "errors" : {},
+         "name" : "/path/to/my/directory/myfile.php",
+         "messages" : [
+            {
+               "text" : "String containing number in hexadecimal notation",
+               "line" : 13
+            }
+         ]
+      },
       {
-        "line": 6,
-        "text": "Reserved name \"string\" used as a use statement alias "
+         "messages" : [
+            {
+               "line" : 6,
+               "text" : "Reserved name \"string\" used as a class, interface or trait name "
+            }
+         ],
+         "name" : "/path/to/my/directory/myfile.php",
+         "errors" : {}
       }
-    ]
-  }
+   ]
 }
+
 ```
 
 # Troubleshooting
