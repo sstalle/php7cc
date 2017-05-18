@@ -7,6 +7,9 @@ use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 
 interface ResultPrinterInterface
 {
+    const PLAIN_FORMAT = 'plain';
+    const JSON_FORMAT = 'json';
+
     /**
      * @param ContextInterface $context
      */

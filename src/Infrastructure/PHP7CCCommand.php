@@ -5,6 +5,7 @@ namespace Sstalle\php7cc\Infrastructure;
 use Sstalle\php7cc\CompatibilityViolation\Message;
 use Sstalle\php7cc\NodeVisitor\BitwiseShiftVisitor;
 use Sstalle\php7cc\PathCheckSettings;
+use Sstalle\php7cc\ResultPrinterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,6 +22,7 @@ class PHP7CCCommand extends Command
     const MESSAGE_LEVEL_OPTION_NAME = 'level';
     const RELATIVE_PATHS_OPTION_NAME = 'relative-paths';
     const INT_SIZE_OPTION_NAME = 'integer-size';
+    const OUTPUT_FORMAT_OPTION_NAME = 'output-format';
 
     /**
      * @var string[]
@@ -29,6 +31,13 @@ class PHP7CCCommand extends Command
         'info' => Message::LEVEL_INFO,
         'warning' => Message::LEVEL_WARNING,
         'error' => Message::LEVEL_ERROR,
+    );
+
+    /**
+     * @var string[]
+     */
+    protected static $validOutputFormats = array(
+        ResultPrinterInterface::PLAIN_FORMAT, ResultPrinterInterface::JSON_FORMAT,
     );
 
     /**
@@ -71,6 +80,12 @@ class PHP7CCCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Target system\'s integer size in bits (needed for bitwise shift checks)',
                 BitwiseShiftVisitor::MIN_INT_SIZE
+            )->addOption(
+                static::OUTPUT_FORMAT_OPTION_NAME,
+                'o',
+                InputOption::VALUE_OPTIONAL,
+                'Output format (plain, json)',
+                'plain'
             );
     }
 
@@ -117,8 +132,17 @@ class PHP7CCCommand extends Command
             return;
         }
 
+        $outputFormat = $input->getOption(static::OUTPUT_FORMAT_OPTION_NAME);
+        if (!in_array($outputFormat, static::$validOutputFormats)) {
+            $output->writeln('Invalid output format: ' . $outputFormat);
+
+            return;
+        }
+
         $containerBuilder = new ContainerBuilder();
-        $container = $containerBuilder->buildContainer($output, $intSize);
+        $container = $containerBuilder
+            ->withOutputFormat($outputFormat)
+            ->buildContainer($output, $intSize);
 
         $checkSettings = new PathCheckSettings($paths, $extensions);
         $checkSettings->setExcludedPaths($input->getOption(static::EXCEPT_OPTION_NAME));

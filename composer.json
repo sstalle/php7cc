@@ -13,7 +13,8 @@
     "symfony/console": "~2.3 || ~3.0",
     "symfony/finder": "~2.3 || ~3.0",
     "pimple/pimple": "~3.0",
-    "nikic/php-parser": "~1.4"
+    "nikic/php-parser": "~1.4",
+    "bcncommerce/json-stream": "0.3.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.7.*",

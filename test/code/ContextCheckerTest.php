@@ -134,7 +134,7 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
                         $this->stripVersionConstraint($name)
                     )
                 );
-            };
+            }
 
             foreach (range(0, count($versionConstraints[0]) - 1) as $constraintIndex) {
                 if (!version_compare(

@@ -108,6 +108,49 @@ php7cc --level=error /path/to/my/directory/
 ```
 Only errors, but not warnings will be shown in this case.
 
+#### Specifying output format
+There are two output format available: `plain` and `json`.
+
+`output-format` command-line option, `o` in short form, can be used in order to change the output format:
+
+```bash
+php7cc -o json /path/to/my/directory/ | json_pp
+```
+
+Would output:
+
+```json
+{
+   "summary" : {
+      "elapsedTime" : 0.0060338973999023,
+      "checkedFiles" : 3
+   },
+   "files" : [
+      {
+         "errors" : {},
+         "name" : "/path/to/my/directory/myfile.php",
+         "messages" : [
+            {
+               "text" : "String containing number in hexadecimal notation",
+               "line" : 13
+            }
+         ]
+      },
+      {
+         "messages" : [
+            {
+               "line" : 6,
+               "text" : "Reserved name \"string\" used as a class, interface or trait name "
+            }
+         ],
+         "name" : "/path/to/my/directory/myfile.php",
+         "errors" : {}
+      }
+   ]
+}
+
+```
+
 # Troubleshooting
 #### Maximum function nesting level of 100/250/N reached, aborting!
 You should increase maximum function nesting level in your PHP or Xdebug config file like this:
