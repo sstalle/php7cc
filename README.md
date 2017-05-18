@@ -129,7 +129,7 @@ Would output:
       {
          "errors" : {},
          "name" : "/path/to/my/directory/myfile.php",
-         "messages" : [
+         "warnings" : [
             {
                "text" : "String containing number in hexadecimal notation",
                "line" : 13
@@ -137,7 +137,7 @@ Would output:
          ]
       },
       {
-         "messages" : [
+         "warnings" : [
             {
                "line" : 6,
                "text" : "Reserved name \"string\" used as a class, interface or trait name "

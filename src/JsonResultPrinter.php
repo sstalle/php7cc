@@ -42,7 +42,7 @@ class JsonResultPrinter implements ResultPrinterInterface
         $this->writer->write(null, array(
             'name' => $resource,
             'errors' => array_map($extractMessageDataCallback, $context->getErrors()),
-            'messages' => array_map($extractMessageDataCallback, $context->getMessages()),
+            'warnings' => array_map($extractMessageDataCallback, $context->getMessages()),
         ));
     }
     /**
