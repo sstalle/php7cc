@@ -19,13 +19,13 @@ class JsonResultPrinter implements ResultPrinterInterface
     /**
      * @var resource
      */
-    private $json_file;
+    private $jsonFile;
 
     public function __construct(CLIOutputInterface $output)
     {
         $this->output = $output;
-        $this->json_file = fopen('php://temp', 'wb');
-        $this->writer = new Writer($this->json_file);
+        $this->jsonFile = fopen('php://temp', 'wb');
+        $this->writer = new Writer($this->jsonFile);
         $this->writer->enter(Writer::TYPE_OBJECT);
         $this->writer->enter('files', Writer::TYPE_ARRAY);
     }
@@ -57,8 +57,8 @@ class JsonResultPrinter implements ResultPrinterInterface
         $this->writer->leave();
         $this->writer->leave();
 
-        rewind($this->json_file);
-        $this->output->writeln(stream_get_contents($this->json_file));
+        rewind($this->jsonFile);
+        $this->output->writeln(stream_get_contents($this->jsonFile));
     }
 
     /**
@@ -73,6 +73,6 @@ class JsonResultPrinter implements ResultPrinterInterface
 
     public function __destruct()
     {
-        fclose($this->json_file);
+        fclose($this->jsonFile);
     }
 }
