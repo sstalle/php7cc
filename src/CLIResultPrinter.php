@@ -19,6 +19,15 @@ class CLIResultPrinter implements ResultPrinterInterface
     );
 
     /**
+     * @var array
+     */
+    private static $levelText = array(
+        Message::LEVEL_INFO => null,
+        Message::LEVEL_WARNING => 'Warning',
+        Message::LEVEL_ERROR => 'Error',
+    );
+
+    /**
      * @var CLIOutputInterface
      */
     protected $output;
@@ -105,11 +114,13 @@ class CLIResultPrinter implements ResultPrinterInterface
 
         $text = $message->getRawText();
         $color = self::$colors[$message->getLevel()];
+        $levelText = self::$levelText[$message->getLevel()];
 
         if ($color) {
             $text = sprintf(
-                '<fg=%s>%s</fg=%s>',
+                '<fg=%s>[%s] %s</fg=%s>',
                 $color,
+                $levelText,
                 $text,
                 $color
             );
