@@ -74,7 +74,7 @@ class CLIResultPrinter implements ResultPrinterInterface
         foreach ($context->getErrors() as $error) {
             $this->output->writeln(
                 sprintf(
-                    '> <fg=red>%s</fg=red>',
+                    '> <fg=red>[Error] %s</fg=red>',
                     $error->getText()
                 )
             );
