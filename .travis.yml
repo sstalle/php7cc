@@ -12,6 +12,7 @@ php:
   - 5.5
   - 5.6
   - 7.0
+  - 7.1
 
 env:
   - COMPOSER_FLAGS="--prefer-lowest"
@@ -28,7 +29,7 @@ script:
   - composer cs -- --dry-run --diff
 
 after_script:
-  - if [[ $TRAVIS_PHP_VERSION != 'hhvm' && $TRAVIS_PHP_VERSION != '7.0' && $COMPOSER_FLAGS != '--prefer-lowest' ]]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  - if [[ $COMPOSER_FLAGS != '--prefer-lowest' ]]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
 
 before_deploy:
   - "composer require kherge/box:~2.5"
