@@ -18,3 +18,36 @@ echo (yield -1);
 <?php
 $a = (yield -1);
 -----
+
+-----
+<?php
+$f = function () {
+    yield 1 => 1;
+};
+-----
+
+-----
+<?php
+$f = function () {
+    echo yield -1;
+};
+-----
+"yield" usage in expression context
+-----
+<?php
+new class {
+    public function f() {
+        yield -1;
+    }
+};
+-----
+
+-----
+<?php
+new class {
+    public function f() {
+        echo yield -1;
+    }
+};
+-----
+"yield" usage in expression context
