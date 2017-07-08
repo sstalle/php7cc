@@ -25,18 +25,26 @@ class ContextCheckerTest extends \PHPUnit_Framework_TestCase
         }
 
         $context = new \Sstalle\php7cc\CompatibilityViolation\StringContext($code, 'test');
-
         $contextChecker->checkContext($context);
+
         $expectedMessageCount = count($expectedMessages);
-        $actualMessages = array_merge($context->getMessages(), $context->getErrors());
+        $actualMessages = array_map(function (\Sstalle\php7cc\AbstractBaseMessage $message) {
+            return $message->getRawText();
+        }, array_merge($context->getMessages(), $context->getErrors()));
         $actualMessageCount = count($actualMessages);
-        $this->assertEquals($expectedMessageCount, $actualMessageCount, $name);
+        $combinedActualMessages = implode(' | ', $actualMessages);
+
+        $this->assertEquals(
+            $expectedMessageCount,
+            $actualMessageCount,
+            sprintf('Test: %s. Actual messages: %s', $name, $combinedActualMessages)
+        );
         if ($expectedMessageCount == $actualMessageCount) {
             /** @var \Sstalle\php7cc\AbstractBaseMessage $message */
             foreach ($actualMessages as $i => $message) {
                 $this->assertEquals(
                     $this->canonicalize($expectedMessages[$i]),
-                    $this->canonicalize($message->getRawText()),
+                    $this->canonicalize($actualMessages[$i]),
                     $name
                 );
             }
