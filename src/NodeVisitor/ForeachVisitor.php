@@ -172,7 +172,7 @@ class ForeachVisitor extends AbstractNestedLoopVisitor
 
             if ($ancestorForeach->byRef) {
                 $this->addContextMessage(
-                    'Nested by-reference foreach loop, make sure there is no iteration over the same array',
+                    'Nested by-reference foreach loop, make sure that array modifications (if any) do what you expect',
                     $foreach
                 );
 
