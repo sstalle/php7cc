@@ -35,10 +35,12 @@ Make sure you have composer installed. Then execute the following command:
 ```bash
 composer global require sstalle/php7cc
 ```
-It is also recommended to add ```~/.composer/vendor/bin``` to your ```PATH``` environment
-variable:
+It is also recommended to add global Composer binaries directory to your ```PATH``` environment
+variable. The location of this directory depends on the operating system you use
+(see [Composer documentation](https://getcomposer.org/doc/03-cli.md#composer-home)
+if you want to know more). The following command should work for some *nix systems:
 ```bash
-export PATH="$PATH:$HOME/.composer/vendor/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 ```
 This makes it possible to run php7cc by entering just the executable name.
 
