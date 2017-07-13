@@ -6,6 +6,8 @@ use PhpParser\Node;
 
 abstract class AbstractNewFunctionVisitor extends AbstractVisitor
 {
+    const FUNCTION_EXISTS_FUNCTION_NAME = 'function_exists';
+
     /**
      * @var string[]
      */
@@ -34,11 +36,18 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
      */
     private static $lowerCasedNewFunctions = array();
 
+    /**
+     * @var \SplStack
+     */
+    private $ifStatementStack;
+
     public function __construct()
     {
         foreach (self::$newFunctions as $function) {
             self::$lowerCasedNewFunctions[strtolower($function)] = $function;
         }
+
+        $this->ifStatementStack = new \SplStack();
     }
 
     /**
@@ -46,12 +55,28 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
      */
     public function enterNode(Node $node)
     {
-        if ($node instanceof Node\Stmt\Function_
-            && ($lowerCasedFunction = strtolower($node->name))
-            && array_key_exists($lowerCasedFunction, self::$lowerCasedNewFunctions)
+        if ($node instanceof Node\Stmt\If_) {
+            $this->ifStatementStack->push($node);
+
+            return;
+        }
+
+        if ($this->isNewFunctionCall($node)
+            && !$this->isFunctionExistenceChecked($node)
             && $this->accepts($node)
         ) {
-            $this->addContextMessage($this->getMessageText(self::$lowerCasedNewFunctions[$lowerCasedFunction]), $node);
+            $declaredFunctionName = $this->extractNormalizedFunctionName($node);
+            $this->addContextMessage($this->getMessageText(self::$lowerCasedNewFunctions[$declaredFunctionName]), $node);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function leaveNode(Node $node)
+    {
+        if (!$this->ifStatementStack->isEmpty() && $this->ifStatementStack->top() === $node) {
+            $this->ifStatementStack->pop();
         }
     }
 
@@ -68,4 +93,87 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
      * @return string
      */
     abstract protected function getMessageText($functionName);
+
+    /**
+     * @param Node $node
+     *
+     * @return bool
+     */
+    private function isNewFunctionCall(Node $node)
+    {
+        return $node instanceof Node\Stmt\Function_
+            && ($lowerCasedFunction = $this->extractNormalizedFunctionName($node))
+            && array_key_exists($lowerCasedFunction, self::$lowerCasedNewFunctions);
+    }
+
+    /**
+     * @param Node\Stmt\Function_ $declaredFunction
+     *
+     * @return bool
+     */
+    private function isFunctionExistenceChecked(Node\Stmt\Function_ $declaredFunction)
+    {
+        /** @var Node\Stmt\If_ $ifStatement */
+        foreach ($this->ifStatementStack as $ifStatement) {
+            $condition = $ifStatement->cond;
+
+            $isConditionNegatedFunctionCall = $condition
+                && ($condition instanceof Node\Expr\BooleanNot)
+                && ($condition->expr instanceof Node\Expr\FuncCall);
+            if (!$isConditionNegatedFunctionCall) {
+                continue;
+            }
+
+            /** @var Node\Expr\FuncCall $conditionFunction */
+            $conditionFunction = $condition->expr;
+            if (!($conditionFunction->name instanceof Node\Name)) {
+                continue;
+            }
+
+            $conditionFunctionName = $this->normalizeFunctionName(implode('\\', $conditionFunction->name->parts));
+            if ($conditionFunctionName !== static::FUNCTION_EXISTS_FUNCTION_NAME) {
+                continue;
+            }
+
+            $checkedFunctionName = isset($conditionFunction->args[0]) ? $conditionFunction->args[0] : null;
+            $isCheckedFunctionNameScalarString = $checkedFunctionName
+                && ($checkedFunctionName instanceof Node\Arg)
+                && ($checkedFunctionName->value instanceof Node\Scalar\String_);
+            if (!$isCheckedFunctionNameScalarString) {
+                continue;
+            }
+
+            $checkedFunctionName = $this->normalizeFunctionName($checkedFunctionName->value->value);
+            if ($checkedFunctionName && $checkedFunctionName[0] === '\\') {
+                $checkedFunctionName = substr($checkedFunctionName, 1);
+            }
+
+            $declaredFunctionName = $this->extractNormalizedFunctionName($declaredFunction);
+            if ($checkedFunctionName === $declaredFunctionName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Node\Stmt\Function_ $function
+     *
+     * @return string
+     */
+    private function extractNormalizedFunctionName(Node\Stmt\Function_ $function)
+    {
+        return $this->normalizeFunctionName($function->name);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    private function normalizeFunctionName($name)
+    {
+        return strtolower($name);
+    }
 }

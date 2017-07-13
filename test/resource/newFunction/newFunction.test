@@ -40,3 +40,63 @@ namespace Acme {
 }
 -----
 Your namespaced function "random_bytes" could replace the new global function added in PHP 7
+-----
+<?php
+if (!function_exists('intdiv')) {
+    function intdiv() {}
+}
+-----
+
+-----
+<?php
+if (!function_exists('\intdiv')) {
+    function intdiv() {}
+}
+-----
+
+-----
+<?php
+if (!function_exists('IntDiv')) {
+    function intdiv() {}
+}
+-----
+
+-----
+<?php
+if (!function_exists('intdiv')) {
+    function IntDiv() {}
+}
+-----
+
+-----
+<?php
+if (!function_exists('foo')) {
+    function intdiv() {}
+}
+-----
+Cannot redeclare global function "intdiv"
+-----
+<?php
+namespace {
+    if (!function_exists('random_int')) {
+        function random_int() {}
+    }
+}
+-----
+
+-----
+<?php
+namespace Acme;
+if (!function_exists('random_bytes')) {
+    function random_bytes() {}
+}
+-----
+
+-----
+<?php
+namespace Acme {
+    if (!function_exists('random_bytes')) {
+        function random_bytes() {}
+    }
+}
+-----
