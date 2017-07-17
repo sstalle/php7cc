@@ -7,6 +7,7 @@ use PhpParser\Parser;
 use Pimple\Container;
 use Sstalle\php7cc\CLIResultPrinter;
 use Sstalle\php7cc\ContextChecker;
+use Sstalle\php7cc\CodePreprocessor\ShebangRemover;
 use Sstalle\php7cc\ExcludedPathCanonicalizer;
 use Sstalle\php7cc\Helper\OSDetector;
 use Sstalle\php7cc\Helper\Path\PathHelperFactory;
@@ -188,8 +189,16 @@ class ContainerBuilder
         $container['nodeAnalyzer.functionAnalyzer'] = function () {
             return new FunctionAnalyzer();
         };
+        $container['codePreprocessor.shebangRemover'] = function () {
+            return new ShebangRemover();
+        };
         $container['contextChecker'] = function ($c) {
-            return new ContextChecker($c['parser'], $c['lexer'], $c['traverser']);
+            return new ContextChecker(
+                $c['parser'],
+                $c['lexer'],
+                $c['traverser'],
+                $c['codePreprocessor.shebangRemover']
+            );
         };
         $container['output'] = function () use ($output) {
             return new CLIOutputBridge($output);

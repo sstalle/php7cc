@@ -2,6 +2,7 @@
 * Fixed some false positives related to yield usage in expression context
 * Fixed false positives for nested by-reference foreach loops wrapped in functions or class methods
 * Fixed function redeclaration false positives when a declaration is wrapped in a function_exists condition
+* Fixed processing of namespaced files starting with shebang
 * Added detection of continue/break outside of loop/switch contexts
 * Added JSON output format
 

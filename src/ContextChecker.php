@@ -3,6 +3,7 @@
 namespace Sstalle\php7cc;
 
 use PhpParser\Parser;
+use Sstalle\php7cc\CodePreprocessor\PreprocessorInterface;
 use Sstalle\php7cc\CompatibilityViolation\ContextInterface;
 use Sstalle\php7cc\CompatibilityViolation\FileContext;
 use Sstalle\php7cc\Error\CheckError;
@@ -27,15 +28,26 @@ class ContextChecker
     protected $traverser;
 
     /**
-     * @param Parser        $parser
-     * @param ExtendedLexer $lexer
-     * @param Traverser     $traverser
+     * @var PreprocessorInterface
      */
-    public function __construct(Parser $parser, ExtendedLexer $lexer, Traverser $traverser)
-    {
+    protected $preprocessor;
+
+    /**
+     * @param Parser                $parser
+     * @param ExtendedLexer         $lexer
+     * @param Traverser             $traverser
+     * @param PreprocessorInterface $preprocessor
+     */
+    public function __construct(
+        Parser $parser,
+        ExtendedLexer $lexer,
+        Traverser $traverser,
+        PreprocessorInterface $preprocessor
+    ) {
         $this->parser = $parser;
         $this->lexer = $lexer;
         $this->traverser = $traverser;
+        $this->preprocessor = $preprocessor;
     }
 
     /**
@@ -46,7 +58,8 @@ class ContextChecker
     public function checkContext(ContextInterface $context)
     {
         try {
-            $parsedStatements = $this->parser->parse($context->getCheckedCode());
+            $checkedCode = $this->preprocessor->preprocess($context->getCheckedCode());
+            $parsedStatements = $this->parser->parse($checkedCode);
             $this->traverser->traverse($parsedStatements, $context, $this->lexer->getTokens());
         } catch (\Exception $e) {
             $context->addError(new CheckError($e->getMessage()));
