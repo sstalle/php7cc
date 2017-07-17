@@ -3,6 +3,7 @@
 namespace Sstalle\php7cc\NodeVisitor;
 
 use PhpParser\Node;
+use Sstalle\php7cc\NodeAnalyzer\FunctionAnalyzer;
 
 abstract class AbstractNewFunctionVisitor extends AbstractVisitor
 {
@@ -41,13 +42,22 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
      */
     private $ifStatementStack;
 
-    public function __construct()
+    /**
+     * @var FunctionAnalyzer
+     */
+    private $functionAnalyzer;
+
+    /**
+     * @param FunctionAnalyzer $functionAnalyzer
+     */
+    public function __construct(FunctionAnalyzer $functionAnalyzer)
     {
         foreach (self::$newFunctions as $function) {
             self::$lowerCasedNewFunctions[strtolower($function)] = $function;
         }
 
         $this->ifStatementStack = new \SplStack();
+        $this->functionAnalyzer = $functionAnalyzer;
     }
 
     /**
@@ -117,24 +127,15 @@ abstract class AbstractNewFunctionVisitor extends AbstractVisitor
         foreach ($this->ifStatementStack as $ifStatement) {
             $condition = $ifStatement->cond;
 
-            $isConditionNegatedFunctionCall = $condition
+            $isConditionNegatedFunctionExistsCall = $condition
                 && ($condition instanceof Node\Expr\BooleanNot)
-                && ($condition->expr instanceof Node\Expr\FuncCall);
-            if (!$isConditionNegatedFunctionCall) {
+                && $this->functionAnalyzer->isFunctionCallByStaticName($condition->expr, static::FUNCTION_EXISTS_FUNCTION_NAME);
+            if (!$isConditionNegatedFunctionExistsCall) {
                 continue;
             }
 
             /** @var Node\Expr\FuncCall $conditionFunction */
             $conditionFunction = $condition->expr;
-            if (!($conditionFunction->name instanceof Node\Name)) {
-                continue;
-            }
-
-            $conditionFunctionName = $this->normalizeFunctionName(implode('\\', $conditionFunction->name->parts));
-            if ($conditionFunctionName !== static::FUNCTION_EXISTS_FUNCTION_NAME) {
-                continue;
-            }
-
             $checkedFunctionName = isset($conditionFunction->args[0]) ? $conditionFunction->args[0] : null;
             $isCheckedFunctionNameScalarString = $checkedFunctionName
                 && ($checkedFunctionName instanceof Node\Arg)

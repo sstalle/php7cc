@@ -114,9 +114,11 @@ class ContainerBuilder
         ),
         'visitor.namespacedNewFunction' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\NamespacedNewFunctionVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.globalNewFunction' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\GlobalNewFunctionVisitor',
+            'dependencies' => array('nodeAnalyzer.functionAnalyzer'),
         ),
         'visitor.divisionModuloByZero' => array(
             'class' => '\\Sstalle\\php7cc\\NodeVisitor\\DivisionModuloByZeroVisitor',
