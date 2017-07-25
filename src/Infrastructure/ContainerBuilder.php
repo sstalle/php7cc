@@ -151,8 +151,6 @@ class ContainerBuilder
 
         $container = new Container();
 
-        $self = $this;
-
         $container['lexer'] = function () {
             return new ExtendedLexer(array(
                 'usedAttributes' => array(
@@ -206,15 +204,18 @@ class ContainerBuilder
         $container['nodePrinter'] = function () {
             return new StandardPrettyPrinter();
         };
-        $container['resultPrinter'] = function ($c) use ($self) {
-            switch ($self->outputFormat) {
+
+        $outputFormat = $this->outputFormat;
+        $container['resultPrinter'] = function ($c) use ($outputFormat) {
+            switch ($outputFormat) {
                 case ResultPrinterInterface::PLAIN_FORMAT:
                     return new CLIResultPrinter($c['output'], $c['nodePrinter'], $c['nodeStatementsRemover']);
                 case ResultPrinterInterface::JSON_FORMAT:
                     return new JsonResultPrinter($c['output']);
-                default: throw new \InvalidArgumentException('Invalid output format: ' . $self->outputFormat);
+                default: throw new \InvalidArgumentException('Invalid output format: ' . $outputFormat);
             }
         };
+
         $container['pathChecker'] = function ($c) {
             return new PathChecker($c['contextChecker'], $c['resultPrinter']);
         };

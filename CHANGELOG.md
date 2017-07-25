@@ -1,5 +1,8 @@
 ## Version 2.0.0-dev
 
+## Version 1.2.1
+* Fixed fatal error when trying to access ```ContainerBuilder::$outputFormat``` on PHP 5.3.3
+
 ## Version 1.2.0
 * Fixed some false positives related to yield usage in expression context
 * Fixed false positives for nested by-reference foreach loops wrapped in functions or class methods
