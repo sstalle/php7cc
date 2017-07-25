@@ -1,3 +1,5 @@
+## Version 1.2.1-dev
+
 ## Version 1.2.0
 * Fixed some false positives related to yield usage in expression context
 * Fixed false positives for nested by-reference foreach loops wrapped in functions or class methods
