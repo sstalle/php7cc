@@ -1,4 +1,4 @@
-## Version 1.2.1-dev
+## Version 1.2.1
 * Fixed fatal error when trying to access ```ContainerBuilder::$outputFormat``` on PHP 5.3.3
 
 ## Version 1.2.0
