@@ -1,0 +1,70 @@
+func_get_args or func_get_arg calls after creating references to arguments
+-----
+<?php
+function foo($a) { $b = &$a; func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $b = &$a; $b = 1; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a)
+{
+    $b = 1;
+    $c = 2;
+    $a = &$b;
+    $b = &$c;
+    $c = &$a;
+
+    $c = func_get_args();
+}
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function bar($a)
+{
+    $b = &$a;
+    unset($b);
+    $b = 1;
+    func_get_args();
+}
+-----
+
+-----
+<?php
+function foo($a) { $b = &$a; func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { $b = &$a; $b = 1; func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a)
+{
+    $b = 1;
+    $c = 2;
+    $a = &$b;
+    $b = &$c;
+    $c = &$a;
+
+    $c = func_get_arg(0);
+}
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function bar($a)
+{
+    $b = &$a;
+    unset($b);
+    $b = 1;
+    func_get_arg(0);
+}
+-----

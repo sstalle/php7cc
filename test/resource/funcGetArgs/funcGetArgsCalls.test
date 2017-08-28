@@ -1,0 +1,80 @@
+func_get_args or func_get_arg calls after function and method calls
+-----
+<?php
+function foo($a) { foo(); func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { foo($a); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { in_array($a, $b); func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $foo->bar(); func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $foo->bar($a); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { Foo::bar(); func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { Foo::bar($a); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { \DateTime::createFromFormat($a, $b); func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { foo(); func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { foo($a); func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { in_array($a, $b); func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { $foo->bar(); func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { $foo->bar($a); func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { Foo::bar(); func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { Foo::bar($a); func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { \DateTime::createFromFormat($a, $b); func_get_arg(0); }
+-----

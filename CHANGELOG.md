@@ -1,4 +1,5 @@
 ## Version 2.0.0-dev
+* Fixed some false positives for ```func_get_args```/```func_get_arg``` calls
 
 ## Version 1.2.1
 * Fixed fatal error when trying to access ```ContainerBuilder::$outputFormat``` on PHP 5.3.3

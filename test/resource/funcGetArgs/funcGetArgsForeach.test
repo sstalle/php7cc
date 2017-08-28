@@ -1,0 +1,55 @@
+func_get_args or func_get_arg calls after foreach loop
+-----
+<?php
+function foo($b) { foreach ($a as $b) {} func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($b) { foreach ($a as $i => $b) {} func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($b) { foreach ($b as $a) {} func_get_args(); }
+-----
+
+-----
+<?php
+function foo($b) { foreach ($b as $$a) {} func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($b) { foreach ($a as $b) {} func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($b) { foreach ($a as $i => $b) {} func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($b) { foreach ($a as $$c) {} func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($b) { foreach ($a as $i => $b) {} func_get_arg(2); }
+-----
+
+-----
+<?php
+function foo($a) { func_get_arg(1); }
+-----
