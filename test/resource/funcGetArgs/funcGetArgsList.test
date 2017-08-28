@@ -1,0 +1,19 @@
+func_get_args or func_get_arg calls after list statement
+-----
+<?php
+function foo($a) { list($a, $b) = array(1, 2); func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($c) { list($a, $b) = array(1, 2); func_get_args(); }
+-----
+-----
+<?php
+function foo($a) { list($a, $b) = array(1, 2); func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($c) { list($a, $b) = array(1, 2); func_get_arg(0); }
+-----
