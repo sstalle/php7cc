@@ -1,0 +1,10 @@
+func_get_args or func_get_arg calls after nested function declaration
+-----
+<?php
+function foo($a) { $a = 1; function bar() { $b = 1; } func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { function bar() { $b = 1; } func_get_arg(0); }
+-----

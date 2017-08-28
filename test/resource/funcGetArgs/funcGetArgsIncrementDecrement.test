@@ -1,0 +1,80 @@
+func_get_args or func_get_arg calls after increment/decrement operators
+-----
+<?php
+function foo($a) { $a++; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($b) { $a++; func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a++; func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($b) { $a++; func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { $a--; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($b) { $a--; func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { $a--; func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($b) { $a--; func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { ++$a; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($b) { ++$a; func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { ++$a; func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($b) { ++$a; func_get_arg(0); }
+-----
+
+-----
+<?php
+function foo($a) { --$a; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($b) { --$a; func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { --$a; func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($b) { --$a; func_get_arg(0); }
+-----

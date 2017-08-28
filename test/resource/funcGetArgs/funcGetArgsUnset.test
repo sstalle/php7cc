@@ -1,0 +1,36 @@
+func_get_args or func_get_arg calls after unset call
+-----
+<?php
+function foo($a) { global $a; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { global $$b; func_get_args(); }
+-----
+Function argument(s) returned by "func_get_args" might have been modified
+-----
+<?php
+function foo($a) { global $b; func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { func_get_args(); }
+-----
+
+-----
+<?php
+function foo($a) { global $a; func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
+-----
+<?php
+function foo($a) { global $a; func_get_arg(2); }
+-----
+
+-----
+<?php
+function foo($a) { global $$b; func_get_arg(0); }
+-----
+Function argument(s) returned by "func_get_arg" might have been modified
