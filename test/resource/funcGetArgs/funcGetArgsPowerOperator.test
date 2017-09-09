@@ -1,7 +1,7 @@
 func_get_args or func_get_arg calls after argument modification by power operator
 -----
 <?php
-function foo($a) { $a **= 1; func_get_args(); }
+function foo($a) { $a **= 2; func_get_args(); }
 -----
 Function argument(s) returned by "func_get_args" might have been modified
 -----
@@ -11,7 +11,7 @@ function foo($a) { func_get_args(); }
 
 -----
 <?php
-function foo($a) { $a **= 1; func_get_arg(); }
+function foo($a) { $a **= 2; func_get_arg(); }
 -----
 Function argument(s) returned by "func_get_arg" might have been modified
 -----
@@ -21,6 +21,6 @@ function foo($a) { func_get_arg(); }
 
 -----
 <?php
-function foo($a) { $a **= 1; func_get_arg(1); }
+function foo($a) { $a **= 2; func_get_arg(0); }
 -----
 Function argument(s) returned by "func_get_arg" might have been modified
