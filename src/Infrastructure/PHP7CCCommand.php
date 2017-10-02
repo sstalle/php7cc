@@ -67,7 +67,7 @@ class PHP7CCCommand extends Command
                 static::MESSAGE_LEVEL_OPTION_NAME,
                 'l',
                 InputOption::VALUE_REQUIRED,
-                'Only show messages having this or higher severity level (can be info, message or warning)',
+                'Only show messages having this or higher severity level (can be info, warning or error)',
                 'info'
             )->addOption(
                 static::RELATIVE_PATHS_OPTION_NAME,
