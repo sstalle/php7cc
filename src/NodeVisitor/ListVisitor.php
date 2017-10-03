@@ -16,7 +16,7 @@ class ListVisitor extends AbstractVisitor
     {
         if ($node instanceof Node\Expr\List_) {
             $hasNonNullVar = false;
-            foreach ($node->vars as $var) {
+            foreach ($node->items as $var) {
                 if ($var !== null) {
                     $hasNonNullVar = true;
                     break;
