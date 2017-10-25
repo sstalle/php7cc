@@ -116,7 +116,7 @@ There are two output format available: `plain` and `json`.
 `output-format` command-line option, `o` in short form, can be used in order to change the output format:
 
 ```bash
-php7cc -o json /path/to/my/directory/ | json_pp
+php7cc -o json /path/to/my/directory/ >> json_pp
 ```
 
 Would output:
