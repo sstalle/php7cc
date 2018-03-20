@@ -1,4 +1,10 @@
 # PHP 7 Compatibility Checker(php7cc)
+#### Project status
+**The project is no longer supported**. Please consider using one of the following alternatives:
+
+* [phan](https://github.com/phan/phan)
+* [phpstan](https://github.com/phpstan/phpstan)
+
 #### Introduction
 php7cc is a command line tool designed to make migration from PHP 5.3-5.6 to PHP 7 easier.
 It searches for potentially troublesome statements in existing code and generates reports containing
