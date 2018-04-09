@@ -134,8 +134,9 @@ class FuncGetArgsVisitor extends AbstractVisitor
                 return $modifiedNames;
 
             case $node instanceof Node\Stmt\Global_:
-            case $node instanceof Node\Expr\List_:
                 return $this->extractModifiedVariableNames($node->vars);
+            case $node instanceof Node\Expr\List_:
+                return $this->extractModifiedVariableNames($node->items);
 
             case $node instanceof Node\Expr\Assign:
             case $node instanceof Node\Expr\AssignOp:
@@ -263,6 +264,10 @@ class FuncGetArgsVisitor extends AbstractVisitor
 
             if ($node instanceof Node\Expr\ArrayDimFetch) {
                 $variableNameNode = $node->var;
+            }
+
+            if ($node instanceof Node\Expr\ArrayItem) {
+                $variableNameNode = $node->value;
             }
 
             if (!($variableNameNode instanceof Node\Expr\Variable)) {
